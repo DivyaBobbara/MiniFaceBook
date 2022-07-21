@@ -14,6 +14,10 @@
 		7CFD3D54288879120039681E /* MiniFacebookCloneApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CFD3D52288879120039681E /* MiniFacebookCloneApp.xcdatamodeld */; };
 		7CFD3D56288879130039681E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CFD3D55288879130039681E /* Assets.xcassets */; };
 		7CFD3D59288879130039681E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CFD3D57288879130039681E /* LaunchScreen.storyboard */; };
+		D53A55832889348B00BE0B45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55822889348B00BE0B45 /* RegisterViewController.swift */; };
+		D53A5585288934C600BE0B45 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A5584288934C600BE0B45 /* ViewModel.swift */; };
+		D53A55872889351400BE0B45 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55862889351400BE0B45 /* Network.swift */; };
+		D53A55892889354200BE0B45 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55882889354200BE0B45 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		7CFD3D55288879130039681E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CFD3D58288879130039681E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CFD3D5A288879130039681E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D53A55822889348B00BE0B45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		D53A5584288934C600BE0B45 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		D53A55862889351400BE0B45 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		D53A55882889354200BE0B45 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +69,10 @@
 				7CFD3D49288879120039681E /* AppDelegate.swift */,
 				7CFD3D4B288879120039681E /* SceneDelegate.swift */,
 				7CFD3D4D288879120039681E /* ViewController.swift */,
+				D53A55822889348B00BE0B45 /* RegisterViewController.swift */,
+				D53A5584288934C600BE0B45 /* ViewModel.swift */,
+				D53A55862889351400BE0B45 /* Network.swift */,
+				D53A55882889354200BE0B45 /* Model.swift */,
 				7CFD3D4F288879120039681E /* Main.storyboard */,
 				7CFD3D55288879130039681E /* Assets.xcassets */,
 				7CFD3D57288879130039681E /* LaunchScreen.storyboard */,
@@ -142,9 +154,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CFD3D4E288879120039681E /* ViewController.swift in Sources */,
+				D53A55832889348B00BE0B45 /* RegisterViewController.swift in Sources */,
 				7CFD3D4A288879120039681E /* AppDelegate.swift in Sources */,
 				7CFD3D54288879120039681E /* MiniFacebookCloneApp.xcdatamodeld in Sources */,
+				D53A5585288934C600BE0B45 /* ViewModel.swift in Sources */,
+				D53A55872889351400BE0B45 /* Network.swift in Sources */,
 				7CFD3D4C288879120039681E /* SceneDelegate.swift in Sources */,
+				D53A55892889354200BE0B45 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
