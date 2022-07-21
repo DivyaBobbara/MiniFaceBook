@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C215BBE28894B59005BA2D9 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BBD28894B59005BA2D9 /* TabBarViewController.swift */; };
+		7C215BC028894BF1005BA2D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BBF28894BF1005BA2D9 /* HomeViewController.swift */; };
+		7C215BC228894D53005BA2D9 /* PostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BC128894D53005BA2D9 /* PostsTableViewCell.swift */; };
+		7C215BC528894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BC328894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift */; };
+		7C215BC628894DE6005BA2D9 /* HomeCreatePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C215BC428894DE6005BA2D9 /* HomeCreatePostTableViewCell.xib */; };
+		7C215BC928894E62005BA2D9 /* SuggestedFrdsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BC728894E62005BA2D9 /* SuggestedFrdsTableViewCell.swift */; };
+		7C215BCA28894E62005BA2D9 /* SuggestedFrdsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C215BC828894E62005BA2D9 /* SuggestedFrdsTableViewCell.xib */; };
+		7C215BCD28894EB8005BA2D9 /* SuggestedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BCB28894EB8005BA2D9 /* SuggestedCollectionViewCell.swift */; };
+		7C215BCE28894EB8005BA2D9 /* SuggestedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C215BCC28894EB8005BA2D9 /* SuggestedCollectionViewCell.xib */; };
+		7C215BD028894F07005BA2D9 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BCF28894F07005BA2D9 /* FriendsViewController.swift */; };
+		7C215BD228894F3B005BA2D9 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BD128894F3B005BA2D9 /* FriendsTableViewCell.swift */; };
+		7C215BD428894F6D005BA2D9 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BD328894F6D005BA2D9 /* CreatePostViewController.swift */; };
+		7C215BD628894F7F005BA2D9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BD528894F7F005BA2D9 /* ProfileViewController.swift */; };
+		7C215BD828894F88005BA2D9 /* LogOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BD728894F88005BA2D9 /* LogOutViewController.swift */; };
+		7C215BDB28894FCC005BA2D9 /* SearchFrdsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C215BD928894FCC005BA2D9 /* SearchFrdsTableViewCell.swift */; };
+		7C215BDC28894FCC005BA2D9 /* SearchFrdsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C215BDA28894FCC005BA2D9 /* SearchFrdsTableViewCell.xib */; };
 		7CFD3D4A288879120039681E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFD3D49288879120039681E /* AppDelegate.swift */; };
 		7CFD3D4C288879120039681E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFD3D4B288879120039681E /* SceneDelegate.swift */; };
 		7CFD3D4E288879120039681E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFD3D4D288879120039681E /* ViewController.swift */; };
@@ -16,11 +32,27 @@
 		7CFD3D59288879130039681E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CFD3D57288879130039681E /* LaunchScreen.storyboard */; };
 		D53A55832889348B00BE0B45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55822889348B00BE0B45 /* RegisterViewController.swift */; };
 		D53A5585288934C600BE0B45 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A5584288934C600BE0B45 /* ViewModel.swift */; };
-		D53A55872889351400BE0B45 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55862889351400BE0B45 /* Network.swift */; };
+		D53A55872889351400BE0B45 /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55862889351400BE0B45 /* Networker.swift */; };
 		D53A55892889354200BE0B45 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55882889354200BE0B45 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C215BBD28894B59005BA2D9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		7C215BBF28894BF1005BA2D9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7C215BC128894D53005BA2D9 /* PostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewCell.swift; sourceTree = "<group>"; };
+		7C215BC328894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreatePostTableViewCell.swift; sourceTree = "<group>"; };
+		7C215BC428894DE6005BA2D9 /* HomeCreatePostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCreatePostTableViewCell.xib; sourceTree = "<group>"; };
+		7C215BC728894E62005BA2D9 /* SuggestedFrdsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedFrdsTableViewCell.swift; sourceTree = "<group>"; };
+		7C215BC828894E62005BA2D9 /* SuggestedFrdsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestedFrdsTableViewCell.xib; sourceTree = "<group>"; };
+		7C215BCB28894EB8005BA2D9 /* SuggestedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedCollectionViewCell.swift; sourceTree = "<group>"; };
+		7C215BCC28894EB8005BA2D9 /* SuggestedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestedCollectionViewCell.xib; sourceTree = "<group>"; };
+		7C215BCF28894F07005BA2D9 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		7C215BD128894F3B005BA2D9 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		7C215BD328894F6D005BA2D9 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		7C215BD528894F7F005BA2D9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7C215BD728894F88005BA2D9 /* LogOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutViewController.swift; sourceTree = "<group>"; };
+		7C215BD928894FCC005BA2D9 /* SearchFrdsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFrdsTableViewCell.swift; sourceTree = "<group>"; };
+		7C215BDA28894FCC005BA2D9 /* SearchFrdsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchFrdsTableViewCell.xib; sourceTree = "<group>"; };
 		7CFD3D46288879120039681E /* MiniFacebookCloneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniFacebookCloneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFD3D49288879120039681E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CFD3D4B288879120039681E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +64,7 @@
 		7CFD3D5A288879130039681E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53A55822889348B00BE0B45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		D53A5584288934C600BE0B45 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		D53A55862889351400BE0B45 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		D53A55862889351400BE0B45 /* Networker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
 		D53A55882889354200BE0B45 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,12 +100,28 @@
 			children = (
 				7CFD3D49288879120039681E /* AppDelegate.swift */,
 				7CFD3D4B288879120039681E /* SceneDelegate.swift */,
-				7CFD3D4D288879120039681E /* ViewController.swift */,
+				7C215BBF28894BF1005BA2D9 /* HomeViewController.swift */,
+				7C215BC328894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift */,
+				7C215BC428894DE6005BA2D9 /* HomeCreatePostTableViewCell.xib */,
+				7C215BC728894E62005BA2D9 /* SuggestedFrdsTableViewCell.swift */,
+				7C215BC828894E62005BA2D9 /* SuggestedFrdsTableViewCell.xib */,
+				7C215BCB28894EB8005BA2D9 /* SuggestedCollectionViewCell.swift */,
+				7C215BCC28894EB8005BA2D9 /* SuggestedCollectionViewCell.xib */,
+				7C215BCF28894F07005BA2D9 /* FriendsViewController.swift */,
+				7C215BD128894F3B005BA2D9 /* FriendsTableViewCell.swift */,
+				7C215BD328894F6D005BA2D9 /* CreatePostViewController.swift */,
+				7C215BD528894F7F005BA2D9 /* ProfileViewController.swift */,
+				7C215BD728894F88005BA2D9 /* LogOutViewController.swift */,
+				7C215BD928894FCC005BA2D9 /* SearchFrdsTableViewCell.swift */,
+				7C215BDA28894FCC005BA2D9 /* SearchFrdsTableViewCell.xib */,
 				D53A55822889348B00BE0B45 /* RegisterViewController.swift */,
-				D53A5584288934C600BE0B45 /* ViewModel.swift */,
-				D53A55862889351400BE0B45 /* Network.swift */,
-				D53A55882889354200BE0B45 /* Model.swift */,
+				7C215BBD28894B59005BA2D9 /* TabBarViewController.swift */,
+				7CFD3D4D288879120039681E /* ViewController.swift */,
+				7C215BC128894D53005BA2D9 /* PostsTableViewCell.swift */,
 				7CFD3D4F288879120039681E /* Main.storyboard */,
+				D53A5584288934C600BE0B45 /* ViewModel.swift */,
+				D53A55862889351400BE0B45 /* Networker.swift */,
+				D53A55882889354200BE0B45 /* Model.swift */,
 				7CFD3D55288879130039681E /* Assets.xcassets */,
 				7CFD3D57288879130039681E /* LaunchScreen.storyboard */,
 				7CFD3D5A288879130039681E /* Info.plist */,
@@ -140,9 +188,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C215BCA28894E62005BA2D9 /* SuggestedFrdsTableViewCell.xib in Resources */,
 				7CFD3D59288879130039681E /* LaunchScreen.storyboard in Resources */,
 				7CFD3D56288879130039681E /* Assets.xcassets in Resources */,
+				7C215BC628894DE6005BA2D9 /* HomeCreatePostTableViewCell.xib in Resources */,
+				7C215BCE28894EB8005BA2D9 /* SuggestedCollectionViewCell.xib in Resources */,
 				7CFD3D51288879120039681E /* Main.storyboard in Resources */,
+				7C215BDC28894FCC005BA2D9 /* SearchFrdsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,13 +205,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C215BD828894F88005BA2D9 /* LogOutViewController.swift in Sources */,
 				7CFD3D4E288879120039681E /* ViewController.swift in Sources */,
+				7C215BD028894F07005BA2D9 /* FriendsViewController.swift in Sources */,
 				D53A55832889348B00BE0B45 /* RegisterViewController.swift in Sources */,
+				7C215BD228894F3B005BA2D9 /* FriendsTableViewCell.swift in Sources */,
+				7C215BC528894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift in Sources */,
 				7CFD3D4A288879120039681E /* AppDelegate.swift in Sources */,
+				7C215BD628894F7F005BA2D9 /* ProfileViewController.swift in Sources */,
+				7C215BD428894F6D005BA2D9 /* CreatePostViewController.swift in Sources */,
 				7CFD3D54288879120039681E /* MiniFacebookCloneApp.xcdatamodeld in Sources */,
+				7C215BBE28894B59005BA2D9 /* TabBarViewController.swift in Sources */,
+				7C215BC028894BF1005BA2D9 /* HomeViewController.swift in Sources */,
+				7C215BDB28894FCC005BA2D9 /* SearchFrdsTableViewCell.swift in Sources */,
+				7C215BC228894D53005BA2D9 /* PostsTableViewCell.swift in Sources */,
+				7C215BC928894E62005BA2D9 /* SuggestedFrdsTableViewCell.swift in Sources */,
 				D53A5585288934C600BE0B45 /* ViewModel.swift in Sources */,
-				D53A55872889351400BE0B45 /* Network.swift in Sources */,
+				D53A55872889351400BE0B45 /* Networker.swift in Sources */,
 				7CFD3D4C288879120039681E /* SceneDelegate.swift in Sources */,
+				7C215BCD28894EB8005BA2D9 /* SuggestedCollectionViewCell.swift in Sources */,
 				D53A55892889354200BE0B45 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WXl-tB-wYm" customClass="HomeCreatePostTableViewCell" customModule="MiniFaceBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WXl-tB-wYm" id="iUA-Ji-Poc">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="130"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYj-HX-S2N">
+                        <rect key="frame" x="22" y="23" width="356" height="23"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write something here...." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PwU-29-GQ6">
+                        <rect key="frame" x="92" y="67" width="231" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img-2" translatesAutoresizingMaskIntoConstraints="NO" id="i0I-CP-Z6D">
+                        <rect key="frame" x="336" y="62" width="44" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="CvP-JC-1NJ"/>
+                            <constraint firstAttribute="width" constant="44" id="agg-5F-8ta"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.2.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="n8X-j1-kSJ">
+                        <rect key="frame" x="35" y="62.5" width="44" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="WEG-dD-hGU"/>
+                            <constraint firstAttribute="height" constant="43" id="hac-fX-0wY"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PwU-29-GQ6" firstAttribute="leading" secondItem="n8X-j1-kSJ" secondAttribute="trailing" constant="13" id="5SH-PT-eGN"/>
+                    <constraint firstItem="n8X-j1-kSJ" firstAttribute="leading" secondItem="iUA-Ji-Poc" secondAttribute="leadingMargin" constant="15" id="9sx-vg-EZh"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="PwU-29-GQ6" secondAttribute="bottom" constant="18" id="QmC-0b-Eep"/>
+                    <constraint firstAttribute="trailing" secondItem="tYj-HX-S2N" secondAttribute="trailing" constant="22" id="SNX-gQ-wEg"/>
+                    <constraint firstItem="n8X-j1-kSJ" firstAttribute="top" secondItem="tYj-HX-S2N" secondAttribute="bottom" constant="16" id="Uom-Vj-hbI"/>
+                    <constraint firstItem="tYj-HX-S2N" firstAttribute="top" secondItem="iUA-Ji-Poc" secondAttribute="top" constant="23" id="gFL-4f-dwL"/>
+                    <constraint firstItem="i0I-CP-Z6D" firstAttribute="top" secondItem="tYj-HX-S2N" secondAttribute="bottom" constant="16" id="gSa-NQ-5gH"/>
+                    <constraint firstItem="tYj-HX-S2N" firstAttribute="leading" secondItem="iUA-Ji-Poc" secondAttribute="leading" constant="22" id="hHH-sR-4NE"/>
+                    <constraint firstItem="i0I-CP-Z6D" firstAttribute="leading" secondItem="PwU-29-GQ6" secondAttribute="trailing" constant="13" id="iNA-C6-mrF"/>
+                    <constraint firstItem="PwU-29-GQ6" firstAttribute="top" secondItem="tYj-HX-S2N" secondAttribute="bottom" constant="21" id="pgZ-kU-zj9"/>
+                    <constraint firstItem="i0I-CP-Z6D" firstAttribute="trailing" secondItem="iUA-Ji-Poc" secondAttribute="trailingMargin" id="yNz-cY-1ET"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="uPa-FR-wgB"/>
+            <connections>
+                <outlet property="lblFacebook" destination="tYj-HX-S2N" id="ByQ-j0-ZdT"/>
+                <outlet property="textFieldPostData" destination="PwU-29-GQ6" id="nHw-eb-Aiq"/>
+            </connections>
+            <point key="canvasLocation" x="248" y="173"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="img-2" width="512" height="512"/>
+        <image name="person.2.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

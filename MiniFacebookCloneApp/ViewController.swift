@@ -36,18 +36,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func tappedButton(_ sender : Any)
     {
-        
+    
+
         if nameTxt.text == ""
         {
+            
             displayAlert(message: "mailid is empty")
+            
         }
         if passwordTxt.text == ""
         {
             displayAlert(message: "password is empty")
+            
         }
         if passwordTxt.text?.count ?? 0 < 8
         {
             displayAlert(message: "password must be greater than 8")
+            
         }
         else{
             
@@ -60,23 +65,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.valueOfId = model?.data.userId
                     self.login = model?.data.loginStatus
                     UserDefaults.standard.set(self.valueOfId, forKey: "keyId")
-                    if errorModel?.errorCode  ==  404{
+                    if errorModel?.errorCode != nil {
                         self.displayAlert(message: errorModel?.message ?? "")
                     }
-                    else if errorModel?.errorCode ==  401
-                    {
-                        self.displayAlert(message: errorModel?.message ?? "")
+                    else {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
+                        self.navigationController?.pushViewController(tabBarVC, animated: true)
                     }
                     
-                    self.displayAlert(message:  model?.message ?? "")
-                    self.nameTxt.text = ""
-                    self.passwordTxt.text = ""
                    
+                
                 }
             
         }
+        
+            
+           
         }
-    }
+    
+}
+  
         func displayAlert(message : String)
         {
             let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
@@ -86,6 +95,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 
             }
         }
+    
+    
+    
+    
         
 }
 

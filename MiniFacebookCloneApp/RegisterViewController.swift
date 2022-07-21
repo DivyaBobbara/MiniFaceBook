@@ -59,7 +59,7 @@ class RegisterViewController: UIViewController {
         }
         if invalidEmail(emailTxt.text ?? "") != "OK"
         {
-            displayAlert(message: "mail in the correct format")
+            displayAlert(message: " correct email  format")
         }
         else{
             classModel.passingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
