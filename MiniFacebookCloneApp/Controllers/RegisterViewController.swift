@@ -26,6 +26,10 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         }
     
+    @IBAction func backToLogin(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
 
     @IBAction func buttonTapped(_ sender: Any)
     {
@@ -72,11 +76,9 @@ class RegisterViewController: UIViewController {
                         self.displayAlert(message: anotherModel?.message ?? "")
                     }
                     self.displayAlert(message: model?.message ?? "")
-                    
                 }
             }
             navigationController?.popToRootViewController(animated: true)
-
         }
        
      }
@@ -97,6 +99,4 @@ class RegisterViewController: UIViewController {
         }
         return "OK"
     }
-
-
 }

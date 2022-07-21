@@ -10,9 +10,8 @@ import UIKit
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     let viewModelHome = ViewModel()
-    
+    var postIdValue : Int?
     override func viewDidLoad() {
-        
         viewModelHome.getUserIdInfo()
         super.viewDidLoad()
         tableView.allowsSelection = false
@@ -20,16 +19,17 @@ class HomeViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         let createPostNib = UINib(nibName: "HomeCreatePostTableViewCell", bundle: nil)
         tableView.register(createPostNib, forCellReuseIdentifier: "Cell0")
-        
         let suggestedNib = UINib(nibName: "SuggestedFrdsTableViewCell", bundle: nil)
         tableView.register(suggestedNib, forCellReuseIdentifier: "Cell1")
-        
-        
         viewModelHome.getPostDetails { postData in
+            print(postData,"jhanujhanujhanu")
+//            let result = Data(postData.utf8)
+//            print(result,"indataForm")
             DispatchQueue.main.async {
+                
                 self.tableView.reloadData()
-//                print("homevcpost\(postData)")
-//                print(self.viewModelHome.getPostsObj.count)
+                print("homevcpost\(postData)")
+                print(self.viewModelHome.getPostsObj.count)
             }
             
         }
@@ -39,11 +39,7 @@ class HomeViewController: UIViewController {
 //        viewModelHome.deleteFrdDetails(friendId: 17, userId: 1) { res in
 //            print("sdfghjk\(res)")
 //        }
-        
-//
-       
     }
-    
     @objc func navigateToCreatePost(textField  :UITextField){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
@@ -53,15 +49,12 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModelHome.getSuggestedFrdsData { result in
             DispatchQueue.main.async {
-                
                 self.tableView.reloadData()
 //                print("home vc\(self.viewModelHome.suggestedFrdsResponseObj)")
                
             }
         }
     }
-    
-    
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,7 +70,6 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         if val == 1{
             let customCell = tableView.dequeueReusableCell(withIdentifier: "Cell1",for: indexPath) as! SuggestedFrdsTableViewCell
             customCell.configure(objectArray: self.viewModelHome.suggestedFrdsResponseObj)
-           
             customCell.didClickAddFriend = { [weak self] indexPath in
 //                print("Hi")
 //                print(indexPath)
@@ -92,26 +84,24 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
                         self?.showAlertMsg(errCode : response?.errorCode ?? 0)
                     }
                     }
-                    
                     self?.viewModelHome.getSuggestedFrdsData { res in
                         DispatchQueue.main.async {
                             self?.tableView.reloadData()
                         }
                     }
-                   
             }
-            
-           
-            
             }
             return customCell
         }
         else{
+            print("hiijhytg")
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for: indexPath) as! PostsTableViewCell
             cell.profileImg.image = UIImage(named: "profile")
-            cell.userName.text = viewModelHome.getPostsObj[indexPath.row - 2].userName
+            print("hiiii")
+            cell.userName.text = viewModelHome.getPostsObj[indexPath.row-2].userName
+            print(viewModelHome.getPostsObj[indexPath.row-2].userName,"posting username")
             cell.timeLbl.text = "08:24"
-            cell.postDataLbl.text = viewModelHome.getPostsObj[indexPath.row - 2].postData
+            cell.postDataLbl.text = viewModelHome.getPostsObj[indexPath.row-2].postData
             cell.postImg.image = UIImage(named: "postImg")
             cell.shareCountLbl.text = "12 shares"
             cell.commentsCountLbl.text = "35 comments"
@@ -120,27 +110,19 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.commentsLbl.text = "Comments"
             cell.commentIcon.image = UIImage(named: "comment")
             cell.likeLbl.text = "Like"
-            cell.likesCount.text = String(viewModelHome.getPostsObj[indexPath.row - 2].totalLikes ?? 0)
-            
-            if viewModelHome.getPostsObj[indexPath.row - 2].isCreated == true && viewModelHome.getPostsObj[indexPath.row - 2].userId == 1{
+            cell.likesCount.text = String(viewModelHome.getPostsObj[indexPath.row-2 ].totalLikes ?? 0)
+            if viewModelHome.getPostsObj[indexPath.row].isCreated == "true" && viewModelHome.getPostsObj[indexPath.row].userId == viewModelHome.getUserId{
                 cell.delIcon.image = UIImage(named: "trash")
             }
             return cell
         }
-        
-            
-        
-      
     }
     func showAlertMsg(errCode : Int)
     {
         let alert = UIAlertController(title: "Bad Request Error", message: " \(errCode) Error ", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         present(alert,animated: true)
-        
     }
-
-    
 }
 
 

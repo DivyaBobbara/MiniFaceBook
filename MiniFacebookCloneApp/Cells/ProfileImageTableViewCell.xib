@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="137" id="sxL-ft-1V3" customClass="ProfileImageTableViewCell" customModule="MiniFacebookCloneApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sxL-ft-1V3" id="Vne-Tw-LHe">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgL-jf-JlJ">
+                        <rect key="frame" x="16" y="0.0" width="288" height="137"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FBLogo" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-6j-Afc">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="137"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="W3M-6j-Afc" firstAttribute="top" secondItem="kgL-jf-JlJ" secondAttribute="top" id="4gR-8K-OX6"/>
+                            <constraint firstAttribute="trailing" secondItem="W3M-6j-Afc" secondAttribute="trailing" id="Ocu-ey-ynt"/>
+                            <constraint firstAttribute="bottom" secondItem="W3M-6j-Afc" secondAttribute="bottom" id="P0R-16-nGo"/>
+                            <constraint firstItem="W3M-6j-Afc" firstAttribute="leading" secondItem="kgL-jf-JlJ" secondAttribute="leading" id="jnn-fo-36w"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kgL-jf-JlJ" firstAttribute="leading" secondItem="Vne-Tw-LHe" secondAttribute="leading" constant="16" id="Am8-FR-FSd"/>
+                    <constraint firstAttribute="trailing" secondItem="kgL-jf-JlJ" secondAttribute="trailing" constant="16" id="D10-jj-7El"/>
+                    <constraint firstItem="kgL-jf-JlJ" firstAttribute="top" secondItem="Vne-Tw-LHe" secondAttribute="top" id="JoD-ih-jcr"/>
+                    <constraint firstAttribute="bottom" secondItem="kgL-jf-JlJ" secondAttribute="bottom" id="Rf9-4g-n2W"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="3zG-qK-Meb"/>
+            <point key="canvasLocation" x="176.66666666666669" y="86.004464285714278"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="FBLogo" width="133" height="95"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

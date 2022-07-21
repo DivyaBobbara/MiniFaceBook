@@ -69,16 +69,17 @@ struct MyResult1 : Codable{
     let friendName : String?
 }
 struct GetPosts:Codable{
+    let status ,message : String?
     let data : [MyResult2]
     let errorCode : String?
-    
 }
 struct MyResult2 : Codable{
+    let postId : Int?
     let userName : String?
     let postData : String?
     let totalLikes : Int?
     let likeStatus : Bool?
-    let isCreated : Bool?
+    let isCreated : String?
     let userId : Int?
 }
 
@@ -99,15 +100,7 @@ struct NewFriendData : Codable{
     let friendId : Int?
     let userId : Int?
 }
-//{
-//  "status": "client error",
-//  "message": {
-//    "text": "bad request",
-//    "error": "Validation error"
-//  },
-//  "data": "",
-//  "errorCode": 400
-//}
+
 struct BadRequestAddNewFriend : Codable{
     let status : String?
     let message : [ErrorMessages]?
@@ -118,3 +111,72 @@ struct ErrorMessages : Codable{
     let text : String?
     let error : String?
 }
+
+
+//-----ramya
+struct ProfileModel: Codable {
+    let status, message: String?
+    let data: ProfileDetails
+    let errorCode: String?
+}
+struct ProfileDetails : Codable {
+    let userId: Int?
+    let userName, mail, dateOfBirth, gender: String?
+    let loginStatus: Bool?
+}
+
+struct ErrorModel : Codable {
+    let status : String?
+    let message : String?
+    let data : String?
+    let errorCode : String?
+}
+
+
+
+struct Model : Codable {
+    let newPassword : String?
+    let confirmPassword : String?
+}
+
+struct Response : Codable {
+    let status : String?
+    let message : String?
+    let data : responseData
+    let errorCode : String?
+}
+struct responseData : Codable{
+    
+}
+
+struct ErrorMessage : Codable{
+    let status : String?
+    let message : String?
+    let data : ErrorData
+    let errorCode : Int?
+}
+struct ErrorData : Codable{
+    
+}
+
+//-------Jhansi
+
+struct CreatePostModel : Codable {
+  let userId : Int?
+  let postData : String?
+}
+struct Welcome: Codable {
+  let status, message: String?
+  let data: DataClasses?
+  let errorCode: String?
+}
+struct DataClasses: Codable {
+  let userID: Int?
+  let postData: String?
+
+  enum CodingKeys: String, CodingKey {
+    case userID = "userId"
+    case postData
+  }
+}
+

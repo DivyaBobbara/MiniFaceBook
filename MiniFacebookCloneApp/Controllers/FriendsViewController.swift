@@ -15,8 +15,6 @@ class FriendsViewController: UIViewController {
     @IBOutlet weak var imgView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         let searchNib = UINib(nibName: "SearchFrdsTableViewCell", bundle: nil)
         tableView.register(searchNib, forCellReuseIdentifier: "cell0")
         tableView.allowsSelection = false
@@ -32,11 +30,7 @@ class FriendsViewController: UIViewController {
 //
 //        }
 //
-
-        
-        
     }
-    
     @objc func callRemoveFrdApi(sender : UIButton){
         print("clicked")
         let index = sender.tag
