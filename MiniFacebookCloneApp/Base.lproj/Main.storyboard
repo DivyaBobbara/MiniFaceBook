@@ -136,7 +136,7 @@
                     <connections>
                         <outlet property="forgetButton" destination="rFT-kH-qad" id="FMn-fU-VAT"/>
                         <outlet property="imageview" destination="qZj-Wr-8Ln" id="Ysr-Jv-RvR"/>
-                        <outlet property="loginButton" destination="5pU-D4-e2d" id="u5w-KS-s4O"/>
+                        <outlet property="loginButton" destination="5pU-D4-e2d" id="lVq-km-KnI"/>
                         <outlet property="nameTxt" destination="LBc-Lm-3nf" id="z46-wN-OUw"/>
                         <outlet property="passwordTxt" destination="thO-U5-DUg" id="kXP-UY-a4h"/>
                         <outlet property="registerButton" destination="ngZ-ue-VBb" id="Jnh-fA-lsZ"/>
@@ -195,7 +195,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="New password" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CN6-gO-Xcq">
+                            <textField opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="New password" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CN6-gO-Xcq">
                                 <rect key="frame" x="16" y="372" width="382" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="7sL-fK-mb8"/>
@@ -226,13 +226,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZM-hQ-iGC">
+                                <rect key="frame" x="345" y="378" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="5M9-xu-n7B"/>
+                                    <constraint firstAttribute="height" constant="31" id="Iaj-cu-Pj1"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MeC-vG-O7H"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="yZG-h4-2Ru" firstAttribute="top" secondItem="cZM-hQ-iGC" secondAttribute="bottom" constant="26" id="169-dL-FKA"/>
                             <constraint firstItem="nUs-Zh-X6V" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="4KJ-zl-Nuf"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="CN6-gO-Xcq" secondAttribute="trailing" constant="16" id="CSj-Fy-JAZ"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="Az8-02-tyI" secondAttribute="trailing" constant="10" id="Cj7-pv-m9U"/>
+                            <constraint firstItem="cZM-hQ-iGC" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="345" id="ElL-cH-110"/>
                             <constraint firstItem="Az8-02-tyI" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="10" id="HqO-SW-FCk"/>
                             <constraint firstItem="U4Z-st-6QT" firstAttribute="top" secondItem="yZG-h4-2Ru" secondAttribute="bottom" constant="48" id="Iks-cl-cdr"/>
                             <constraint firstItem="yZG-h4-2Ru" firstAttribute="top" secondItem="CN6-gO-Xcq" secondAttribute="bottom" constant="20" id="Lgs-hk-1tL"/>
@@ -240,6 +252,8 @@
                             <constraint firstItem="Pfr-d9-05N" firstAttribute="top" secondItem="Az8-02-tyI" secondAttribute="bottom" constant="28" id="NZ0-SV-VJm"/>
                             <constraint firstItem="CN6-gO-Xcq" firstAttribute="top" secondItem="0kC-eo-dbg" secondAttribute="bottom" constant="20" id="QbV-nN-isc"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="0kC-eo-dbg" secondAttribute="trailing" constant="16" id="Sw3-Uo-vzx"/>
+                            <constraint firstItem="cZM-hQ-iGC" firstAttribute="top" secondItem="0kC-eo-dbg" secondAttribute="bottom" constant="26" id="VK2-5G-CIx"/>
+                            <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="cZM-hQ-iGC" secondAttribute="trailing" constant="20" id="cs4-qf-Es3"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="nUs-Zh-X6V" secondAttribute="trailing" constant="16" id="d7Z-YD-xed"/>
                             <constraint firstItem="CN6-gO-Xcq" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="dxD-tV-gSz"/>
                             <constraint firstItem="4bJ-AS-i67" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="e7c-gD-5AX"/>
@@ -257,18 +271,19 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="BirthTxt" destination="nUs-Zh-X6V" id="vCS-MQ-z8P"/>
-                        <outlet property="CnfpasswordTxt" destination="yZG-h4-2Ru" id="g0A-jZ-aXs"/>
-                        <outlet property="EmailTxt" destination="4bJ-AS-i67" id="cmy-KL-e4J"/>
-                        <outlet property="Loginbutton" destination="U4Z-st-6QT" id="MgE-hn-3zB"/>
-                        <outlet property="PasswordTxt" destination="CN6-gO-Xcq" id="OkD-hY-C4W"/>
-                        <outlet property="UserNameTxt" destination="Pfr-d9-05N" id="442-4c-EIb"/>
-                        <outlet property="genderTxt" destination="0kC-eo-dbg" id="cev-wZ-pAh"/>
+                        <outlet property="birthTxt" destination="nUs-Zh-X6V" id="Fc5-XZ-Ibg"/>
+                        <outlet property="cnfpasswordTxt" destination="yZG-h4-2Ru" id="tNt-4w-Ona"/>
+                        <outlet property="emailTxt" destination="4bJ-AS-i67" id="2Eh-wo-gb9"/>
+                        <outlet property="eyeButton" destination="cZM-hQ-iGC" id="KNt-2x-Lgp"/>
+                        <outlet property="genderTxt" destination="0kC-eo-dbg" id="WYL-uP-DG1"/>
+                        <outlet property="loginbutton" destination="U4Z-st-6QT" id="99t-s7-FPh"/>
+                        <outlet property="passwordTxt" destination="CN6-gO-Xcq" id="RAS-Us-Tdm"/>
+                        <outlet property="userNameTxt" destination="Pfr-d9-05N" id="maX-4H-ZLg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTe-cn-fCh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1591" y="78"/>
+            <point key="canvasLocation" x="1589.8550724637682" y="77.678571428571431"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZZc-4f-siU">
@@ -291,6 +306,7 @@
     </scenes>
     <resources>
         <image name="FacebookIMage" width="750" height="436"/>
+        <image name="eye" catalog="system" width="128" height="81"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

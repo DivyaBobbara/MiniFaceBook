@@ -23,12 +23,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTxt.clearButtonMode = .always
-        nameTxt.clearButtonMode = .unlessEditing
-        nameTxt.delegate = self
-        passwordTxt.clearButtonMode = .always
-        passwordTxt.clearButtonMode = .unlessEditing
-        passwordTxt.delegate = self
+        
     }
     @IBAction func tappedOnButton(_ sender : Any)
     {
@@ -50,9 +45,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         {
             displayAlert(message: "password is empty")
         }
-        if passwordTxt.text?.count ?? 0 > 8
+        if passwordTxt.text?.count ?? 0 < 8
         {
-            displayAlert(message: "password must on correct length")
+            displayAlert(message: "password must be greater than 8")
         }
         else{
             

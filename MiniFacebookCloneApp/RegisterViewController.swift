@@ -13,14 +13,15 @@ class RegisterViewController: UIViewController {
     let classModel = ViewModel()
     var msg :  String?
     var errorMsg : String?
-    @IBOutlet weak var UserNameTxt:UITextField!
-    @IBOutlet weak var EmailTxt:UITextField!
-    @IBOutlet weak var BirthTxt:UITextField!
-    @IBOutlet weak var PasswordTxt:UITextField!
-    @IBOutlet weak var CnfpasswordTxt:UITextField!
+    @IBOutlet weak var userNameTxt:UITextField!
+    @IBOutlet weak var emailTxt:UITextField!
+    @IBOutlet weak var birthTxt:UITextField!
+    @IBOutlet weak var passwordTxt:UITextField!
+    @IBOutlet weak var cnfpasswordTxt:UITextField!
     @IBOutlet weak var genderTxt:UITextField!
+    @IBOutlet weak var eyeButton:UIButton!
     
-    @IBOutlet weak var Loginbutton : UIButton!
+    @IBOutlet weak var loginbutton : UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         }
@@ -28,40 +29,40 @@ class RegisterViewController: UIViewController {
 
     @IBAction func buttonTapped(_ sender: Any)
     {
-        if UserNameTxt.text == ""
+        if userNameTxt.text == ""
         {
             displayAlert(message: "Name is empty")
         }
-        if EmailTxt.text == ""
+        if emailTxt.text == ""
         {
-            displayAlert(message: "Number is empty")
+            displayAlert(message: "email is empty")
         }
-        if BirthTxt.text == ""
+        if birthTxt.text == ""
         {
-            displayAlert(message: "birth is empty")
+            displayAlert(message: "birthdate is empty")
         }
-        if PasswordTxt.text == ""
+        if passwordTxt.text == ""
         {
             displayAlert(message: "password is empty")
         }
-        if CnfpasswordTxt.text == ""
+        if cnfpasswordTxt.text == ""
         {
             displayAlert(message: "cnfpassword is empty")
         }
-        if PasswordTxt.text?.count ?? 0 < 8
+        if passwordTxt.text?.count ?? 0 < 8
         {
             displayAlert(message: "password length must be 8 or above")
         }
-        if PasswordTxt.text != CnfpasswordTxt.text
+        if passwordTxt.text != cnfpasswordTxt.text
         {
             displayAlert(message: "password must be same")
         }
-        if invalidEmail(EmailTxt.text ?? "") != "OK"
+        if invalidEmail(emailTxt.text ?? "") != "OK"
         {
             displayAlert(message: "mail in the correct format")
         }
         else{
-            classModel.passingData(userName: UserNameTxt.text ?? "", password: PasswordTxt.text ?? "", dateOfbirth: BirthTxt.text ?? "", email: EmailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
+            classModel.passingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
                 let data = Data(result.utf8)
                 
                 let model = try? JSONDecoder().decode(RegisterResponse.self, from: data)
@@ -71,10 +72,10 @@ class RegisterViewController: UIViewController {
                         self.displayAlert(message: anotherModel?.message ?? "")
                     }
                     self.displayAlert(message: model?.message ?? "")
-                    self.navigationController?.popToRootViewController(animated: true)
+                    
                 }
             }
-            
+            navigationController?.popToRootViewController(animated: true)
 
         }
        
@@ -96,5 +97,6 @@ class RegisterViewController: UIViewController {
         }
         return "OK"
     }
+
 
 }
