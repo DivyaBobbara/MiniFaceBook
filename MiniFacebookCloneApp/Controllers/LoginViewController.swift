@@ -9,7 +9,7 @@ import UIKit
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let classModel = ViewModel()
     var valueOfId : Int?
@@ -26,6 +26,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 8
         registerButton.layer.cornerRadius = 8
         imageview.layer.cornerRadius = 10
+        
+        
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        let loginValue = UserDefaults.standard.bool(forKey: "loginstatus")
+            if loginValue == true{
+              let storyboard = UIStoryboard(name: "Main", bundle: nil)
+              let tabBarVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+              self.navigationController?.pushViewController(tabBarVC, animated: true)
+            }
+            else{
+              let storyboard = UIStoryboard(name: "Main", bundle: nil)
+              let tabBarVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+              self.navigationController?.pushViewController(tabBarVC, animated: true)
+
+            }
+    }
+    
+    @IBAction func forgetPsw(_ sender: Any) {
+        guard let pswStoryboard = self.storyboard?.instantiateViewController(withIdentifier: "PasswordViewController") else{
+            return
+        }
+        navigationController?.pushViewController(pswStoryboard, animated: true)
     }
     @IBAction func tappedOnButton(_ sender : Any)
     {
@@ -67,6 +91,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.valueOfId = model?.data.userId
                     self.login = model?.data.loginStatus
                     UserDefaults.standard.set(self.valueOfId, forKey: "keyId")
+                    UserDefaults.standard.set(self.login, forKey: "loginstatus")
                     if errorModel?.errorCode != nil {
                         self.displayAlert(message: errorModel?.message ?? "")
                     }

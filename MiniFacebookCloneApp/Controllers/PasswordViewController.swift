@@ -24,6 +24,10 @@ class PasswordViewController: UIViewController {
         passwordViewModel.getUserIdInfo()
     }
     
+    @IBAction func backToLogin(_ sender: Any) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     @IBAction func changePasswordBtn(_ sender: Any) {
         
         if (password.text == "" || confirmPsw.text == "" || userName.text == ""){
@@ -37,7 +41,8 @@ class PasswordViewController: UIViewController {
             displayAlert(message: "Password doesn't match")
         }
         else{
-            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
 //            network.postPassword(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
 //                let data = Data(result.utf8)
 //                let model = try? JSONDecoder().decode(Response.self,from:data)
