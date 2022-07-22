@@ -26,15 +26,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 8
         registerButton.layer.cornerRadius = 8
         imageview.layer.cornerRadius = 10
-        
-        
-
-    }
-    override func viewWillAppear(_ animated: Bool) {
         let loginValue = UserDefaults.standard.bool(forKey: "loginstatus")
             if loginValue == true{
               let storyboard = UIStoryboard(name: "Main", bundle: nil)
-              let tabBarVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+              let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
               self.navigationController?.pushViewController(tabBarVC, animated: true)
             }
             else{
@@ -43,7 +38,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
               self.navigationController?.pushViewController(tabBarVC, animated: true)
 
             }
+        
+
     }
+//    override func viewWillAppear(_ animated: Bool) {
+        
+//    }
     
     @IBAction func forgetPsw(_ sender: Any) {
         guard let pswStoryboard = self.storyboard?.instantiateViewController(withIdentifier: "PasswordViewController") else{

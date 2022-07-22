@@ -16,6 +16,15 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         viewModelHome.getUserIdInfo()
         viewModelHome.callUpdateLikes()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+                     #selector(handleRefresh),
+                                 for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        //self.refreshControl = refreshControl
+        
+        self.tableView.addSubview(refreshControl)
+
         
         tableView.allowsSelection = false
 //        tableView.estimatedRowHeight = 1000
@@ -43,6 +52,11 @@ class HomeViewController: UIViewController {
 //            print("sdfghjk\(res)")
 //        }
     }
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+
+           tableView.reloadData()
+           refreshControl.endRefreshing()
+       }
     @objc func navigateToCreatePost(textField  :UITextField){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
@@ -144,5 +158,11 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         present(alert,animated: true)
     }
 }
+    
+    
+     
+    
+
+
 
 
