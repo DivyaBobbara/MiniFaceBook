@@ -13,6 +13,18 @@ class ViewModel
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
         print(getUserId)
     }
+    func callUpdateLikes()
+    {
+        print("hiiooiii")
+        network.updateLikes()
+        
+    }
+    func callLogOutApi(completionHandler:@escaping(LogOutResponse)->Void)
+    {
+        network.logOutApiCall(userId: self.getUserId ?? 0) { LogOutResponse in
+            completionHandler(LogOutResponse)
+        }
+    }
     
     
     let network = Networker()
@@ -29,6 +41,9 @@ class ViewModel
         }
     }
     // ----Divya---
+    
+    
+    
     var myResultObj = [MyResult]()
     var suggestedFrdsResponseObj = [MyResult1]()
     var getPostsObj = [MyResult2]()
@@ -38,6 +53,7 @@ class ViewModel
         network.DisplayFriends(userId: self.getUserId ?? 0) { result in
             //            print(result.data[0].userId)
             self.myResultObj = result.data
+            
             completionHandler(result)
         }
     }
@@ -54,7 +70,7 @@ class ViewModel
     {
 //        print("post\(self.getUserId)")
         network.getPosts(userId: self.getUserId ?? 0) { postResult in
-            self.postObj1 = postResult
+            self.getPostsObj = postResult.data
             completionHandler(postResult)
             //            print("PostResult\(postResult)")
         }
@@ -91,4 +107,8 @@ class ViewModel
          completion(result)
        }
      }
+    
+    
+    
+    
 }

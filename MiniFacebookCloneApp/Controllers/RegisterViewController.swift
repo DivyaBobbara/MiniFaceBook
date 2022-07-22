@@ -21,9 +21,12 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var genderTxt:UITextField!
     @IBOutlet weak var eyeButton:UIButton!
     
+    @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var loginbutton : UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginbutton.layer.cornerRadius = 8
+        registerBtn.layer.cornerRadius = 8
         }
     
     @IBAction func backToLogin(_ sender: Any) {

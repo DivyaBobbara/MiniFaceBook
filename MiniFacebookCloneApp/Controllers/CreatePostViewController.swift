@@ -14,7 +14,7 @@ class CreatePostViewController: UIViewController {
     super.viewDidLoad()
   }
   @IBAction func Submit() {
-    print("you are clicked")
+    print("clicked post Btn")
     createViewModelObj.PrintResponse(postData: createPost.text ?? "") {result in
       let data = Data(result.utf8)
       let model = try? JSONDecoder().decode(Welcome.self, from: data)

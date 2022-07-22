@@ -23,7 +23,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loginButton.layer.cornerRadius = 8
+        registerButton.layer.cornerRadius = 8
+        imageview.layer.cornerRadius = 10
     }
     @IBAction func tappedOnButton(_ sender : Any)
     {
@@ -73,6 +75,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
                         self.navigationController?.pushViewController(tabBarVC, animated: true)
                     }
+                    self.nameTxt.text = ""
+                    self.passwordTxt.text = ""
                     
                    
                 

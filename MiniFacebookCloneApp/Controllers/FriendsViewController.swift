@@ -58,6 +58,13 @@ class FriendsViewController: UIViewController {
 
         }
     }
+    @objc func navigateToHome(){
+        print("navigation clicked")
+        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+        tabBarVC.selectedViewController = tabBarVC.viewControllers?[0]
+        present(tabBarVC, animated: true, completion: nil)
+        
+    }
   
 
 
@@ -78,6 +85,7 @@ extension FriendsViewController : UITableViewDelegate,UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell0",for: indexPath) as! SearchFrdsTableViewCell
             
             cell.config(newArrObjSearch: viewModel.myResultObj)
+            cell.backToHomeBtn.addTarget(self, action: #selector(navigateToHome), for: .touchUpInside)
         return cell
         }
         else{

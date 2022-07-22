@@ -45,7 +45,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dvU-dS-ZuC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Login">
@@ -89,9 +89,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="FnF-Bt-m65"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Create new Account">
+                                <state key="normal" title="Create New Account">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -209,7 +209,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="eHf-Ee-r4W"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -237,9 +237,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cz6-hM-ZAu">
-                                <rect key="frame" x="172" y="603" width="67" height="31"/>
+                                <rect key="frame" x="165" y="603" width="79" height="31"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Login"/>
@@ -266,7 +266,7 @@
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="0kC-eo-dbg" secondAttribute="trailing" constant="16" id="Sw3-Uo-vzx"/>
                             <constraint firstItem="cZM-hQ-iGC" firstAttribute="top" secondItem="0kC-eo-dbg" secondAttribute="bottom" constant="26" id="VK2-5G-CIx"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="bottom" secondItem="Cz6-hM-ZAu" secondAttribute="bottom" constant="228" id="XfZ-qh-oZF"/>
-                            <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="Cz6-hM-ZAu" secondAttribute="trailing" constant="175" id="ZLz-A0-sh6"/>
+                            <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="Cz6-hM-ZAu" secondAttribute="trailing" constant="170" id="ZLz-A0-sh6"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="cZM-hQ-iGC" secondAttribute="trailing" constant="20" id="cs4-qf-Es3"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="nUs-Zh-X6V" secondAttribute="trailing" constant="16" id="d7Z-YD-xed"/>
                             <constraint firstItem="CN6-gO-Xcq" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="dxD-tV-gSz"/>
@@ -274,7 +274,7 @@
                             <constraint firstItem="0kC-eo-dbg" firstAttribute="top" secondItem="nUs-Zh-X6V" secondAttribute="bottom" constant="20" id="eZx-l8-XdH"/>
                             <constraint firstItem="0kC-eo-dbg" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="ef2-Bo-w4b"/>
                             <constraint firstItem="4bJ-AS-i67" firstAttribute="top" secondItem="Pfr-d9-05N" secondAttribute="bottom" constant="20" id="fGR-K2-reZ"/>
-                            <constraint firstItem="Cz6-hM-ZAu" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="172" id="gQh-ci-8R4"/>
+                            <constraint firstItem="Cz6-hM-ZAu" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="165" id="gQh-ci-8R4"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="Pfr-d9-05N" secondAttribute="trailing" constant="16" id="oCx-JN-2G7"/>
                             <constraint firstItem="yZG-h4-2Ru" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="oVF-Ii-om2"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="U4Z-st-6QT" secondAttribute="trailing" constant="20" id="oip-qo-nbz"/>
@@ -291,8 +291,9 @@
                         <outlet property="emailTxt" destination="4bJ-AS-i67" id="2Eh-wo-gb9"/>
                         <outlet property="eyeButton" destination="cZM-hQ-iGC" id="KNt-2x-Lgp"/>
                         <outlet property="genderTxt" destination="0kC-eo-dbg" id="WYL-uP-DG1"/>
-                        <outlet property="loginbutton" destination="U4Z-st-6QT" id="99t-s7-FPh"/>
+                        <outlet property="loginbutton" destination="U4Z-st-6QT" id="Sij-bU-sDf"/>
                         <outlet property="passwordTxt" destination="CN6-gO-Xcq" id="RAS-Us-Tdm"/>
+                        <outlet property="registerBtn" destination="U4Z-st-6QT" id="7Fc-uK-J5t"/>
                         <outlet property="userNameTxt" destination="Pfr-d9-05N" id="maX-4H-ZLg"/>
                     </connections>
                 </viewController>
@@ -532,7 +533,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Gjr-ks-fvK" kind="relationship" relationship="viewControllers" id="buB-h2-bgs"/>
-                        <segue destination="TR0-oC-9Bh" kind="relationship" relationship="viewControllers" id="jTl-WI-vRm"/>
+                        <segue destination="yEX-og-cpm" kind="relationship" relationship="viewControllers" id="jTl-WI-vRm"/>
                         <segue destination="m9x-Cc-VyB" kind="relationship" relationship="viewControllers" id="EoF-gI-5VJ"/>
                         <segue destination="m6b-3u-fzW" kind="relationship" relationship="viewControllers" id="VGz-I8-spH"/>
                         <segue destination="qG6-PY-MKX" kind="relationship" relationship="viewControllers" id="Mc6-Ob-qK8"/>
@@ -542,7 +543,7 @@
             </objects>
             <point key="canvasLocation" x="1407.1014492753625" y="-766.11607142857144"/>
         </scene>
-        <!--Friends-->
+        <!--Friends View Controller-->
         <scene sceneID="nRX-yu-nGC">
             <objects>
                 <viewController id="TR0-oC-9Bh" customClass="FriendsViewController" customModule="MiniFacebookCloneApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -551,7 +552,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Lo-0X-3Ua">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsListCell" rowHeight="100" id="29y-eC-358" customClass="FriendsTableViewCell" customModule="MiniFacebookCloneApp" customModuleProvider="target">
@@ -623,14 +624,14 @@
                             <constraint firstItem="0Lo-0X-3Ua" firstAttribute="bottom" secondItem="KHw-fg-YuX" secondAttribute="bottom" id="s8D-kR-s5m"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" id="2Zx-Wq-86i"/>
+                    <navigationItem key="navigationItem" id="mdG-bX-hhI"/>
                     <connections>
                         <outlet property="tableView" destination="0Lo-0X-3Ua" id="RNF-Rf-Saa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t3c-EJ-gFn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1202.753623188406" y="-39.553571428571423"/>
+            <point key="canvasLocation" x="2111.594202898551" y="-40.178571428571423"/>
         </scene>
         <!--Profile-->
         <scene sceneID="5Gq-0R-GQO">
@@ -671,7 +672,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yV-G8-bGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1936.0869565217392" y="-23.482142857142854"/>
+            <point key="canvasLocation" x="2844.9275362318845" y="-24.107142857142858"/>
         </scene>
         <!--Password View Controller-->
         <scene sceneID="B8y-B4-juq">
@@ -800,7 +801,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ev-nK-1Ra" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2667.971014492754" y="-23.482142857142854"/>
+            <point key="canvasLocation" x="3576.811594202899" y="-24.107142857142858"/>
         </scene>
         <!--LogOut-->
         <scene sceneID="yp0-gT-cIP">
@@ -816,7 +817,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vfh-hp-cxk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3473.7681159420295" y="-23.482142857142854"/>
+            <point key="canvasLocation" x="4382.608695652174" y="-24.107142857142858"/>
         </scene>
         <!--Home-->
         <scene sceneID="9dF-Vf-oGQ">
@@ -836,6 +837,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fuy-tZ-c2U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-442.17391304347831" y="-23.482142857142854"/>
+        </scene>
+        <!--Friends-->
+        <scene sceneID="LaR-lk-agf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yEX-og-cpm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" id="2Zx-Wq-86i"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tn3-cv-Fg4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TR0-oC-9Bh" kind="relationship" relationship="rootViewController" id="aDl-OJ-PFO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wfc-fE-YPr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1201.449275362319" y="-40.178571428571423"/>
         </scene>
     </scenes>
     <resources>

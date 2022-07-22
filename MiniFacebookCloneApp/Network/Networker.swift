@@ -7,6 +7,79 @@
 
 import Foundation
 class Networker{
+
+    func updateLikes(){
+        print("update")
+        guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/postLikes/1/29/false") else{
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data , error == nil else {
+                
+                return
+            }
+            
+            var updateLikesResponse : UpdateLikes?
+            do{
+                
+                updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
+            }
+            catch{
+                print(error.localizedDescription)
+            }
+
+            print("res\(updateLikesResponse?.data)")
+        }
+        task.resume()
+        
+        
+    }
+    
+    func logOutApiCall(userId:Int,completionHandler:@escaping(LogOutResponse)->Void){
+        guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/logout/"+"\(userId)") else{
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data , error == nil else {
+                
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else{
+                return
+            }
+            var res : LogOutResponse?
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
+            
+            do{
+                
+                res = try JSONDecoder().decode(LogOutResponse.self, from: data)
+            }
+            catch{
+                print(error.localizedDescription)
+            }
+           
+            
+
+//            print("res\(res)")
+            completionHandler(res!)
+            }
+           
+                
+            
+        }
+        task.resume()
+        
+        
+        
+    }
+
+    
     func postData(model: Details,completion : @escaping (String) -> Void){
     guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/register")else
     {
@@ -62,7 +135,6 @@ class Networker{
             return
         }
         do{
-           print("here")
 //          let responser = try JSONDecoder().decode(LoginDetails.self, from: data)
             let jsonString = try JSONSerialization.jsonObject(with: data)
             let jString = String(data: data, encoding: .utf8)!
@@ -87,11 +159,16 @@ class Networker{
                 return
             }
             var result : DisplayFriendsResponse?
+            guard let httpResponse = response as? HTTPURLResponse else{
+                return
+            }
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
             do{
                 result = try JSONDecoder().decode(DisplayFriendsResponse.self, from: data)
             }
             catch{
                 print(error.localizedDescription)
+            }
             }
             guard let json = result else{
                 return
@@ -105,7 +182,7 @@ class Networker{
         
     }
     func suggestedFriends(userId:Int,completionHandler:@escaping(SuggestedFriendsResponse)->Void){
-        print("sdfsfsfsfsfs\(userId)")
+        
         let url = "http://stagetao.gcf.education:3000/api/v1/suggestFriends/"+"\(userId)"
         let task = URLSession.shared.dataTask(with: URL(string: url)!,completionHandler:  { data, response, error in
             guard let data = data , error == nil else {
@@ -113,17 +190,22 @@ class Networker{
                 return
             }
             var result : SuggestedFriendsResponse?
+            guard let httpResponse = response as? HTTPURLResponse else{
+                return
+            }
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
             do{
                 result = try JSONDecoder().decode(SuggestedFriendsResponse.self, from: data)
             }
             catch{
                 print(error.localizedDescription)
             }
+            }
 //            print("\(result)")
             guard let json = result else{
                 return
             }
-            print(result)
+//            print(result)
             completionHandler(json)
 
             
@@ -139,6 +221,10 @@ class Networker{
                 return
             }
             var result : GetPosts?
+            guard let httpResponse = response as? HTTPURLResponse else{
+                return
+            }
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
             do{
                 result = try? JSONDecoder().decode(GetPosts.self, from: data)
 //                let jString = String(data: data, encoding: .utf8)!
@@ -150,6 +236,7 @@ class Networker{
             }
             catch{
                 print(error.localizedDescription)
+            }
             }
 //            print(result)
             guard let json = result else{
@@ -245,7 +332,7 @@ class Networker{
     
     //-------------
     func fetchingApidata(userId: Int,completion: @escaping(ProfileDetails)->()){
-        print(userId,"profileeeeeee")
+//        print(userId,"profileeeeeee")
         guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/profile/\(userId)") else{
             return
         }
@@ -339,8 +426,8 @@ class Networker{
             do {
               let responser = try JSONDecoder().decode(Welcome.self, from: data)
     //          let jsonString = try JSONSerialization.jsonObject(with: data,options: .fragmentsAllowed)
-              print(responser.data?.userID)
-              print(responser.message)
+//              print(responser.data?.userID)
+//              print(responser.message)
               let jstring = String(data: data, encoding: . utf8)!
 
     //          print(jsonString)
@@ -372,7 +459,8 @@ class Networker{
         })
         task.resume()
       }
-
+    
+    
     
 }
     

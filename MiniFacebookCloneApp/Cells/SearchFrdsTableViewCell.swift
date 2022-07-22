@@ -10,6 +10,7 @@ import UIKit
 class SearchFrdsTableViewCell: UITableViewCell {
     var vmObjSearch = [MyResult]()
     
+    @IBOutlet weak var backToHomeBtn: UIButton!
     @IBOutlet weak var friendCount: UILabel!
     @IBOutlet weak var recentBtn: UIButton!
     @IBOutlet weak var allBtn: UIButton!

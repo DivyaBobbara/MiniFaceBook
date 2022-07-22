@@ -12,8 +12,11 @@ class HomeViewController: UIViewController {
     let viewModelHome = ViewModel()
     var postIdValue : Int?
     override func viewDidLoad() {
-        viewModelHome.getUserIdInfo()
+        
         super.viewDidLoad()
+        viewModelHome.getUserIdInfo()
+        viewModelHome.callUpdateLikes()
+        
         tableView.allowsSelection = false
 //        tableView.estimatedRowHeight = 1000
         tableView.rowHeight = UITableView.automaticDimension
@@ -22,14 +25,14 @@ class HomeViewController: UIViewController {
         let suggestedNib = UINib(nibName: "SuggestedFrdsTableViewCell", bundle: nil)
         tableView.register(suggestedNib, forCellReuseIdentifier: "Cell1")
         viewModelHome.getPostDetails { postData in
-            print(postData,"jhanujhanujhanu")
+//            print(postData,"jhanujhanujhanu")
 //            let result = Data(postData.utf8)
 //            print(result,"indataForm")
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
-                print("homevcpost\(postData)")
-                print(self.viewModelHome.getPostsObj.count)
+//                print("homevcpost\(postData)")
+//                print(self.viewModelHome.getPostsObj.count)
             }
             
         }
@@ -44,6 +47,10 @@ class HomeViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
         self.navigationController?.pushViewController(cPostVc, animated: true)
+//        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+//        tabBarVC.selectedViewController = tabBarVC.viewControllers?[4]
+
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,13 +65,14 @@ class HomeViewController: UIViewController {
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        print("rows count\(viewModelHome.getPostsObj.count+2)")
         return viewModelHome.getPostsObj.count+2
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let val = indexPath.row
         if val == 0{
             let customCell = tableView.dequeueReusableCell(withIdentifier: "Cell0",for: indexPath) as! HomeCreatePostTableViewCell
-//            customCell.textFieldPostData.addTarget(self, action: #selector(navigateToCreatePost), for: .touchDown)
+            customCell.textFieldPostData.addTarget(self, action: #selector(navigateToCreatePost), for: .touchDown)
             return customCell
         }
         if val == 1{
@@ -75,7 +83,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
 //                print(indexPath)
                 let getFrdId = (self?.viewModelHome.suggestedFrdsResponseObj[indexPath ?? 0].friendId ?? 0)
                 self?.viewModelHome.postAddNewFriend(frdId:getFrdId, userId: self?.viewModelHome.getUserId ?? 0) { result in
-                    print("res\(result)")
+//                    print("res\(result)")
                     let data = Data(result.utf8)
                     let response = try? JSONDecoder().decode(BadRequestAddNewFriend.self, from: data)
                     if response?.status == "client error"{
@@ -94,12 +102,10 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             return customCell
         }
         else{
-            print("hiijhytg")
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for: indexPath) as! PostsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for:indexPath) as! PostsTableViewCell
             cell.profileImg.image = UIImage(named: "profile")
-            print("hiiii")
             cell.userName.text = viewModelHome.getPostsObj[indexPath.row-2].userName
-            print(viewModelHome.getPostsObj[indexPath.row-2].userName,"posting username")
+//            print(viewModelHome.getPostsObj[indexPath.row-2].userName,"posting username")
             cell.timeLbl.text = "08:24"
             cell.postDataLbl.text = viewModelHome.getPostsObj[indexPath.row-2].postData
             cell.postImg.image = UIImage(named: "postImg")
@@ -111,9 +117,14 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.commentIcon.image = UIImage(named: "comment")
             cell.likeLbl.text = "Like"
             cell.likesCount.text = String(viewModelHome.getPostsObj[indexPath.row-2 ].totalLikes ?? 0)
-            if viewModelHome.getPostsObj[indexPath.row].isCreated == "true" && viewModelHome.getPostsObj[indexPath.row].userId == viewModelHome.getUserId{
+//            print(viewModelHome.getPostsObj)
+            if viewModelHome.getPostsObj[indexPath.row - 2].isCreated  ==  true  && viewModelHome.getPostsObj[indexPath.row - 2].userId == viewModelHome.getUserId{
                 cell.delIcon.image = UIImage(named: "trash")
             }
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+            cell.likeIcon.isUserInteractionEnabled = true
+            cell.likeIcon.addGestureRecognizer(tapGestureRecognizer)
+            
             return cell
         }
     }
@@ -121,6 +132,15 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     {
         let alert = UIAlertController(title: "Bad Request Error", message: " \(errCode) Error ", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        present(alert,animated: true)
+    }
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+
+        // Your action
+//        imageView.image = UIImage(named:"homeSelected")
+        let alert = UIAlertController(title: "success", message: "poikuyhtgr", preferredStyle: .alert)
         present(alert,animated: true)
     }
 }

@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
     @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableview.allowsSelection = false
         tableview.delegate = self
         tableview.dataSource = self
         viewModelObj.getUserIdInfo()
