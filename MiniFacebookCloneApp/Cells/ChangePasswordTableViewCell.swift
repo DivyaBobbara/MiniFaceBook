@@ -21,6 +21,8 @@ class ChangePasswordTableViewCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        editLabel.layer.cornerRadius = 6
+        pswbutton.layer.cornerRadius = 6 
 
         
     }

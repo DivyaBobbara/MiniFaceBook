@@ -13,12 +13,11 @@ class ViewModel
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
         print(getUserId)
     }
-    func callUpdateLikes(postId : Int?,LikeStatus : Bool?,completionhandler : @escaping(UpdateLikes) -> (Void))
+    func callUpdateLikes(getUserId:Int,getPostId:Int,getStatus:Bool,completionHandler:@escaping(UpdateLikes)->Void)
     {
-        print("hiii")
-//        network.updateLikes(postId: postId, LikeStatus: LikeStatus) { updateLikes in
-//            print(updateLikes)
-//        }
+        network.updateLikes(userId: getUserId, postId: getPostId, status: getStatus) { updateLikesResponse in
+            completionHandler(updateLikesResponse)
+        }
         
     }
     func callLogOutApi(completionHandler:@escaping(LogOutResponse)->Void)
@@ -111,16 +110,18 @@ class ViewModel
 //     }
     
     var createPostModelObj : CreatePostModel?
-       var createresponseObj : Welcome?
-      func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-         network.UpdatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
-           completion(result)
-         }
+      var createresponseObj : Welcome?
+     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
+        network.UpdatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
+          completion(result)
+        }
 
-       }
-    func DeletePost(userId :Int,postId : Int,completion : @escaping(delPost)->()){
+      }
+
+
+    func updateDeletePost(userId :Int,postId : Int,completion : @escaping(DelPost)->()){
    //    print(getpostId,"delete")
-       network.DelPost(userId: userId, postId: postId) { result in
+       network.delPost(userId: userId, postId: postId) { result in
          print(result,"viewmodeldel")
          completion(result)
        }

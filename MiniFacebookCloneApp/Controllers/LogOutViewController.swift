@@ -16,7 +16,10 @@ class LogOutViewController: UIViewController {
         super.viewDidLoad()
         viewModelLogOut.getUserIdInfo()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.navigationController?.isNavigationBarHidden = true
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
             let sceneDelegate = windowScene.delegate as? SceneDelegate
           else {

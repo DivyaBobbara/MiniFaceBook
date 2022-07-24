@@ -405,7 +405,7 @@
                                                     <buttonConfiguration key="configuration" style="plain" image="trash.fill" catalog="system"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KA5-UX-7bC">
-                                                    <rect key="frame" x="22" y="442" width="32" height="31"/>
+                                                    <rect key="frame" x="22" y="436" width="32" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="jgg-jB-qnB"/>
                                                     </constraints>
@@ -424,7 +424,7 @@
                                                 <constraint firstItem="KA5-UX-7bC" firstAttribute="leading" secondItem="FtC-kU-Cmj" secondAttribute="leading" id="DVx-MG-YDn"/>
                                                 <constraint firstItem="t66-77-xZJ" firstAttribute="leading" secondItem="hCv-Rq-TmZ" secondAttribute="trailing" constant="26" id="Ik2-AT-slu"/>
                                                 <constraint firstItem="qSf-09-LuU" firstAttribute="leading" secondItem="FtC-kU-Cmj" secondAttribute="trailing" constant="15" id="Itl-dI-qzZ"/>
-                                                <constraint firstItem="KA5-UX-7bC" firstAttribute="top" secondItem="bJD-Xr-I1p" secondAttribute="bottom" constant="10" id="J5T-sV-0r5"/>
+                                                <constraint firstItem="KA5-UX-7bC" firstAttribute="top" secondItem="bJD-Xr-I1p" secondAttribute="bottom" constant="4" id="J5T-sV-0r5"/>
                                                 <constraint firstItem="UJZ-4H-9oL" firstAttribute="top" secondItem="jii-Ss-9Nv" secondAttribute="bottom" constant="29.5" id="JDM-Ad-WwD"/>
                                                 <constraint firstItem="xJF-6B-sEk" firstAttribute="leading" secondItem="yXH-bB-Arh" secondAttribute="trailing" constant="15" id="Jbb-D5-sj9"/>
                                                 <constraint firstItem="qSf-09-LuU" firstAttribute="top" secondItem="X6N-da-0Xy" secondAttribute="bottom" constant="4" id="JmL-iL-QEL"/>
@@ -746,13 +746,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Create Post......." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4iE-pY-GfJ">
-                                <rect key="frame" x="16" y="144" width="382" height="34"/>
+                                <rect key="frame" x="16" y="244" width="382" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="wPz-8W-w9f"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06N-52-zdj">
-                                <rect key="frame" x="176.5" y="432.5" width="61" height="31"/>
+                                <rect key="frame" x="159" y="348" width="97" height="40"/>
                                 <color key="backgroundColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Hse-xJ-91k"/>
+                                    <constraint firstAttribute="width" constant="97" id="bhn-mU-mIK"/>
+                                </constraints>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="POST"/>
@@ -764,16 +771,17 @@
                         <viewLayoutGuide key="safeArea" id="c3Q-FP-Ur9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="06N-52-zdj" firstAttribute="centerX" secondItem="f7F-b5-rTf" secondAttribute="centerX" id="7L8-FC-Gr9"/>
+                            <constraint firstItem="06N-52-zdj" firstAttribute="top" secondItem="4iE-pY-GfJ" secondAttribute="bottom" constant="54" id="6ML-y8-hUj"/>
                             <constraint firstItem="c3Q-FP-Ur9" firstAttribute="trailing" secondItem="4iE-pY-GfJ" secondAttribute="trailing" constant="16" id="B8N-JQ-kuA"/>
-                            <constraint firstItem="4iE-pY-GfJ" firstAttribute="top" secondItem="c3Q-FP-Ur9" secondAttribute="top" constant="100" id="KYe-Aj-irw"/>
-                            <constraint firstItem="06N-52-zdj" firstAttribute="centerY" secondItem="f7F-b5-rTf" secondAttribute="centerY" id="RUv-N5-qRJ"/>
+                            <constraint firstItem="4iE-pY-GfJ" firstAttribute="top" secondItem="c3Q-FP-Ur9" secondAttribute="top" constant="200" id="KYe-Aj-irw"/>
                             <constraint firstItem="4iE-pY-GfJ" firstAttribute="leading" secondItem="c3Q-FP-Ur9" secondAttribute="leading" constant="16" id="fxc-jj-hkD"/>
+                            <constraint firstItem="06N-52-zdj" firstAttribute="leading" secondItem="c3Q-FP-Ur9" secondAttribute="leading" constant="159" id="qJ9-7a-AHC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="create" image="plus" catalog="system" id="5RH-ha-arY"/>
                     <connections>
-                        <outlet property="createPost" destination="4iE-pY-GfJ" id="A2O-sm-j41"/>
+                        <outlet property="createPost" destination="4iE-pY-GfJ" id="pNh-f4-ouv"/>
+                        <outlet property="postBtn" destination="06N-52-zdj" id="Mcy-kK-S6d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ev-nK-1Ra" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

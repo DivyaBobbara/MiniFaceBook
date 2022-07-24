@@ -40,6 +40,10 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
             self.tableview.register(basicInfoNib, forCellReuseIdentifier: "basicInfoCell")
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.navigationController?.isNavigationBarHidden = true
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

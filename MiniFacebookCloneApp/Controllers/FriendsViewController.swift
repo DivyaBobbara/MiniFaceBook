@@ -47,6 +47,7 @@ class FriendsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.navigationController?.isNavigationBarHidden = true
         viewModel.getDisplayFriendsData { result in
 //            print(result.data[1].userName)
             DispatchQueue.main.async {

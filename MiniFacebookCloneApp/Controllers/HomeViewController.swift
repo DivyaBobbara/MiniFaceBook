@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     let viewModelHome = ViewModel()
     var postIdValue : Int?
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,32 +45,40 @@ class HomeViewController: UIViewController {
             
         }
     }
-    @objc func updatingLikes(sender : UIButton) {
-        let index = sender.tag
-        let LikeStatus = viewModelHome.getPostsObj[index].likeStatus
-        let updatePostId = viewModelHome.getPostsObj[index].postId
-        viewModelHome.callUpdateLikes(postId: updatePostId, LikeStatus: LikeStatus) { updateLikes in
+    @objc func updateLikesMethod(sender:UIButton)
+    {
+        var index = sender.tag
+        print(index)
+        let likeStatus = viewModelHome.getPostsObj[index].likeStatus
+        print("likeStatus\(likeStatus)")
+     
+
         
-            print("hi")
-        }
+        viewModelHome.callUpdateLikes(getUserId: viewModelHome.getUserId ?? 0, getPostId: viewModelHome.getPostsObj[index].postId ?? 0, getStatus: !(likeStatus!)) { UpdateLikes in
+                   
+                             self.viewModelHome.getPostDetails { GetPosts in
+                                DispatchQueue.main.async {
+                                    print(GetPosts)
+        
+        //                            self.cell.likeLbl.text = "Like"
+                                    self.tableView.reloadData()
+                                }
+                            }
+                }
         
     }
     
     
-    @objc func DelPOST(sender: UIButton) {
+    @objc func deletePost(sender: UIButton) {
         let index = sender.tag
         print(viewModelHome.getPostsObj[index].postId)
         let delPostId = viewModelHome.getPostsObj[index].postId
-          DispatchQueue.main.async {
-            self.viewModelHome.DeletePost(userId: self.viewModelHome.getUserId ?? 0, postId: delPostId ?? 0) { result in
-    //          print(result,"deletepost")
-              self.viewModelHome.getPostDetails { getpostsdetails in
+        viewModelHome.updateDeletePost(userId: viewModelHome.getUserId ?? 0, postId: delPostId ?? 0) { delPost in
+            self.viewModelHome.getPostDetails { GetPosts in
                 DispatchQueue.main.async {
-    //              self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                  self.tableView.reloadData()
+                    self.tableView.reloadData()
                 }
-              }
-          }
+            }
         }
       }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -81,13 +90,14 @@ class HomeViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
         self.navigationController?.pushViewController(cPostVc, animated: true)
-//        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-//        tabBarVC.selectedViewController = tabBarVC.viewControllers?[4]
-
         
+//        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+//        tabBarVC.selectedViewController = tabBarVC.viewControllers?[3]
+     
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
         viewModelHome.getSuggestedFrdsData { result in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -142,12 +152,12 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             return customCell
         }
         else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for:indexPath) as! PostsTableViewCell
+             let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for:indexPath) as! PostsTableViewCell
             cell.profileImg.image = UIImage(named: "profile")
             cell.userName.text = viewModelHome.getPostsObj[indexPath.row-2].userName
 //            print(viewModelHome.getPostsObj[indexPath.row-2].userName,"posting username")
             cell.timeLbl.text = "08:24"
-            cell.postDataLbl.text = viewModelHome.getPostsObj[indexPath.row-2].postData
+            cell.postDataLbl.text = viewModelHome.getPostsObj[indexPath.row - 2].postData
             cell.postImg.image = UIImage(named: "postImg")
             cell.shareCountLbl.text = "12 shares"
             cell.commentsCountLbl.text = "35 comments"
@@ -155,10 +165,9 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.shareIcon.image = UIImage(named:"share")
             cell.commentsLbl.text = "Comments"
             cell.commentIcon.image = UIImage(named: "comment")
-            cell.likeLbl.text = "Like"
             cell.likesCount.text = String(viewModelHome.getPostsObj[indexPath.row-2 ].totalLikes ?? 0)
 //            print(viewModelHome.getPostsObj)
-            cell.delPost.addTarget(self, action: #selector(DelPOST), for:.touchUpInside)
+            cell.delPost.addTarget(self, action: #selector(deletePost), for:.touchUpInside)
                 cell.delPost.tag = indexPath.row - 2
                 if let isCreated = viewModelHome.getPostsObj[indexPath.row-2].iscreated, (isCreated == "True") {
                   cell.delPost.isHidden = false
@@ -166,11 +175,19 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
                 else {
                   cell.delPost.isHidden = true
                 }
-            cell.likeButton.addTarget(self, action: #selector(updatingLikes), for: .touchUpInside)
+            if viewModelHome.getPostsObj[indexPath.row - 2].likeStatus == true{
+                cell.likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+                cell.likeLbl.text = "Liked"
+
+            }
+            else{
+                cell.likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+                cell.likeLbl.text = "Like"
+
+            }
+            cell.likeButton.addTarget(self, action: #selector(updateLikesMethod), for: .touchUpInside)
             cell.likeButton.tag = indexPath.row - 2
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-//            cell.likeIcon.isUserInteractionEnabled = true
-//            cell.likeIcon.addGestureRecognizer(tapGestureRecognizer)
+
             
             return cell
         }
@@ -181,15 +198,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         present(alert,animated: true)
     }
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
-
-        // Your action
-//        imageView.image = UIImage(named:"homeSelected")
-        let alert = UIAlertController(title: "success", message: "poikuyhtgr", preferredStyle: .alert)
-        present(alert,animated: true)
-    }
+   
 }
     
     

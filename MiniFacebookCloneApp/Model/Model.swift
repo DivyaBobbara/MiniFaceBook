@@ -180,7 +180,7 @@ struct DataClasses: Codable {
   }
 }
 
-struct delPost : Codable {
+struct DelPost : Codable {
   let status : String?
   let message : String?
   let data : DataPostId
@@ -205,7 +205,7 @@ struct UpdateLikes : Codable{
     let status : String?
     let message : String?
     let data : UpdateLikesStatus
-    let errorcode : String?
+    let errorCode : String?
 }
 struct UpdateLikesStatus : Codable{
     let likeStatus : String?

@@ -8,9 +8,9 @@
 import Foundation
 class Networker{
 
-    func updateLikes(postId :Int?,LikeStatus : Bool?,completionhandler : @escaping(UpdateLikes)->(Void)){
+    func updateLikes(userId:Int,postId:Int,status:Bool,completionHandler:@escaping(UpdateLikes)->Void){
         print("update")
-        guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/postLikes/\(postId)/29/\(LikeStatus)") else{
+        guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/postLikes/\(postId)/\(userId)/"+"\(status)") else{
             return
         }
         var request = URLRequest(url: url)
@@ -22,21 +22,17 @@ class Networker{
                 return
             }
             
-            
+            var updateLikesResponse : UpdateLikes?
             do{
-//                var updateLikesResponse : UpdateLikes?
-                let updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
-                print(updateLikesResponse)
-                completionhandler(updateLikesResponse)
                 
+                updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
             }
             catch{
                 print(error.localizedDescription)
             }
-            
-            
 
-//            print("res\(updateLikesResponse?.data)")
+//            print("res\(updateLikesResponse)")
+            completionHandler(updateLikesResponse!)
         }
         task.resume()
         
@@ -422,7 +418,7 @@ class Networker{
           let task = URLSession.shared.dataTask(with: request) {
             data,response,error in
             guard let data = data , error == nil else {
-              print("Something went Wrong")
+              print("Something went Wrong create post")
               return
             }
             if let httpResponse = response as? HTTPURLResponse ,
@@ -445,10 +441,12 @@ class Networker{
             }
           }
           task.resume()
-    }
-    
-    
-    func DelPost(userId : Int,postId : Int,completion : @escaping(delPost) -> Void) {
+        }
+
+
+
+
+    func delPost(userId : Int,postId : Int,completion : @escaping(DelPost) -> Void) {
         guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post/\(userId)/\(postId)") else {
          return
         }
@@ -465,7 +463,7 @@ class Networker{
           do{
             let jsonString = try JSONSerialization.jsonObject(with: data)
             print(jsonString,"deleteeeeeeeeeeee")
-            let deleteResponse = try JSONDecoder().decode(delPost.self, from: data)
+            let deleteResponse = try JSONDecoder().decode(DelPost.self, from: data)
 
     //        print(deleteResponse)
             completion(deleteResponse)
