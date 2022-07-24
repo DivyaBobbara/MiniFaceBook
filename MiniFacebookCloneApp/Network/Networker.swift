@@ -8,9 +8,9 @@
 import Foundation
 class Networker{
 
-    func updateLikes(){
+    func updateLikes(postId :Int?,LikeStatus : Bool?,completionhandler : @escaping(UpdateLikes)->(Void)){
         print("update")
-        guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/postLikes/1/29/false") else{
+        guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/postLikes/\(postId)/29/\(LikeStatus)") else{
             return
         }
         var request = URLRequest(url: url)
@@ -22,16 +22,21 @@ class Networker{
                 return
             }
             
-            var updateLikesResponse : UpdateLikes?
+            
             do{
+//                var updateLikesResponse : UpdateLikes?
+                let updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
+                print(updateLikesResponse)
+                completionhandler(updateLikesResponse)
                 
-                updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
             }
             catch{
                 print(error.localizedDescription)
             }
+            
+            
 
-            print("res\(updateLikesResponse?.data)")
+//            print("res\(updateLikesResponse?.data)")
         }
         task.resume()
         
@@ -398,69 +403,81 @@ class Networker{
     
 //    --------jhansi
     func UpdatingByTextFields(requestObject: CreatePostModel,completion: @escaping (String) -> Void) {
-        let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post")
-        guard let url = url else {
-          return
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        do{
-          guard let result = try? JSONEncoder().encode(requestObject) else {
+          let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post")
+          guard let url = url else {
             return
           }
-          request.httpBody = result
-          request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        }
-        catch {
-          print("It is Not encoded")
-        }
-        let task = URLSession.shared.dataTask(with: request) {
-          data,response,error in
-          guard let data = data , error == nil else {
-            print("Something went Wrong")
-            return
+          var request = URLRequest(url: url)
+          request.httpMethod = "POST"
+          do{
+            guard let result = try? JSONEncoder().encode(requestObject) else {
+              return
+            }
+            request.httpBody = result
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
           }
-          if let httpResponse = response as? HTTPURLResponse ,
-             httpResponse.statusCode == 200 {
-              print("statusCode: \(httpResponse.statusCode)")
-            do {
-              let responser = try JSONDecoder().decode(Welcome.self, from: data)
-    //          let jsonString = try JSONSerialization.jsonObject(with: data,options: .fragmentsAllowed)
-//              print(responser.data?.userID)
-//              print(responser.message)
-              let jstring = String(data: data, encoding: . utf8)!
+          catch {
+            print("It is Not encoded")
+          }
+          let task = URLSession.shared.dataTask(with: request) {
+            data,response,error in
+            guard let data = data , error == nil else {
+              print("Something went Wrong")
+              return
+            }
+            if let httpResponse = response as? HTTPURLResponse ,
+               httpResponse.statusCode == 200 {
+                print("statusCode: \(httpResponse.statusCode)")
+              do {
+    //            let responser = try JSONDecoder().decode(Welcome.self, from: data)
+                let jsonString = try JSONSerialization.jsonObject(with: data,options: .fragmentsAllowed)
+    //            print(responser.data.userId)
+    //            print(responser.message)
+                let jstring = String(data: data, encoding: . utf8)!
 
-    //          print(jsonString)
-              completion(jstring)
-    //          print("Success:\(responser)")
-            }
-            catch{
-              print("Error is because\(error.localizedDescription)")
+      //          print(jsonString)
+                completion(jstring)
+      //          print("Success:\(responser)")
+              }
+              catch{
+                print("Error is because\(error.localizedDescription)")
+              }
             }
           }
-        }
-        task.resume()
-      }
+          task.resume()
+    }
     
-    func fetchData(userId : Int,postId : Int) {
-        guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post/\(userId)") else {
-          return
+    
+    func DelPost(userId : Int,postId : Int,completion : @escaping(delPost) -> Void) {
+        guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post/\(userId)/\(postId)") else {
+         return
         }
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
 
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { data,response,error in
-          guard let data = data , error == nil else {
-            print("smthg went wrong")
-            return
+        let task = URLSession.shared.dataTask(with: request)
+        {data,response,error in
+         guard let data = data , error == nil else {
+          print("smthg went wrong deleteepost")
+          return
+         }
+          do{
+            let jsonString = try JSONSerialization.jsonObject(with: data)
+            print(jsonString,"deleteeeeeeeeeeee")
+            let deleteResponse = try JSONDecoder().decode(delPost.self, from: data)
+
+    //        print(deleteResponse)
+            completion(deleteResponse)
+          }
+          catch {
+            print("error is because\(error.localizedDescription)")
           }
 
-        })
+        }
+
         task.resume()
-      }
-    
-    
+       }
     
 }
     

@@ -8,11 +8,13 @@
 import UIKit
 
 class PostsTableViewCell: UITableViewCell {
-    @IBOutlet weak var delIcon: UIImageView!
+    
+    @IBOutlet weak var delPost: UIButton!
     @IBOutlet weak var likesCount: UILabel!
     @IBOutlet weak var commentIcon: UIImageView!
     
-    @IBOutlet weak var likeIcon: UIImageView!
+    
+    @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeLbl: UILabel!
     @IBOutlet weak var commentsLbl: UILabel!
     @IBOutlet weak var shareCountLbl: UILabel!

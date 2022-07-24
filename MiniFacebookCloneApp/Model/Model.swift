@@ -79,7 +79,7 @@ struct MyResult2 : Codable{
     let postData : String?
     let totalLikes : Int?
     let likeStatus : Bool?
-    let isCreated : Bool?
+    let iscreated : String?
     let userId : Int?
 }
 
@@ -180,6 +180,17 @@ struct DataClasses: Codable {
   }
 }
 
+struct delPost : Codable {
+  let status : String?
+  let message : String?
+  let data : DataPostId
+  let errorCode : String?
+}
+struct DataPostId : Codable {
+  let userId : Int?
+  let postId : Int?
+}
+
 //{
 //  "status": "success",
 //  "message": "likesUpdated",
@@ -194,7 +205,7 @@ struct UpdateLikes : Codable{
     let status : String?
     let message : String?
     let data : UpdateLikesStatus
-    let errorCode : String?
+    let errorcode : String?
 }
 struct UpdateLikesStatus : Codable{
     let likeStatus : String?

@@ -9,31 +9,57 @@ import UIKit
 
 class LogOutViewController: UIViewController {
     
+    
     let viewModelLogOut = ViewModel()
-
+    var window : UIWindow?
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModelLogOut.getUserIdInfo()
-       
-       
-
-        
     }
     override func viewWillAppear(_ animated: Bool) {
-        let alert = UIAlertController(title: "LogOut?", message: "Are You Sure?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "logOut", style: .default, handler: { [weak self] (_) in
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let sceneDelegate = windowScene.delegate as? SceneDelegate
+          else {
+            return
+          }
+//          let viewcontroller = UIViewController()
+//          viewcontroller.view.backgroundColor = .blue
+//          sceneDelegate.window?.rootViewController = viewcontroller
+
+        func resetWindow(with vc: UIViewController?) {
+            guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+              fatalError("could not get scene delegate ")
+            }
+            sceneDelegate.window?.rootViewController = vc
+          }
+          
+          func showViewController(with id: String) {
+            let vc = storyboard?.instantiateViewController(identifier: id)
+            resetWindow(with: vc)
+          }
+        let alert = UIAlertController(title: "Logout?", message: "Are You Sure?", preferredStyle: .alert)
+         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "logout", style: .default, handler: { [weak self] (_) in
+            UserDefaults.standard.set(false, forKey: "loginstatus")
+           
+            showViewController(with: "LoginViewController")
             
-            self?.navigationController?.popToRootViewController(animated: true)
+            
+    
+        
             self?.viewModelLogOut.callLogOutApi { LogOutResponse in
                 print(LogOutResponse.data.userId,LogOutResponse.message)
+                var logoutstatus = LogOutResponse.data.loginStatus
+                print(logoutstatus)
             }
             
         }))
         
         present(alert,animated: true)
     }
+}
+  
 
    
 
-}
+

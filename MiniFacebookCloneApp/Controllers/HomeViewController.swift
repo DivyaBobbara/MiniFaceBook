@@ -12,10 +12,10 @@ class HomeViewController: UIViewController {
     let viewModelHome = ViewModel()
     var postIdValue : Int?
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
         viewModelHome.getUserIdInfo()
-        viewModelHome.callUpdateLikes()
+//        viewModelHome.callUpdateLikes()
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
                      #selector(handleRefresh),
@@ -34,9 +34,7 @@ class HomeViewController: UIViewController {
         let suggestedNib = UINib(nibName: "SuggestedFrdsTableViewCell", bundle: nil)
         tableView.register(suggestedNib, forCellReuseIdentifier: "Cell1")
         viewModelHome.getPostDetails { postData in
-//            print(postData,"jhanujhanujhanu")
-//            let result = Data(postData.utf8)
-//            print(result,"indataForm")
+
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
@@ -45,13 +43,35 @@ class HomeViewController: UIViewController {
             }
             
         }
-//        viewModelHome.postAddNewFriend { final_res in
-//            print("final\(final_res)")
-//        }
-//        viewModelHome.deleteFrdDetails(friendId: 17, userId: 1) { res in
-//            print("sdfghjk\(res)")
-//        }
     }
+    @objc func updatingLikes(sender : UIButton) {
+        let index = sender.tag
+        let LikeStatus = viewModelHome.getPostsObj[index].likeStatus
+        let updatePostId = viewModelHome.getPostsObj[index].postId
+        viewModelHome.callUpdateLikes(postId: updatePostId, LikeStatus: LikeStatus) { updateLikes in
+        
+            print("hi")
+        }
+        
+    }
+    
+    
+    @objc func DelPOST(sender: UIButton) {
+        let index = sender.tag
+        print(viewModelHome.getPostsObj[index].postId)
+        let delPostId = viewModelHome.getPostsObj[index].postId
+          DispatchQueue.main.async {
+            self.viewModelHome.DeletePost(userId: self.viewModelHome.getUserId ?? 0, postId: delPostId ?? 0) { result in
+    //          print(result,"deletepost")
+              self.viewModelHome.getPostDetails { getpostsdetails in
+                DispatchQueue.main.async {
+    //              self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                  self.tableView.reloadData()
+                }
+              }
+          }
+        }
+      }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
 
            tableView.reloadData()
@@ -75,6 +95,12 @@ class HomeViewController: UIViewController {
                
             }
         }
+        viewModelHome.getPostDetails{ postData in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
     }
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
@@ -132,12 +158,19 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.likeLbl.text = "Like"
             cell.likesCount.text = String(viewModelHome.getPostsObj[indexPath.row-2 ].totalLikes ?? 0)
 //            print(viewModelHome.getPostsObj)
-            if viewModelHome.getPostsObj[indexPath.row - 2].isCreated  ==  true  && viewModelHome.getPostsObj[indexPath.row - 2].userId == viewModelHome.getUserId{
-                cell.delIcon.image = UIImage(named: "trash")
-            }
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-            cell.likeIcon.isUserInteractionEnabled = true
-            cell.likeIcon.addGestureRecognizer(tapGestureRecognizer)
+            cell.delPost.addTarget(self, action: #selector(DelPOST), for:.touchUpInside)
+                cell.delPost.tag = indexPath.row - 2
+                if let isCreated = viewModelHome.getPostsObj[indexPath.row-2].iscreated, (isCreated == "True") {
+                  cell.delPost.isHidden = false
+                }
+                else {
+                  cell.delPost.isHidden = true
+                }
+            cell.likeButton.addTarget(self, action: #selector(updatingLikes), for: .touchUpInside)
+            cell.likeButton.tag = indexPath.row - 2
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+//            cell.likeIcon.isUserInteractionEnabled = true
+//            cell.likeIcon.addGestureRecognizer(tapGestureRecognizer)
             
             return cell
         }

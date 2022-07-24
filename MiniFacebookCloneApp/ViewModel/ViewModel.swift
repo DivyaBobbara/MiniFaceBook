@@ -13,10 +13,12 @@ class ViewModel
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
         print(getUserId)
     }
-    func callUpdateLikes()
+    func callUpdateLikes(postId : Int?,LikeStatus : Bool?,completionhandler : @escaping(UpdateLikes) -> (Void))
     {
-        print("hiiooiii")
-        network.updateLikes()
+        print("hiii")
+//        network.updateLikes(postId: postId, LikeStatus: LikeStatus) { updateLikes in
+//            print(updateLikes)
+//        }
         
     }
     func callLogOutApi(completionHandler:@escaping(LogOutResponse)->Void)
@@ -98,16 +100,32 @@ class ViewModel
             completion(result)
         }
     }
-    let createPostNetwork = Networker()
-     var createPostModelObj : CreatePostModel?
-     var createresponseObj : Welcome?
-     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-         createPostNetwork.UpdatingByTextFields(requestObject: CreatePostModel( userId: getUserId, postData: postData)) { result in
-         print(result)
+//    let createPostNetwork = Networker()
+//     var createPostModelObj : CreatePostModel?
+//     var createresponseObj : Welcome?
+//     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
+//         createPostNetwork.UpdatingByTextFields(requestObject: CreatePostModel( userId: getUserId, postData: postData)) { result in
+//         print(result)
+//         completion(result)
+//       }
+//     }
+    
+    var createPostModelObj : CreatePostModel?
+       var createresponseObj : Welcome?
+      func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
+         network.UpdatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
+           completion(result)
+         }
+
+       }
+    func DeletePost(userId :Int,postId : Int,completion : @escaping(delPost)->()){
+   //    print(getpostId,"delete")
+       network.DelPost(userId: userId, postId: postId) { result in
+         print(result,"viewmodeldel")
          completion(result)
        }
      }
-    
+
     
     
     
