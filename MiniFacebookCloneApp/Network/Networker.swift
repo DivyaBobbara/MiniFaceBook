@@ -452,12 +452,11 @@ class Networker{
             }
             do{
                 let jsonString = try JSONSerialization.jsonObject(with: data)
-                print(jsonString,"deleteeeeeeeeeeee")
                 let deleteResponse = try JSONDecoder().decode(DelPost.self, from: data)
                 completion(deleteResponse)
             }
             catch {
-                print("error is because\(error.localizedDescription)")
+                print("delete error is because\(error.localizedDescription)")
             }
             
         }

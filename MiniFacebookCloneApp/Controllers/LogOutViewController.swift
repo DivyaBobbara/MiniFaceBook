@@ -29,18 +29,23 @@ class LogOutViewController: UIViewController {
             sceneDelegate.window?.rootViewController = vc
         }
         func showViewController(with id: String) {
-            let vc = storyboard?.instantiateViewController(identifier: id)
-            resetWindow(with: vc)
+            let vc = storyboard?.instantiateViewController(identifier: id) as! LoginViewController
+            let navVc = UINavigationController(rootViewController: vc)
+            resetWindow(with: navVc)
         }
         let alert = UIAlertController(title: "Logout?", message: "Are You Sure?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "logout", style: .default, handler: { [weak self] (_) in
-            UserDefaults.standard.set(false, forKey: "loginstatus")
-            showViewController(with: "LoginViewController")
+            
+            
             self?.viewModelLogOut.callLogOutApi { LogOutResponse in
                 var logoutstatus = LogOutResponse.data.loginStatus
                 print(logoutstatus)
+                UserDefaults.standard.set(logoutstatus, forKey: "loginstatus")
+                
+                
             }
+            showViewController(with: "LoginViewController")
         }))
         present(alert,animated: true)
     }

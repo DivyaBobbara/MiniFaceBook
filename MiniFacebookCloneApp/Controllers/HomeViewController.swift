@@ -56,6 +56,8 @@ class HomeViewController: UIViewController {
         viewModelHome.updateDeletePost(userId: viewModelHome.getUserId ?? 0, postId: delPostId ?? 0) { delPost in
             self.viewModelHome.getPostDetails { GetPosts in
                 DispatchQueue.main.async {
+//                    self.viewModelHome.getPostsObj.remove(at: index)
+//                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                     self.tableView.reloadData()
                 }
             }

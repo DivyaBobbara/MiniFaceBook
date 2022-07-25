@@ -187,8 +187,8 @@ struct DelPost : Codable {
   let errorCode : String?
 }
 struct DataPostId : Codable {
-  let userId : Int?
-  let postId : Int?
+  let userId : String?
+  let postId : String?
 }
 struct UpdateLikes : Codable{
     let status : String?
