@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="121" id="TVu-Sc-hzI" customClass="BasicInfoTableViewCell" customModule="FaceBookCloneApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TVu-Sc-hzI" id="MKX-31-aIj">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDg-87-jXC">
+                        <rect key="frame" x="16" y="10" width="132.5" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="j0b-wl-eY7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rMk-EX-ymC">
+                        <rect key="frame" x="16" y="45.5" width="17" height="16"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="Ehh-Ah-A3Q"/>
+                            <constraint firstAttribute="width" constant="17" id="MRc-zH-yy0"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFo-tZ-MDx">
+                        <rect key="frame" x="48" y="44" width="41.5" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="zQ6-4l-gvm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fo9-gV-kHf">
+                        <rect key="frame" x="16" y="77.5" width="17" height="16"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="5Nr-xG-12K"/>
+                            <constraint firstAttribute="height" constant="17" id="vsJ-Ou-4Tm"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbl-OS-92J">
+                        <rect key="frame" x="48" y="74" width="42" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="wtX-8I-mnb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="Fbl-OS-92J" secondAttribute="bottom" constant="16" id="2Hr-yp-Nc4"/>
+                    <constraint firstItem="tDg-87-jXC" firstAttribute="leading" secondItem="MKX-31-aIj" secondAttribute="leading" constant="16" id="3FZ-b8-qHh"/>
+                    <constraint firstItem="fFo-tZ-MDx" firstAttribute="top" secondItem="tDg-87-jXC" secondAttribute="bottom" constant="9" id="4RT-0k-UdO"/>
+                    <constraint firstItem="tDg-87-jXC" firstAttribute="top" secondItem="MKX-31-aIj" secondAttribute="top" constant="10" id="6hs-oT-FhA"/>
+                    <constraint firstItem="Fbl-OS-92J" firstAttribute="top" secondItem="fFo-tZ-MDx" secondAttribute="bottom" constant="10" id="CCM-5Z-ijB"/>
+                    <constraint firstItem="rMk-EX-ymC" firstAttribute="leading" secondItem="MKX-31-aIj" secondAttribute="leading" constant="16" id="IiE-Ge-RrE"/>
+                    <constraint firstItem="fo9-gV-kHf" firstAttribute="top" secondItem="rMk-EX-ymC" secondAttribute="bottom" constant="15" id="Tg4-LK-wUV"/>
+                    <constraint firstItem="rMk-EX-ymC" firstAttribute="top" secondItem="tDg-87-jXC" secondAttribute="bottom" constant="10" id="Vb0-zY-JMC"/>
+                    <constraint firstItem="Fbl-OS-92J" firstAttribute="leading" secondItem="fo9-gV-kHf" secondAttribute="trailing" constant="15" id="gD6-Zm-kMg"/>
+                    <constraint firstItem="fFo-tZ-MDx" firstAttribute="leading" secondItem="rMk-EX-ymC" secondAttribute="trailing" constant="15" id="v2R-R5-qsl"/>
+                    <constraint firstItem="fo9-gV-kHf" firstAttribute="leading" secondItem="MKX-31-aIj" secondAttribute="leading" constant="16" id="wP1-PY-tKd"/>
+                    <constraint firstAttribute="bottom" secondItem="fo9-gV-kHf" secondAttribute="bottom" constant="27" id="zaD-wv-gdB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="4f0-Vh-QW9"/>
+            <connections>
+                <outlet property="basicLabel" destination="tDg-87-jXC" id="Cxn-qd-RXR"/>
+                <outlet property="dobLabel" destination="Fbl-OS-92J" id="Gtj-VO-T5I"/>
+                <outlet property="genderLabel" destination="fFo-tZ-MDx" id="Mrj-f6-eaN"/>
+            </connections>
+            <point key="canvasLocation" x="147.68115942028987" y="129.53125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>
