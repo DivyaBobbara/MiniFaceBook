@@ -36,30 +36,30 @@ class PasswordViewController: UIViewController {
         else if password.text?.count ?? 0 < 8 {
             displayAlert(message: "must be greater than 8 characters")
         }
-    
+        
         else if(password.text != confirmPsw.text){
             displayAlert(message: "Password doesn't match")
         }
         else{
-            self.navigationController?.popToRootViewController(animated: true)
-            //self.navigationController?.popViewController(animated: true)
-//            network.postPassword(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
-//                let data = Data(result.utf8)
-//                let model = try? JSONDecoder().decode(Response.self,from:data)
-//                DispatchQueue.main.async {
-//                    self.successMsg = model?.message
-//                    self.displayAlert(message: self.successMsg!)
-//                }
-//
-//            })
+            network.postPassword(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
+                let data = Data(result.utf8)
+                let model = try? JSONDecoder().decode(Response.self,from:data)
+                DispatchQueue.main.async {
+                    self.successMsg = model?.message
+                    self.displayAlert(message: self.successMsg!)
+                }
+                
+            })
+            self.password.text = ""
+            self.confirmPsw.text = ""
         }
     }
     
     func displayAlert(message : String)
-      {
-       let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
-       present(messageVC, animated: true) {
-             Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
-               messageVC.dismiss(animated: true, completion: nil)})}
-      }
+    {
+        let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        present(messageVC, animated: true) {
+            Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                messageVC.dismiss(animated: true, completion: nil)})}
+    }
 }

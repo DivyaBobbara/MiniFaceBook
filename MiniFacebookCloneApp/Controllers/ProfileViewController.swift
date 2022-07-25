@@ -18,31 +18,30 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         tableview.delegate = self
         tableview.dataSource = self
         viewModelObj.getUserIdInfo()
-        viewModelObj.ProfileDetails { data in
+        viewModelObj.profileDetails { data in
             DispatchQueue.main.async {
                 self.tableview.reloadData()
             }
         }
         
         let mainNib = UINib(nibName: "ProfileNameTableViewCell", bundle: nil)
-            tableview.register(mainNib, forCellReuseIdentifier: "mainCell")
+        tableview.register(mainNib, forCellReuseIdentifier: "mainCell")
         
         let imageNib = UINib(nibName: "ProfileImageTableViewCell", bundle: nil)
-            self.tableview.register(imageNib, forCellReuseIdentifier: "imageCell")
+        self.tableview.register(imageNib, forCellReuseIdentifier: "imageCell")
         
         let passwordNib = UINib(nibName: "ChangePasswordTableViewCell", bundle: nil)
-            self.tableview.register(passwordNib, forCellReuseIdentifier: "pswCell")
+        self.tableview.register(passwordNib, forCellReuseIdentifier: "pswCell")
         
         let contactNib = UINib(nibName: "ContactTableViewCell", bundle: nil)
-            self.tableview.register(contactNib, forCellReuseIdentifier: "contactCell")
+        self.tableview.register(contactNib, forCellReuseIdentifier: "contactCell")
         
         let basicInfoNib = UINib(nibName: "BasicInfoTableViewCell", bundle: nil)
-            self.tableview.register(basicInfoNib, forCellReuseIdentifier: "basicInfoCell")
+        self.tableview.register(basicInfoNib, forCellReuseIdentifier: "basicInfoCell")
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.navigationController?.isNavigationBarHidden = true
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -100,8 +99,6 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         }
         navigationController?.pushViewController(secondvc, animated: true)
     }
-
-    
 }
 
 

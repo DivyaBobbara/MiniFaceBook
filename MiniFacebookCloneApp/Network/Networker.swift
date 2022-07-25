@@ -7,7 +7,7 @@
 
 import Foundation
 class Networker{
-
+    
     func updateLikes(userId:Int,postId:Int,status:Bool,completionHandler:@escaping(UpdateLikes)->Void){
         print("update")
         guard let url = URL(string:"http://stagetao.gcf.education:3000/api/v1/postLikes/\(postId)/\(userId)/"+"\(status)") else{
@@ -18,25 +18,24 @@ class Networker{
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data , error == nil else {
-                
                 return
             }
-            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return
+            }
             var updateLikesResponse : UpdateLikes?
-            do{
-                
-                updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 {
+                do{
+                    
+                    updateLikesResponse = try JSONDecoder().decode(UpdateLikes.self, from: data)
+                }
+                catch{
+                    print(error.localizedDescription)
+                }
+                completionHandler(updateLikesResponse!)
             }
-            catch{
-                print(error.localizedDescription)
-            }
-
-//            print("res\(updateLikesResponse)")
-            completionHandler(updateLikesResponse!)
         }
         task.resume()
-        
-        
     }
     
     func logOutApiCall(userId:Int,completionHandler:@escaping(LogOutResponse)->Void){
@@ -56,65 +55,61 @@ class Networker{
             }
             var res : LogOutResponse?
             if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
-            
-            do{
                 
-                res = try JSONDecoder().decode(LogOutResponse.self, from: data)
+                do{
+                    
+                    res = try JSONDecoder().decode(LogOutResponse.self, from: data)
+                }
+                catch{
+                    print(error.localizedDescription)
+                }
+                completionHandler(res!)
             }
-            catch{
-                print(error.localizedDescription)
-            }
-           
-            
-
-//            print("res\(res)")
-            completionHandler(res!)
-            }
-           
-                
-            
         }
         task.resume()
-        
-        
-        
     }
-
+    
     
     func postData(model: Details,completion : @escaping (String) -> Void){
-    guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/register")else
-    {
-        return
+        guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/register")else
+        {
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        do{
+            let requestBody = try JSONEncoder().encode(model)
+            request.httpBody = requestBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-type")
+        }
+        catch
+        {
+            print("Not encoded")
+        }
+        let task = URLSession.shared.dataTask(with: request ){ data ,response, error in
+            guard let data = data ,error == nil else{
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return
+            }
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
+                do{
+                    let jsonString = try JSONSerialization.jsonObject(with: data)
+                    print("Success:\(jsonString)")
+                    let jString = String(data: data, encoding: .utf8)!
+                    completion(jString)
+                }
+                catch{
+                    print("Error")
+                }
+                
+            }
+        }
+        task.resume()
     }
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    do{
-        let requestBody = try JSONEncoder().encode(model)
-        request.httpBody = requestBody
-        request.setValue("application/json", forHTTPHeaderField: "Content-type")
-    }
-    catch
-    {
-        print("E")
-    }
-    let task = URLSession.shared.dataTask(with: request ){ data ,response, error in
-    guard let data = data ,error == nil else{
-        return
-    }
-    do{
-       
-//        let responser = try JSONDecoder().decode(Details.self, from: data)
-        let jsonString = try JSONSerialization.jsonObject(with: data)
-      print("Success:\(jsonString)")
-        let jString = String(data: data, encoding: .utf8)!
-        completion(jString)
-    }
-    catch{
-        print("Error")
-    }
-    }
-    task.resume()
-    }
+    
+    
     func postingLoginData(model: LoginDetails,completion : @escaping (String) -> Void){
         guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/login")else
         {
@@ -129,29 +124,34 @@ class Networker{
         }
         catch
         {
-            print("E")
+            print("Not encoded")
         }
         let task = URLSession.shared.dataTask(with: request ){ data ,response, error in
-        guard let data = data ,error == nil else{
-            return
-        }
-        do{
-//          let responser = try JSONDecoder().decode(LoginDetails.self, from: data)
-            let jsonString = try JSONSerialization.jsonObject(with: data)
-            let jString = String(data: data, encoding: .utf8)!
-          print("Success:\(jString)")
-            completion(jString)
-        }
-        catch{
-            print("Error")
-        }
+            guard let data = data ,error == nil else{
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return
+            }
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 {
+                do{
+                    let jsonString = try JSONSerialization.jsonObject(with: data)
+                    let jString = String(data: data, encoding: .utf8)!
+                    print("Success:\(jString)")
+                    completion(jString)
+                }
+                catch{
+                    print("Error")
+                }
+            }
+            
         }
         task.resume()
-        }
+    }
     
     
     //-----
-    func DisplayFriends(userId:Int,completionHandler:@escaping(DisplayFriendsResponse)->Void){
+    func displayFriends(userId:Int,completionHandler:@escaping(DisplayFriendsResponse)->Void){
         print("display\(userId)")
         let url = "http://stagetao.gcf.education:3000/api/v1/userFriends/"+"\(userId)"
         let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { data, response, error in
@@ -164,17 +164,17 @@ class Networker{
                 return
             }
             if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
-            do{
-                result = try JSONDecoder().decode(DisplayFriendsResponse.self, from: data)
-            }
-            catch{
-                print(error.localizedDescription)
-            }
+                do{
+                    result = try JSONDecoder().decode(DisplayFriendsResponse.self, from: data)
+                }
+                catch{
+                    print(error.localizedDescription)
+                }
             }
             guard let json = result else{
                 return
             }
-//            print(json.status)
+            //            print(json.status)
             completionHandler(json)
             
         })
@@ -195,20 +195,20 @@ class Networker{
                 return
             }
             if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
-            do{
-                result = try JSONDecoder().decode(SuggestedFriendsResponse.self, from: data)
+                do{
+                    result = try JSONDecoder().decode(SuggestedFriendsResponse.self, from: data)
+                }
+                catch{
+                    print(error.localizedDescription)
+                }
             }
-            catch{
-                print(error.localizedDescription)
-            }
-            }
-//            print("\(result)")
+            //            print("\(result)")
             guard let json = result else{
                 return
             }
-//            print(result)
+            //            print(result)
             completionHandler(json)
-
+            
             
         })
         task.resume()
@@ -226,25 +226,25 @@ class Networker{
                 return
             }
             if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300{
-            do{
-                result = try? JSONDecoder().decode(GetPosts.self, from: data)
-//                let jString = String(data: data, encoding: .utf8)!
-//                completionHandler(jString)
-                DispatchQueue.main.async {
-                    completionHandler(result!)
+                do{
+                    result = try? JSONDecoder().decode(GetPosts.self, from: data)
+                    //                let jString = String(data: data, encoding: .utf8)!
+                    //                completionHandler(jString)
+                    DispatchQueue.main.async {
+                        completionHandler(result!)
+                    }
+                    
                 }
-                
+                catch{
+                    print(error.localizedDescription)
+                }
             }
-            catch{
-                print(error.localizedDescription)
-            }
-            }
-//            print(result)
+            //            print(result)
             guard let json = result else{
                 return
             }
-//            completionHandler(json)
-
+            //            completionHandler(json)
+            
             
         })
         task.resume()
@@ -258,7 +258,7 @@ class Networker{
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-//        let body = AddNewFriend(friendId: 16, userId: 1)
+        //        let body = AddNewFriend(friendId: 16, userId: 1)
         let jsonData = try? JSONEncoder().encode(addFrdobj)
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -269,15 +269,15 @@ class Networker{
                 return
             }
             if httpResponse.statusCode >= 200 && httpResponse.statusCode<300{
-            do{
-                guard let jsonObject = try? JSONSerialization.jsonObject(with: data) else{
-                    return
+                do{
+                    guard let jsonObject = try? JSONSerialization.jsonObject(with: data) else{
+                        return
+                    }
+                    let jsonString = String(data: data, encoding: .utf8)
+                    completionHandler(jsonString ?? "")
+                    
                 }
-                let jsonString = String(data: data, encoding: .utf8)
-                completionHandler(jsonString ?? "")
-                
-            }
-            catch{
+                catch{
                     print(error.localizedDescription)
                 }
             }
@@ -286,8 +286,8 @@ class Networker{
         task.resume()
         
     }
-   
-    func DeleteFriend(frdId:Int,userId:Int ,completionHandler:@escaping(Any)->Void) {
+    
+    func deleteFriend(frdId:Int,userId:Int ,completionHandler:@escaping(Any)->Void) {
         let url = "http://stagetao.gcf.education:3000/api/v1/friend/"+"\(frdId)/\(userId)"
         
         guard let url = URL(string: url) else{
@@ -295,9 +295,9 @@ class Networker{
             return
         }
         var request = URLRequest(url: url)
-
+        
         request.httpMethod = "DELETE"
-
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data , error == nil else {
                 return
@@ -316,53 +316,52 @@ class Networker{
                     guard let prettyPrintedJson = String(data: prettyJson, encoding: .utf8) else{
                         return
                     }
-//                    print(prettyPrintedJson)
+                    //                    print(prettyPrintedJson)
                     completionHandler(jsonObj)
-
-
+                    
+                    
                 }
                 catch{
                     print(error.localizedDescription)
                 }
             }
-
+            
         }
         task.resume()
-
+        
     }
     
     //-------------
     func fetchingApidata(userId: Int,completion: @escaping(ProfileDetails)->()){
-//        print(userId,"profileeeeeee")
+        //        print(userId,"profileeeeeee")
         guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/profile/\(userId)") else{
             return
         }
         let task = URLSession.shared.dataTask(with: url) {
-              data,response,error in
-              guard let data = data , error == nil else {
+            data,response,error in
+            guard let data = data , error == nil else {
                 print("Something went Wrong")
                 return
-              }
+            }
             if let httpResponse = response as? HTTPURLResponse ,
-                 httpResponse.statusCode == 200 {
-                  print("statusCode: \(httpResponse.statusCode)")
+               httpResponse.statusCode == 200 {
+                print("statusCode: \(httpResponse.statusCode)")
                 do {
-                   let result = try JSONDecoder().decode(ProfileModel.self,from: data)
+                    let result = try JSONDecoder().decode(ProfileModel.self,from: data)
                     DispatchQueue.main.async {
                         completion(result.data)
                     }
                 }
                 catch{
-                  print("Error is because\(error.localizedDescription)")
+                    print("Error is because\(error.localizedDescription)")
                 }
-              }
+            }
         }
         task.resume()
     }
     
     func postPassword(userId: Int,model: Model , completion : @escaping(String) -> Void)
     {
-        print(userId,"hiiiii")
         guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/changePassword/\(userId)")else
         {
             return
@@ -379,103 +378,92 @@ class Networker{
             print("Error")
         }
         let task = URLSession.shared.dataTask(with: request){ data ,response ,error in
-        guard let data = data ,error == nil else{
-            return
+            guard let data = data ,error == nil else{
+                return
+            }
+            do{
+                let responser = try JSONDecoder().decode(Response.self, from: data)
+                print(responser)
+                let jString = String(data: data,encoding:.utf8)!
+                completion(jString)
+            }
+            catch{
+                print("Error\(error.localizedDescription)")
+            }
         }
-        do{
-            let responser = try JSONDecoder().decode(Response.self, from: data)
-            print(responser)
-            let jString = String(data: data,encoding:.utf8)!
-//            print("success\(jString)")
-            completion(jString)
-        }
-        catch{
-            print("Error\(error.localizedDescription)")
-        }
-    }
-    task.resume()
-            
+        task.resume()
+        
     }
     
-//    --------jhansi
-    func UpdatingByTextFields(requestObject: CreatePostModel,completion: @escaping (String) -> Void) {
-          let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post")
-          guard let url = url else {
+    //    --------jhansi
+    func updatingByTextFields(requestObject: CreatePostModel,completion: @escaping (String) -> Void) {
+        let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post")
+        guard let url = url else {
             return
-          }
-          var request = URLRequest(url: url)
-          request.httpMethod = "POST"
-          do{
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        do{
             guard let result = try? JSONEncoder().encode(requestObject) else {
-              return
+                return
             }
             request.httpBody = result
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-          }
-          catch {
+        }
+        catch {
             print("It is Not encoded")
-          }
-          let task = URLSession.shared.dataTask(with: request) {
+        }
+        let task = URLSession.shared.dataTask(with: request) {
             data,response,error in
             guard let data = data , error == nil else {
-              print("Something went Wrong create post")
-              return
+                print("Something went Wrong create post")
+                return
             }
             if let httpResponse = response as? HTTPURLResponse ,
                httpResponse.statusCode == 200 {
                 print("statusCode: \(httpResponse.statusCode)")
-              do {
-    //            let responser = try JSONDecoder().decode(Welcome.self, from: data)
-                let jsonString = try JSONSerialization.jsonObject(with: data,options: .fragmentsAllowed)
-    //            print(responser.data.userId)
-    //            print(responser.message)
-                let jstring = String(data: data, encoding: . utf8)!
-
-      //          print(jsonString)
-                completion(jstring)
-      //          print("Success:\(responser)")
-              }
-              catch{
-                print("Error is because\(error.localizedDescription)")
-              }
+                do {
+                    let jsonString = try JSONSerialization.jsonObject(with: data,options: .fragmentsAllowed)
+                    let jstring = String(data: data, encoding: . utf8)!
+                    completion(jstring)
+                }
+                catch{
+                    print("Error is because\(error.localizedDescription)")
+                }
             }
-          }
-          task.resume()
         }
-
-
-
-
+        task.resume()
+    }
+    
+    
     func delPost(userId : Int,postId : Int,completion : @escaping(DelPost) -> Void) {
         guard let url = URL(string: "http://stagetao.gcf.education:3000/api/v1/post/\(userId)/\(postId)") else {
-         return
+            return
         }
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let task = URLSession.shared.dataTask(with: request)
         {data,response,error in
-         guard let data = data , error == nil else {
-          print("smthg went wrong deleteepost")
-          return
-         }
-          do{
-            let jsonString = try JSONSerialization.jsonObject(with: data)
-            print(jsonString,"deleteeeeeeeeeeee")
-            let deleteResponse = try JSONDecoder().decode(DelPost.self, from: data)
-
-    //        print(deleteResponse)
-            completion(deleteResponse)
-          }
-          catch {
-            print("error is because\(error.localizedDescription)")
-          }
-
+            guard let data = data , error == nil else {
+                print("smthg went wrong deleteepost")
+                return
+            }
+            do{
+                let jsonString = try JSONSerialization.jsonObject(with: data)
+                print(jsonString,"deleteeeeeeeeeeee")
+                let deleteResponse = try JSONDecoder().decode(DelPost.self, from: data)
+                completion(deleteResponse)
+            }
+            catch {
+                print("error is because\(error.localizedDescription)")
+            }
+            
         }
-
+        
         task.resume()
-       }
+    }
     
 }
     

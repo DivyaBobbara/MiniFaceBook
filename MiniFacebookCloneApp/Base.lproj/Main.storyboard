@@ -61,7 +61,7 @@
                                     <constraint firstAttribute="height" constant="35" id="ml9-0X-7bl"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Forget password"/>
+                                <state key="normal" title="Forgot password"/>
                                 <connections>
                                     <action selector="forgetPsw:" destination="akw-V3-sES" eventType="touchUpInside" id="xgi-uW-1zH"/>
                                 </connections>
@@ -230,12 +230,12 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cz6-hM-ZAu">
-                                <rect key="frame" x="165" y="603" width="79" height="35"/>
+                                <rect key="frame" x="148" y="603" width="118" height="35"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Login"/>
+                                <state key="normal" title="Back to Login"/>
                                 <connections>
                                     <action selector="backToLogin:" destination="ePo-Ul-UyJ" eventType="touchUpInside" id="5vc-LQ-up9"/>
                                 </connections>
@@ -255,14 +255,13 @@
                             <constraint firstItem="CN6-gO-Xcq" firstAttribute="top" secondItem="0kC-eo-dbg" secondAttribute="bottom" constant="20" id="QbV-nN-isc"/>
                             <constraint firstItem="Cz6-hM-ZAu" firstAttribute="top" secondItem="U4Z-st-6QT" secondAttribute="bottom" constant="30" id="QpB-xp-WiN"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="0kC-eo-dbg" secondAttribute="trailing" constant="16" id="Sw3-Uo-vzx"/>
-                            <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="Cz6-hM-ZAu" secondAttribute="trailing" constant="170" id="ZLz-A0-sh6"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="nUs-Zh-X6V" secondAttribute="trailing" constant="16" id="d7Z-YD-xed"/>
                             <constraint firstItem="CN6-gO-Xcq" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="dxD-tV-gSz"/>
                             <constraint firstItem="4bJ-AS-i67" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="e7c-gD-5AX"/>
                             <constraint firstItem="0kC-eo-dbg" firstAttribute="top" secondItem="nUs-Zh-X6V" secondAttribute="bottom" constant="20" id="eZx-l8-XdH"/>
                             <constraint firstItem="0kC-eo-dbg" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="ef2-Bo-w4b"/>
                             <constraint firstItem="4bJ-AS-i67" firstAttribute="top" secondItem="Pfr-d9-05N" secondAttribute="bottom" constant="20" id="fGR-K2-reZ"/>
-                            <constraint firstItem="Cz6-hM-ZAu" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="165" id="gQh-ci-8R4"/>
+                            <constraint firstItem="Cz6-hM-ZAu" firstAttribute="centerX" secondItem="TH0-Vt-Zjj" secondAttribute="centerX" id="loD-AB-2zN"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="Pfr-d9-05N" secondAttribute="trailing" constant="16" id="oCx-JN-2G7"/>
                             <constraint firstItem="yZG-h4-2Ru" firstAttribute="leading" secondItem="MeC-vG-O7H" secondAttribute="leading" constant="16" id="oVF-Ii-om2"/>
                             <constraint firstItem="MeC-vG-O7H" firstAttribute="trailing" secondItem="U4Z-st-6QT" secondAttribute="trailing" constant="20" id="oip-qo-nbz"/>
@@ -689,24 +688,10 @@
                                     <action selector="changePasswordBtn:" destination="8ag-TB-k9b" eventType="touchUpInside" id="EQ1-ge-pf8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dki-C2-HCH">
-                                <rect key="frame" x="155" y="478" width="104" height="36"/>
-                                <color key="backgroundColor" systemColor="linkColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="backToLogin:" destination="8ag-TB-k9b" eventType="touchUpInside" id="8fQ-Sh-RSh"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2ra-b3-Mdb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2ra-b3-Mdb" firstAttribute="trailing" secondItem="Dki-C2-HCH" secondAttribute="trailing" constant="155" id="5Hx-Hh-TTM"/>
                             <constraint firstItem="b9G-CM-gen" firstAttribute="top" secondItem="NAZ-qL-Sfv" secondAttribute="bottom" constant="55" id="7bF-t1-TFC"/>
                             <constraint firstItem="NAZ-qL-Sfv" firstAttribute="top" secondItem="2ra-b3-Mdb" secondAttribute="top" constant="50" id="8Ff-Dl-CCu"/>
                             <constraint firstItem="YeL-6G-ROi" firstAttribute="top" secondItem="b9G-CM-gen" secondAttribute="bottom" constant="37.5" id="Czf-MB-34K"/>
@@ -715,12 +700,10 @@
                             <constraint firstItem="2ra-b3-Mdb" firstAttribute="trailing" secondItem="NAZ-qL-Sfv" secondAttribute="trailing" constant="16" id="Fw2-9h-qnN"/>
                             <constraint firstItem="b9G-CM-gen" firstAttribute="leading" secondItem="2ra-b3-Mdb" secondAttribute="leading" constant="20" id="Gbp-aS-Xcc"/>
                             <constraint firstItem="OOJ-Ly-GDv" firstAttribute="top" secondItem="YeL-6G-ROi" secondAttribute="bottom" constant="37.5" id="Gmk-Gw-0Rk"/>
-                            <constraint firstItem="Dki-C2-HCH" firstAttribute="leading" secondItem="2ra-b3-Mdb" secondAttribute="leading" constant="155" id="GuS-oJ-BRz"/>
                             <constraint firstItem="YeL-6G-ROi" firstAttribute="leading" secondItem="2ra-b3-Mdb" secondAttribute="leading" constant="20" id="K5G-vg-Gwa"/>
                             <constraint firstItem="2ra-b3-Mdb" firstAttribute="trailing" secondItem="OOJ-Ly-GDv" secondAttribute="trailing" constant="20" id="UJG-7U-L7B"/>
                             <constraint firstItem="OOJ-Ly-GDv" firstAttribute="leading" secondItem="2ra-b3-Mdb" secondAttribute="leading" constant="20" id="dRF-F6-fX6"/>
                             <constraint firstItem="2ra-b3-Mdb" firstAttribute="trailing" secondItem="b9G-CM-gen" secondAttribute="trailing" constant="20" id="giI-TR-fvu"/>
-                            <constraint firstItem="Dki-C2-HCH" firstAttribute="top" secondItem="vO5-Ap-4zd" secondAttribute="bottom" constant="46.5" id="hdc-EO-YRa"/>
                             <constraint firstItem="vO5-Ap-4zd" firstAttribute="leading" secondItem="2ra-b3-Mdb" secondAttribute="leading" constant="150" id="ll4-9k-G0P"/>
                             <constraint firstItem="2ra-b3-Mdb" firstAttribute="trailing" secondItem="vO5-Ap-4zd" secondAttribute="trailing" constant="150" id="ovE-z6-REB"/>
                             <constraint firstItem="NAZ-qL-Sfv" firstAttribute="leading" secondItem="2ra-b3-Mdb" secondAttribute="leading" constant="16" id="uHB-Qr-bjw"/>

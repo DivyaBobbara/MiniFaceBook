@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let classModel = ViewModel()
@@ -26,9 +24,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 8
         registerButton.layer.cornerRadius = 8
         imageview.layer.cornerRadius = 10
-
+        
     }
-
     
     @IBAction func forgetPsw(_ sender: Any) {
         guard let pswStoryboard = self.storyboard?.instantiateViewController(withIdentifier: "PasswordViewController") else{
@@ -36,6 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         navigationController?.pushViewController(pswStoryboard, animated: true)
     }
+    
     @IBAction func tappedOnButton(_ sender : Any)
     {
         guard let  secondVc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")else
@@ -43,12 +41,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         navigationController?.pushViewController(secondVc, animated: true)
-        
     }
+    
     @IBAction func tappedButton(_ sender : Any)
     {
-    
-
         if nameTxt.text == ""
         {
             
@@ -66,7 +62,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            
             classModel.loginPassing(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { result in
                 let data = Data(result.utf8)
                 
@@ -87,33 +82,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     }
                     self.nameTxt.text = ""
                     self.passwordTxt.text = ""
-                    
-                   
-                
                 }
-            
-        }
-        
-            
-           
-        }
-    
-}
-  
-        func displayAlert(message : String)
-        {
-            let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
-            present(messageVC, animated: true) {
-                Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
-                    messageVC.dismiss(animated: true, completion: nil)})
-                
             }
         }
-    
-    
-    
-    
-        
+    }
+    func displayAlert(message : String)
+    {
+        let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        present(messageVC, animated: true) {
+            Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                messageVC.dismiss(animated: true, completion: nil)})
+            
+        }
+    }
 }
 
 

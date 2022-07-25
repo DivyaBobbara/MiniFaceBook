@@ -190,17 +190,6 @@ struct DataPostId : Codable {
   let userId : Int?
   let postId : Int?
 }
-
-//{
-//  "status": "success",
-//  "message": "likesUpdated",
-//  "data": {
-//    "likeStatus": "true",
-//    "count": "2"
-//  },
-//  "errorCode": null
-//}
-
 struct UpdateLikes : Codable{
     let status : String?
     let message : String?
@@ -211,16 +200,6 @@ struct UpdateLikesStatus : Codable{
     let likeStatus : String?
     let count: String?
 }
-
-//{
-//  "status": "Success",
-//  "message": "Logged out successfully!",
-//  "data": {
-//    "userId": "2",
-//    "loginStatus": false
-//  },
-//  "errorCode": null
-//}
 
 struct LogOutResponse : Codable{
     let status : String?

@@ -24,7 +24,6 @@ class SearchFrdsTableViewCell: UITableViewCell {
     }
     func config(newArrObjSearch:[MyResult]){
         self.vmObjSearch = newArrObjSearch
-//        print(vmObjSearch.count)
         self.friendCount.text = "\(self.vmObjSearch.count) Friends"
     }
 

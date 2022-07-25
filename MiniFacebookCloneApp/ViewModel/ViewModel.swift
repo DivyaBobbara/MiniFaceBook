@@ -37,22 +37,17 @@ class ViewModel
     }
     func  loginPassing(mail : String, userPassword : String ,completion : @escaping(String)-> ()){
         network.postingLoginData(model: LoginDetails(mail: mail, userPassword: userPassword)){ result in
-            //            print(result,"viewModel")
             completion(result)
         }
     }
-    // ----Divya---
-    
-    
-    
+    // -------------
     var myResultObj = [MyResult]()
     var suggestedFrdsResponseObj = [MyResult1]()
     var getPostsObj = [MyResult2]()
     func getDisplayFriendsData(completionHandler:@escaping(DisplayFriendsResponse)->Void)
     {
         getUserIdInfo()
-        network.DisplayFriends(userId: self.getUserId ?? 0) { result in
-            //            print(result.data[0].userId)
+        network.displayFriends(userId: self.getUserId ?? 0) { result in
             self.myResultObj = result.data
             
             completionHandler(result)
@@ -66,14 +61,11 @@ class ViewModel
         }
     }
     var postObj1 : GetPosts?
-//    var model2 = [MyResult2]()
     func getPostDetails(completionHandler:@escaping(GetPosts)->Void)
     {
-//        print("post\(self.getUserId)")
         network.getPosts(userId: self.getUserId ?? 0) { postResult in
             self.getPostsObj = postResult.data
             completionHandler(postResult)
-            //            print("PostResult\(postResult)")
         }
     }
     func postAddNewFriend(frdId:Int,userId:Int,completionHandler:@escaping(
@@ -85,49 +77,31 @@ class ViewModel
     }
     func deleteFrdDetails(friendId:Int,userId:Int,completionHandler:@escaping(Any)->Void)
     {
-        network.DeleteFriend(frdId: friendId, userId: userId) { res in
+        network.deleteFriend(frdId: friendId, userId: userId) { res in
             print(res)
             completionHandler(res)
         }
     }
     var model1 : ProfileDetails?
-    func ProfileDetails(completion: @escaping (ProfileDetails) -> ()){
-        print(self.getUserId,"vgduqqgdugdu")
+    func profileDetails(completion: @escaping (ProfileDetails) -> ()){
         network.fetchingApidata(userId: self.getUserId ?? 0) { result in
             self.model1 = result
-            print(result,"dfugdiquhdsjuaqb")
             completion(result)
         }
     }
-//    let createPostNetwork = Networker()
-//     var createPostModelObj : CreatePostModel?
-//     var createresponseObj : Welcome?
-//     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-//         createPostNetwork.UpdatingByTextFields(requestObject: CreatePostModel( userId: getUserId, postData: postData)) { result in
-//         print(result)
-//         completion(result)
-//       }
-//     }
     
     var createPostModelObj : CreatePostModel?
-      var createresponseObj : Welcome?
-     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-        network.UpdatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
-          completion(result)
+    var createresponseObj : Welcome?
+    func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
+        network.updatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
+            completion(result)
         }
-
-      }
-
-
+    }
+    
+    
     func updateDeletePost(userId :Int,postId : Int,completion : @escaping(DelPost)->()){
-   //    print(getpostId,"delete")
-       network.delPost(userId: userId, postId: postId) { result in
-         print(result,"viewmodeldel")
-         completion(result)
-       }
-     }
-
-    
-    
-    
+        network.delPost(userId: userId, postId: postId) { result in
+            completion(result)
+        }
+    }
 }

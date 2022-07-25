@@ -43,7 +43,7 @@ class SuggestedFrdsTableViewCell: UITableViewCell {
     }
    
     @objc func removeSuggestion(sender : UIButton){
-        print("rm btn clicked")
+        print("Remove friend suggestion button clicked")
 //        let indexPath1 = IndexPath(row: sender.tag, section: 0)
 //        self.collectionView.deleteItems(at: [indexPath1])
     }
