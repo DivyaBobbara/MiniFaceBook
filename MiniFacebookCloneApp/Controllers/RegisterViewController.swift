@@ -69,27 +69,36 @@ class RegisterViewController: UIViewController {
             displayAlert(message: " correct email  format")
         }
         else{
-            classModel.passingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
-                let data = Data(result.utf8)
-                let model = try? JSONDecoder().decode(RegisterResponse.self, from: data)
-                let anotherModel = try? JSONDecoder().decode(RegisterError.self, from: data)
-                DispatchQueue.main.async {
-                    if anotherModel?.errorCode == 409{
-                        self.displayAlert(message: anotherModel?.message ?? "")
-                    }
-                    self.displayAlert(message: model?.message ?? "")
+            classModel.passingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ error in
+                if error != nil {
+                    self.displayAlert(message: error?.localizedDescription ?? "")
+                    return
                 }
+                else {
+                    DispatchQueue.main.async {
+                        if self.classModel.registerResponse?.errorCode != nil {
+                            self.displayAlert(message: self.classModel.resgisterErrorResponse?.message ?? "")
+                        }
+                        else {
+                            
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    }
+                }
+                
+                
             }
-            navigationController?.popToRootViewController(animated: true)
         }
         
     }
     func displayAlert(message : String)
     {
         let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        present(messageVC, animated: true) {
-            Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
-                messageVC.dismiss(animated: true, completion: nil)})}
+        DispatchQueue.main.async {
+            self.present(messageVC, animated: true) {
+                Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                    messageVC.dismiss(animated: true, completion: nil)})}
+        }
     }
     func invalidEmail(_ value :  String) -> String
     {

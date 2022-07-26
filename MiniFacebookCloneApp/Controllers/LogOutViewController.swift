@@ -38,16 +38,38 @@ class LogOutViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "logout", style: .default, handler: { [weak self] (_) in
             
             
-            self?.viewModelLogOut.callLogOutApi { LogOutResponse in
-                var logoutstatus = LogOutResponse.data.loginStatus
-                print(logoutstatus)
-                UserDefaults.standard.set(logoutstatus, forKey: "loginstatus")
+            self?.viewModelLogOut.callLogOutApi {error  in
+                
+            
+                print(error)
+                if error == nil {
+                    var logoutstatus = self?.viewModelLogOut.logoutResponse?.data.loginStatus
+                    UserDefaults.standard.set(logoutstatus, forKey: "loginstatus")
+                }
+                else {
+                    self?.displayAlert(message: error?.localizedDescription ?? "")
+                }
+                
                 
                 
             }
             showViewController(with: "LoginViewController")
         }))
         present(alert,animated: true)
+    }
+    func statusAlert(errorMessage :Error?) {
+        let statusAlert = UIAlertController(title: nil, message: "\(errorMessage)", preferredStyle: .alert)
+        statusAlert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        present(statusAlert,animated: true)
+    }
+    func displayAlert(message : String)
+    {
+        let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            self.present(messageVC, animated: true) {
+                Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                    messageVC.dismiss(animated: true, completion: nil)})}
+        }
     }
 }
   

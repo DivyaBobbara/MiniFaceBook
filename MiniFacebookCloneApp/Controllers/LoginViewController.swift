@@ -9,7 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    let classModel = ViewModel()
+    let loginViewModel = ViewModel()
     var valueOfId : Int?
     var login : Bool?
     @IBOutlet weak var imageview :UIImageView!
@@ -62,27 +62,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            classModel.loginPassing(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { result in
-                let data = Data(result.utf8)
-                
-                let model = try? JSONDecoder().decode(LoginResponse.self, from: data)
-                let errorModel = try? JSONDecoder().decode(LoginError.self, from: data)
-                DispatchQueue.main.async {
-                    self.valueOfId = model?.data.userId
-                    self.login = model?.data.loginStatus
-                    UserDefaults.standard.set(self.valueOfId, forKey: "keyId")
-                    UserDefaults.standard.set(self.login, forKey: "loginstatus")
-                    if errorModel?.errorCode != nil {
-                        self.displayAlert(message: errorModel?.message ?? "")
-                    }
-                    else {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
-                        self.navigationController?.pushViewController(tabBarVC, animated: true)
-                    }
-                    self.nameTxt.text = ""
-                    self.passwordTxt.text = ""
+            loginViewModel.loginPassing(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { error in
+                if error != nil {
+                    self.displayAlert(message: error?.localizedDescription ?? "")
+                    return
                 }
+                else{
+                    DispatchQueue.main.async { [self] in
+                                          UserDefaults.standard.set(loginViewModel.loginresponse?.data.userId, forKey: "keyId")
+                        UserDefaults.standard.set(loginViewModel.loginresponse?.data.loginStatus, forKey: "loginstatus")
+                        if loginViewModel.loginresponse?.errorCode != nil{
+                            self.displayAlert(message: loginViewModel.loginresponse?.message ?? "")
+                        }
+                        else {
+                            
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
+                            self.navigationController?.pushViewController(tabBarVC, animated: true)
+                        }
+                        self.nameTxt.text = ""
+                        self.passwordTxt.text = ""
+                    }
+                }
+                
             }
         }
     }

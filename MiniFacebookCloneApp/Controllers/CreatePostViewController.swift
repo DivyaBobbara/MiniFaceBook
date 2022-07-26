@@ -13,6 +13,7 @@ class CreatePostViewController: UIViewController {
     @IBOutlet weak var createPost: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         createViewModelObj.getUserIdInfo()
         postBtn.layer.cornerRadius = 8
     }
@@ -20,18 +21,30 @@ class CreatePostViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     @IBAction func Submit() {
-        print("you are clicked")
-        createViewModelObj.PrintResponse(postData: createPost.text ?? "") {result in
-            let data = Data(result.utf8)
-            let model = try? JSONDecoder().decode(Welcome.self, from: data)
+        createViewModelObj.PrintResponse(postData: createPost.text ?? "") {error in
+            if error != nil {
+                self.displayAlert(message: error?.localizedDescription ?? "")
+                return
+            }
             DispatchQueue.main.async {
+                let createAlert = UIAlertController(title: nil, message: self.createViewModelObj.creataPostResponse?.message, preferredStyle: .alert)
+                createAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(createAlert, animated: true)
                 self.createPost.text = ""
             }
         }
-        let createAlert = UIAlertController(title: "Done", message: "Post created successfully", preferredStyle: .alert)
-        createAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(createAlert, animated: true)
+        
     }
+    func displayAlert(message : String)
+    {
+        let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            self.present(messageVC, animated: true) {
+                Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                    messageVC.dismiss(animated: true, completion: nil)})}
+        }
+    }
+    
 }
 
 

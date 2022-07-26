@@ -37,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 window.makeKeyAndVisible()
                 
             }
+        NetworkMonitor.shared.startMonitoring()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

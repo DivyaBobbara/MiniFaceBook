@@ -9,7 +9,7 @@
 import UIKit
 
 class SuggestedFrdsTableViewCell: UITableViewCell {
-    var newObj = [MyResult1]()
+    var newObj = [SuggestedFriendsData]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleSuggested: UILabel!
@@ -31,7 +31,7 @@ class SuggestedFrdsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func configure(objectArray : [MyResult1])
+    func configure(objectArray : [SuggestedFriendsData])
     {
         self.newObj = objectArray
         self.collectionView.reloadData()

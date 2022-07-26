@@ -34,7 +34,7 @@ struct DataModel : Codable
 struct RegisterResponse: Codable {
     let status, message: String?
     let data: DataRegister
-    let erroCode: String?
+    let errorCode: String?
 }
 struct DataRegister: Codable {
     let userName, gender, dateOfBirth, mail: String?
@@ -52,28 +52,28 @@ struct DataError: Codable {
 struct DisplayFriendsResponse:Codable{
     let status : String?
     let message : String?
-    let data : [MyResult]
+    let data : [DisplayFriendsData]
     let errorCode : String?
  
 }
-struct MyResult:Codable{
+struct DisplayFriendsData:Codable{
     let userId : Int?
     let userName : String?
 }
 struct SuggestedFriendsResponse : Codable{
-    let data : [MyResult1]
+    let data : [SuggestedFriendsData]
     
 }
-struct MyResult1 : Codable{
+struct SuggestedFriendsData : Codable{
     let friendId : Int?
     let friendName : String?
 }
 struct GetPosts:Codable{
     let status ,message : String?
-    let data : [MyResult2]
+    let data : [GetPostData]
     let errorCode : String?
 }
-struct MyResult2 : Codable{
+struct GetPostData : Codable{
     let postId : Int?
     let userName : String?
     let postData : String?
@@ -84,33 +84,40 @@ struct MyResult2 : Codable{
 }
 
 struct AddNewFriend : Codable{
-    let friendId : Int
-    let userId : Int
+    
     var message : String?
     var status : String?
-    var data : [NewFriendData]?
+    var data : FriendsData
     var errorCode : String?
-    
-    init(friendId:Int,userId:Int){
-        self.friendId = friendId
-        self.userId = userId
-    }
+   
+}
+struct FriendsData : Codable{
+    let friendId : Int?
+    let userId : Int?
 }
 struct NewFriendData : Codable{
     let friendId : Int?
     let userId : Int?
 }
 
-struct BadRequestAddNewFriend : Codable{
+
+struct DeleteFriend : Codable {
     let status : String?
-    let message : [ErrorMessages]?
-    let data : String?
-    let errorCode : Int?
+    let message : String?
+    let data : FriendId
+    let errorCode : String?
 }
-struct ErrorMessages : Codable{
-    let text : String?
-    let error : String?
+struct FriendId : Codable {
+    let friendId : String?
 }
+//{
+//  "status": "Success",
+//  "message": "Friend deleted successfully!",
+//  "data": {
+//    "friendId": "13"
+//  },
+//  "errorCode": null
+//}
 
 
 //-----ramya
