@@ -36,12 +36,14 @@ class PasswordViewController: UIViewController {
         else if password.text?.count ?? 0 < 8 {
             displayAlert(message: "must be greater than 8 characters")
         }
-        
+        else if isValidPassword(testStr: password.text) != true {
+            displayAlert(message: "Password must contain 1 upperCase,1 digit,1 lowercase")
+        }
         else if(password.text != confirmPsw.text){
             displayAlert(message: "Password doesn't match")
         }
         else{
-            network.passwordChange(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
+            network.passwordChange(userId: passwordViewModel.getUserId ?? 0, model:PasswordDetails(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
                 let data = Data(result.utf8)
                 let model = try? JSONDecoder().decode(Response.self,from:data)
                 DispatchQueue.main.async {
@@ -61,5 +63,13 @@ class PasswordViewController: UIViewController {
         present(messageVC, animated: true) {
             Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
                 messageVC.dismiss(animated: true, completion: nil)})}
+    }
+    func isValidPassword(testStr:String?) -> Bool {
+        guard testStr != nil else { return false }
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
+        if !passwordTest.evaluate(with: testStr){
+            return false
+        }
+        return true
     }
 }

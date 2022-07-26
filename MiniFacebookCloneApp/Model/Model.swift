@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Details : Codable {
+struct RegisterDetails : Codable {
     let userName, dateOfBirth, gender, mail: String?
     let userPassword: String?
 }
@@ -48,32 +48,31 @@ struct RegisterError : Codable {
 struct DataError: Codable {
 }
 
-//-----Divya------//
 struct DisplayFriendsResponse:Codable{
     let status : String?
     let message : String?
-    let data : [MyResult]
+    let data : [DisplayFriendsData]
     let errorCode : String?
     
 }
-struct MyResult:Codable{
+struct DisplayFriendsData:Codable{
     let userId : Int?
     let userName : String?
 }
 struct SuggestedFriendsResponse : Codable{
-    let data : [MyResult1]
+    let data : [SuggestedFriendsData]
     
 }
-struct MyResult1 : Codable{
+struct SuggestedFriendsData : Codable{
     let friendId : Int?
     let friendName : String?
 }
 struct GetPosts:Codable{
     let status ,message : String?
-    let data : [MyResult2]
+    let data : [GetPostsData]
     let errorCode : String?
 }
-struct MyResult2 : Codable{
+struct GetPostsData : Codable{
     let postId : Int?
     let userName : String?
     let postData : String?
@@ -112,8 +111,6 @@ struct ErrorMessages : Codable{
     let error : String?
 }
 
-
-//-----ramya
 struct ProfileModel: Codable {
     let status, message: String?
     let data: ProfileDetails
@@ -134,7 +131,7 @@ struct ErrorModel : Codable {
 
 
 
-struct Model : Codable {
+struct PasswordDetails : Codable {
     let newPassword : String?
     let confirmPassword : String?
 }
@@ -142,24 +139,22 @@ struct Model : Codable {
 struct Response : Codable {
     let status : String?
     let message : String?
-    let data : responseData
+    let data : PswresponseData
     let errorCode : String?
 }
-struct responseData : Codable{
+struct PswresponseData : Codable{
     
 }
 
-struct ErrorMessage : Codable{
+struct PswErrorMessage : Codable{
     let status : String?
     let message : String?
-    let data : ErrorData
+    let data : PswErrorData
     let errorCode : Int?
 }
-struct ErrorData : Codable{
+struct PswErrorData : Codable{
     
 }
-
-//-------Jhansi
 
 struct CreatePostModel : Codable {
     let userId : Int?

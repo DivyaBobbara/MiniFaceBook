@@ -85,7 +85,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
             displayAlert(message: "Password must contain 1 upperCase,1 digit,1 lowercase")
         }
         else{
-            classModel.passingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
+            classModel.registerPassingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
                 let data = Data(result.utf8)
                 let model = try? JSONDecoder().decode(RegisterResponse.self, from: data)
                 let anotherModel = try? JSONDecoder().decode(RegisterError.self, from: data)
@@ -108,10 +108,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
     func pickUpDate(_ textField : UITextField){
         
         
-        datePicker = UIDatePicker(frame:CGRect(x: 0, y: 0, width: view.frame.size.width, height: 216))
+        datePicker = UIDatePicker(frame:CGRect(x: 100, y: 200, width: view.frame.size.width, height: 216))
         datePicker.backgroundColor = UIColor.white
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
+        //self.view.addSubview(datePicker)
         textField.inputView = self.datePicker
         
         

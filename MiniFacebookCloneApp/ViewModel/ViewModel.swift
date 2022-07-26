@@ -8,10 +8,10 @@
 import Foundation
 class ViewModel
 {
+    let network = Networker()
     var getUserId : Int?
     func getUserIdInfo(){
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
-        print(getUserId)
     }
     func callUpdateLikes(getUserId:Int,getPostId:Int,getStatus:Bool,completionHandler:@escaping(UpdateLikes)->Void)
     {
@@ -27,37 +27,34 @@ class ViewModel
         }
     }
     
-    
-    let network = Networker()
-    func passingData(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(String)-> ())
+    func registerPassingData(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(String)-> ())
     {
-        network.userRegisteration(model: Details(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result in
-            completion(result)
+        network.userRegisteration(model: RegisterDetails(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { registerData in
+            completion(registerData)
         }
     }
-    func  loginPassing(mail : String, userPassword : String ,completion : @escaping(String)-> ()){
-        network.userLogin(model: LoginDetails(mail: mail, userPassword: userPassword)){ result in
-            completion(result)
+    func  loginPassing(mail : String, userPassword : String,completion : @escaping(String)-> ()){
+        network.userLogin(model: LoginDetails(mail: mail, userPassword: userPassword)){ loginData in
+            completion(loginData)
         }
     }
-    // -------------
-    var myResultObj = [MyResult]()
-    var suggestedFrdsResponseObj = [MyResult1]()
-    var getPostsObj = [MyResult2]()
+    var myResultObj = [DisplayFriendsData]()
+    var suggestedFrdsResponseObj = [SuggestedFriendsData]()
+    var getPostsObj = [GetPostsData]()
     func getDisplayFriendsData(completionHandler:@escaping(DisplayFriendsResponse)->Void)
     {
         getUserIdInfo()
-        network.displayFriends(userId: self.getUserId ?? 0) { result in
-            self.myResultObj = result.data
+        network.displayFriends(userId: self.getUserId ?? 0) { displayFrndsData in
+            self.myResultObj = displayFrndsData.data
             
-            completionHandler(result)
+            completionHandler(displayFrndsData)
         }
     }
     func getSuggestedFrdsData(completionHandler:@escaping(SuggestedFriendsResponse)->Void)
     {
-        network.suggestedFriends(userId: self.getUserId ?? 0) { result in
-            self.suggestedFrdsResponseObj = result.data
-            completionHandler(result)
+        network.suggestedFriends(userId: self.getUserId ?? 0) { suggestedFrndsData in
+            self.suggestedFrdsResponseObj = suggestedFrndsData.data
+            completionHandler(suggestedFrndsData)
         }
     }
     var postObj1 : GetPosts?
@@ -71,37 +68,36 @@ class ViewModel
     func postAddNewFriend(frdId:Int,userId:Int,completionHandler:@escaping(
         String)->Void)
     {
-        network.addNewFriend(addFrdobj: AddNewFriend(friendId: frdId, userId: userId)) { result in
-            completionHandler(result)
+        network.addNewFriend(addFrdobj: AddNewFriend(friendId: frdId, userId: userId)) { addFrndResult in
+            completionHandler(addFrndResult)
         }
     }
     func deleteFrdDetails(friendId:Int,userId:Int,completionHandler:@escaping(Any)->Void)
     {
-        network.deleteFriend(frdId: friendId, userId: userId) { res in
-            print(res)
-            completionHandler(res)
+        network.deleteFriend(frdId: friendId, userId: userId) { deleteFrndData in
+            completionHandler(deleteFrndData)
         }
     }
     var model1 : ProfileDetails?
     func profileDetails(completion: @escaping (ProfileDetails) -> ()){
-        network.fetchingProfileData(userId: self.getUserId ?? 0) { result in
-            self.model1 = result
-            completion(result)
+        network.fetchingProfileData(userId: self.getUserId ?? 0) { profileDetailsResult in
+            self.model1 = profileDetailsResult
+            completion(profileDetailsResult)
         }
     }
     
     var createPostModelObj : CreatePostModel?
     var createresponseObj : Welcome?
     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-        network.createPost(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
-            completion(result)
+        network.createPost(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { createPostResult in
+            completion(createPostResult)
         }
     }
     
     
     func updateDeletePost(userId :Int,postId : Int,completion : @escaping(DelPost)->()){
-        network.delPost(userId: userId, postId: postId) { result in
-            completion(result)
+        network.delPost(userId: userId, postId: postId) { deletePostResult in
+            completion(deletePostResult)
         }
     }
 }

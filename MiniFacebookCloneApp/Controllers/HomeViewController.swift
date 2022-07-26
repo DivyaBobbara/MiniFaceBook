@@ -14,6 +14,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
+        
         
         viewModelHome.getUserIdInfo()
         let refreshControl = UIRefreshControl()
@@ -30,16 +32,6 @@ class HomeViewController: UIViewController {
         tableView.register(suggestedNib, forCellReuseIdentifier: "Cell1")
         callGetPostsApi()
     }
-//    func showAlert(title: String, message: String) {
-//         let actionSheetController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//
-//         // add close button
-//         let cancelAction: UIAlertAction = UIAlertAction(title: "Close", style: .cancel) { _ in }
-//         actionSheetController.addAction(cancelAction)
-//
-//         // show on self
-//         self.present(actionSheetController, animated: true, completion: nil)
-//    }
     func callGetPostsApi(){
         viewModelHome.getPostDetails { postData in
             DispatchQueue.main.async {
@@ -82,11 +74,12 @@ class HomeViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+       
         callSuggestedFrdsApi()
         callGetPostsApi()
         
     }
+    
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

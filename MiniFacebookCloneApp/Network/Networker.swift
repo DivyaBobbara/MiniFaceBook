@@ -37,7 +37,7 @@ class Networker{
     }
     
     
-    func userRegisteration(model: Details,completion : @escaping (String) -> Void){
+    func userRegisteration(model: RegisterDetails,completion : @escaping (String) -> Void){
         guard let url = URL(string: "\(baseUrl)\(urls.registerUrl.rawValue)")else
         {
             return
@@ -194,7 +194,7 @@ class Networker{
         }
     }
     
-    func passwordChange(userId: Int,model: Model, completion : @escaping(String) -> Void)
+    func passwordChange(userId: Int,model: PasswordDetails, completion : @escaping(String) -> Void)
     {
         guard let url = URL(string: "\(baseUrl)\(urls.changePassword.rawValue)\(userId)")else
         {

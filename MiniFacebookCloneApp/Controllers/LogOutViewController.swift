@@ -16,12 +16,12 @@ class LogOutViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        self.navigationController?.isNavigationBarHidden = true
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let sceneDelegate = windowScene.delegate as? SceneDelegate
-        else {
-            return
-        }
+        
+        //        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+        //              let sceneDelegate = windowScene.delegate as? SceneDelegate
+        //        else {
+        //            return
+        //        }
         func resetWindow(with vc: UIViewController?) {
             guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
                 fatalError("could not get scene delegate ")
@@ -32,6 +32,7 @@ class LogOutViewController: UIViewController {
             let vc = storyboard?.instantiateViewController(identifier: id) as! LoginViewController
             let navVc = UINavigationController(rootViewController: vc)
             resetWindow(with: navVc)
+            
         }
         let alert = UIAlertController(title: "Logout?", message: "Are You Sure?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
@@ -39,8 +40,7 @@ class LogOutViewController: UIViewController {
             
             
             self?.viewModelLogOut.callLogOutApi { LogOutResponse in
-                var logoutstatus = LogOutResponse.data.loginStatus
-                print(logoutstatus)
+                let logoutstatus = LogOutResponse.data.loginStatus
                 UserDefaults.standard.set(logoutstatus, forKey: "loginstatus")
                 
                 

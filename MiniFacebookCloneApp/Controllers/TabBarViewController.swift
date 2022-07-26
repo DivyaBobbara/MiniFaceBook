@@ -14,4 +14,8 @@ class TabBarViewController: UITabBarController {
 
         // Do any additional setup after loading the view.
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+    }
 }
