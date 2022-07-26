@@ -7,18 +7,21 @@
 
 import Foundation
 class Networker{
+    
     let baseUrl = "http://stagetao.gcf.education:3000/"
-    let networkWorkingLayer = putApi()
-    func updateLikes(userId:Int, postId:Int ,status:Bool, completionHandler : @escaping (UpdateLikes?,Error?) -> Void){
-        
-            guard let url = URL(string:"\(baseUrl)" + "\(urls.updateLikes.rawValue)\(postId)/\(userId)/\(status)") else{
-                return
-            }
+    
+    let networkWorkingLayer = NetworkingLayer()
+    
+    func updateLikes(userId:Int, postId:Int ,status:Bool, completionHandler : @escaping (UpdateLikesModel?,Error?) -> Void){
+        guard let url = URL(string:"\(baseUrl)" + "\(urls.updateLikes.rawValue)\(postId)/\(userId)/\(status)") else{
+            return
+        }
         networkWorkingLayer.putMethodApiCalling(url: url) { (data, error) in
             completionHandler(data,error)
         }
-        }
-    func postData(model: Details,completion : @escaping (RegisterResponse?, Error?) -> Void){
+    }
+    
+    func register(model: RegisterModel,completion : @escaping (RegisterResponse?, Error?) -> Void){
         
         guard let url = URL(string: "\(baseUrl)\(urls.registerUrl.rawValue)")else
         {
@@ -26,37 +29,33 @@ class Networker{
         }
         networkWorkingLayer.postMethodApicalling(url: url, encode: model, completion: { (data, error) in
             completion(data, error)
-            
         })
     }
     
     
-    func logOutApiCall(userId:Int,completionHandler:@escaping(LogOutResponse?,Error?)->Void){
-       
+    func logOut(userId:Int,completionHandler:@escaping(LogOutResponse?,Error?)->Void){
+        
         guard let url = URL(string:"\(baseUrl)" + "\(urls.logOut.rawValue)\(userId)") else{
             return
         }
-            networkWorkingLayer.putMethodApiCalling(url: url) { (data,error)  in
-            
+        networkWorkingLayer.putMethodApiCalling(url: url) { (data,error)  in
             completionHandler(data,error)
-        
         }
-       
+        
     }
- 
-    func postingLoginData(model: LoginDetails,completion : @escaping (LoginResponse?,Error?) -> Void){
-      
+    
+    func login(model: LoginRequest,completion : @escaping (LoginResponse?,Error?) -> Void){
+        
         guard let url = URL(string: "\(baseUrl)\(urls.loginUrl.rawValue)")else
         {
             return
         }
-            networkWorkingLayer.postMethodApicalling(url: url, encode: model) { data,error  in
+        networkWorkingLayer.postMethodApicalling(url: url, encode: model) { data,error  in
             completion(data,error)
         }
     }
     
-    //-----
-    func displayFriends(userId:Int,completionHandler:@escaping(DisplayFriendsResponse?,Error?)->Void){
+    func displayFriends (userId : Int,completionHandler : @escaping (DisplayFriendsResponse?,Error?)->Void){
         
         guard let url = URL(string:"\(baseUrl)\(urls.displayFriends.rawValue)\(userId)") else {
             return
@@ -64,57 +63,48 @@ class Networker{
         networkWorkingLayer.getMethodApiCalling(url: url, completion: {
             data ,error in
             completionHandler(data,error)
-            
         })
     }
     
-    func suggestedFriends(userId:Int,completionHandler:@escaping(SuggestedFriendsResponse?,Error?)->Void){
+    func suggestedFriends(userId : Int, completionHandler : @escaping (SuggestedFriendsResponse?,Error?) -> Void){
         
         
         guard let url = URL(string: "\(baseUrl)\(urls.suggestFriends.rawValue)\(userId)") else {
             return
         }
         networkWorkingLayer.getMethodApiCalling(url: url) { data,error in
-            
-            
             completionHandler(data,error)
         }
-        
     }
-    func getPosts(userId:Int,completionHandler:@escaping(GetPosts?,Error?)->Void){
+    
+    func getPosts(userId:Int,completionHandler:@escaping(GetPostsModel?,Error?)->Void){
         guard let url = URL(string:"\(baseUrl)\(urls.getPosts.rawValue)\(userId)") else {
             return
         }
         networkWorkingLayer.getMethodApiCalling(url: url) { data,error in
             completionHandler(data,error)
-            
         }
     }
     
-    
-    func addNewFriend(addFrdobj:NewFriendData,completionHandler:@escaping(AddNewFriend?,Error?)->Void){
+    func addNewFriend(addFrdobj : AddNewFriendModel,completionHandler : @escaping (AddNewFriendResponse?,Error?)->Void){
         guard let url = URL(string: "\(baseUrl)\(urls.addNewFriend.rawValue)") else{
             return
         }
         networkWorkingLayer.postMethodApicalling(url: url, encode: addFrdobj) { data, error in
-            
             completionHandler(data,error)
         }
     }
     
-    func deleteFriend(frdId:Int,userId:Int ,completionHandler:@escaping(DeleteFriend?,Error?)->Void) {
+    func deleteFriend(frdId:Int,userId:Int ,completionHandler:@escaping(DeleteFriendModel?,Error?)->Void) {
         guard let url = URL(string:"\(baseUrl)\(urls.deleteFriend.rawValue)\(frdId)/\(userId)") else {
             return
         }
-        
         networkWorkingLayer.delMethodApiCalling(url: url) { data,error in completionHandler(data,error)
-           
         }
     }
     
-    //-------------
-    func fetchingApidata(userId: Int,completion: @escaping(ProfileModel?,Error?)->()){
-    
+    func displayProfile(userId: Int,completion: @escaping(ProfileModel?,Error?)->()){
+        
         guard let url = URL(string: "\(baseUrl)\(urls.displayUserProfile.rawValue)\(userId)") else{
             return
         }
@@ -123,7 +113,7 @@ class Networker{
         }
     }
     
-    func postPassword(userId: Int,model: Model, completion : @escaping(String) -> Void)
+    func changePassword(userId: Int,model: ChangePasswordRequest, completion : @escaping(String) -> Void)
     {
         guard let url = URL(string: "\(baseUrl)\(urls.changePassword.rawValue)\(userId)")else
         {
@@ -150,11 +140,10 @@ class Networker{
                 //                throw URLError(.badServerResponse)
                 return
             }
-            print(url,"inner")
+            
             do{
-                let responser = try JSONDecoder().decode(Response.self, from: data)
+                let responser = try JSONDecoder().decode(ChangePasswordResponse.self, from: data)
                 let jString = String(data: data,encoding:.utf8)!
-                print(jString)
                 completion(jString)
             }
             catch{
@@ -162,32 +151,27 @@ class Networker{
             }
         }
         task.resume()
-        
     }
     
-    //    --------jhansi
-    func updatingByTextFields(requestObject: CreatePostModel,completion: @escaping (Welcome?,Error?) -> Void) {
+
+    func createPost(requestObject: CreatePostModel,completion: @escaping (CreatePostResponse?,Error?) -> Void) {
         let url = URL(string: "\(baseUrl)\(urls.createPost.rawValue)")
         guard let url = url else {
             return
         }
         networkWorkingLayer.postMethodApicalling(url: url, encode: requestObject) { data,error  in
             completion(data,error)
-            
-           
         }
     }
     
     
-    func delPost(userId : Int,postId : Int,completion : @escaping(DelPost?,Error?) -> Void) {
+    func delPost(userId : Int,postId : Int,completion : @escaping(DelPostModel?,Error?) -> Void) {
         guard let url = URL(string: "\(baseUrl)\(urls.deletePost.rawValue)\(userId)/\(postId)") else {
             return
         }
-        print(url)
         networkWorkingLayer.delMethodApiCalling(url: url) { data,error in
             completion(data,error)
         }
-        
     }
 }
 

@@ -12,20 +12,20 @@ class ViewModel
     let network = Networker()
     var registerResponse: RegisterResponse?
     var resgisterErrorResponse : RegisterError?
-    var updateResponse : UpdateLikes?
+    var updateResponse : UpdateLikesModel?
     var logoutResponse : LogOutResponse?
     var loginresponse : LoginResponse?
     var displayFrndsResponse : DisplayFriendsResponse?
     var displayFrndsResponseData = [DisplayFriendsData]()
     var suggestedFrndsResponse : SuggestedFriendsResponse?
     var suggestedFrndsResponseData = [SuggestedFriendsData]()
-    var getPostsResponse : GetPosts?
-    var addNewFrndResponse : AddNewFriend?
-    var deleteFrndResponse : DeleteFriend?
+    var getPostsResponse : GetPostsModel?
+    var addNewFrndResponse : AddNewFriendResponse?
+    var deleteFrndResponse : DeleteFriendModel?
     var profileDetailsResponse : ProfileModel?
     var profileDetailsDataResponse : ProfileDetails?
-    var creataPostResponse : Welcome?
-    var deleteResponse : DelPost?
+    var creataPostResponse : CreatePostResponse?
+    var deleteResponse : DelPostModel?
     var getUserId : Int?
     func getUserIdInfo(){
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
@@ -39,22 +39,22 @@ class ViewModel
         }
     }
     
-    func callLogOutApi(completionHandler:@escaping(Error?)->Void)
+    func callLogOut(completionHandler:@escaping(Error?)->Void)
     {
-        network.logOutApiCall(userId: self.getUserId ?? 0) { result,error   in
+        network.logOut(userId: self.getUserId ?? 0) { result,error   in
             self.logoutResponse = result
             completionHandler(error)
         }
     }
-    func passingData(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(Error?)-> ())
+    func callRegister(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(Error?)-> ())
     {
-        network.postData(model: Details(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result, error in
+        network.register(model: RegisterModel(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result, error in
             self.registerResponse = result
             completion(error)
         }
     }
-    func  loginPassing(mail : String, userPassword : String ,completion : @escaping(Error?)-> ()){
-        network.postingLoginData(model: LoginDetails(mail: mail, userPassword: userPassword)){
+    func  callLogin(mail : String, userPassword : String ,completion : @escaping(Error?)-> ()){
+        network.login(model: LoginRequest(mail: mail, userPassword: userPassword)){
             result,error in
             self.loginresponse = result
             completion(error)
@@ -93,10 +93,10 @@ class ViewModel
             completionHandler(error)
         }
     }
-    func postAddNewFriend(frdId:Int,userId:Int,completionHandler:@escaping(
+    func callAddNewFriend(frdId:Int,userId:Int,completionHandler:@escaping(
         Error?)->Void)
     {
-        network.addNewFriend(addFrdobj: NewFriendData(friendId: frdId, userId: userId)) { result,error in
+        network.addNewFriend(addFrdobj: AddNewFriendModel(friendId: frdId, userId: userId)) { result,error in
             self.addNewFrndResponse = result
             completionHandler(error)
         }
@@ -109,23 +109,23 @@ class ViewModel
         }
     }
     
-    func profileDetails(completion: @escaping (Error?) -> ()){
-        network.fetchingApidata(userId: self.getUserId ?? 0) { result,error in
+    func getProfileDetails(completion: @escaping (Error?) -> ()){
+        network.displayProfile(userId: self.getUserId ?? 0) { result,error in
             self.profileDetailsDataResponse = result?.data
             completion(error)
         }
     }
     
     
-    func PrintResponse(postData : String,completion: @escaping (Error?) -> ()) {
-        network.updatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result,error in
+    func callCreatePost(postData : String,completion: @escaping (Error?) -> ()) {
+        network.createPost(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result,error in
             self.creataPostResponse = result
             completion(error)
         }
     }
     
     
-    func updateDeletePost(userId :Int,postId : Int,completion : @escaping(Error?)->()){
+    func callDeletePost(userId :Int,postId : Int,completion : @escaping(Error?)->()){
         network.delPost(userId: userId, postId: postId) { result,error in
             self.deleteResponse = result
             completion(error)

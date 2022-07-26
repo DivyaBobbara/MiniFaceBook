@@ -8,20 +8,20 @@
 import UIKit
 
 class LogOutViewController: UIViewController {
-    let viewModelLogOut = ViewModel()
+    let logOutViewModelObj = ViewModel()
     var window : UIWindow?
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModelLogOut.getUserIdInfo()
+        logOutViewModelObj.getUserIdInfo()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        self.navigationController?.isNavigationBarHidden = true
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let sceneDelegate = windowScene.delegate as? SceneDelegate
-        else {
-            return
-        }
+//        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//              let sceneDelegate = windowScene.delegate as? SceneDelegate
+//        else {
+//            return
+//        }
         func resetWindow(with vc: UIViewController?) {
             guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
                 fatalError("could not get scene delegate ")
@@ -31,6 +31,7 @@ class LogOutViewController: UIViewController {
         func showViewController(with id: String) {
             let vc = storyboard?.instantiateViewController(identifier: id) as! LoginViewController
             let navVc = UINavigationController(rootViewController: vc)
+            navVc.isNavigationBarHidden = true
             resetWindow(with: navVc)
         }
         let alert = UIAlertController(title: "Logout?", message: "Are You Sure?", preferredStyle: .alert)
@@ -38,20 +39,15 @@ class LogOutViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "logout", style: .default, handler: { [weak self] (_) in
             
             
-            self?.viewModelLogOut.callLogOutApi {error  in
+            self?.logOutViewModelObj.callLogOut{ error  in
                 
-            
-                print(error)
-                if error == nil {
-                    var logoutstatus = self?.viewModelLogOut.logoutResponse?.data.loginStatus
-                    UserDefaults.standard.set(logoutstatus, forKey: "loginstatus")
-                }
-                else {
+                if error != nil {
                     self?.displayAlert(message: error?.localizedDescription ?? "")
                 }
-                
-                
-                
+                else{
+                    var logoutstatus = self?.logOutViewModelObj.logoutResponse?.data.loginStatus
+                    UserDefaults.standard.set(logoutstatus, forKey: "loginstatus")
+                }
             }
             showViewController(with: "LoginViewController")
         }))

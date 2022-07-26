@@ -28,7 +28,7 @@ enum httpMethods : String {
     case putMethod = "PUT"
     case deleteMethod = "DELETE"
 }
-class putApi {
+class NetworkingLayer {
     let baseUrl = "http://stagetao.gcf.education:3000/"
 
     func putMethodApiCalling<T : Decodable>(url:URL,completion : @escaping (T?,Error?)-> Void) {
@@ -57,15 +57,11 @@ class putApi {
     }
     
     func getMethodApiCalling <T : Decodable>(url : URL,completion : @escaping (T?,Error?) -> Void) {
-//        guard let url = url else {
-//            return
-//        }
         var request = URLRequest(url: url)
         request.httpMethod = httpMethods.getMethod.rawValue
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             guard let data = data , error == nil else {
-                
                 return completion(nil,error)
             }
             
@@ -78,7 +74,6 @@ class putApi {
                 completion(model,nil)
             }
             catch{
-//                completion(error))
                 print(error.localizedDescription)
             }
             
@@ -105,7 +100,6 @@ class putApi {
                 return completion(nil,error)
             }
             guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else {
-                //                throw URLError(.badServerResponse)
                 return
             }
             do {

@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewDataSource {
     
-    var viewModelObj = ViewModel()
+    var profileViewModelObj = ViewModel()
     
     @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
@@ -17,9 +17,9 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         tableview.allowsSelection = false
         tableview.delegate = self
         tableview.dataSource = self
-        viewModelObj.getUserIdInfo()
+        profileViewModelObj.getUserIdInfo()
         
-        viewModelObj.profileDetails { error in
+        profileViewModelObj.getProfileDetails { error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
@@ -81,19 +81,19 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
             return cell
         case 2 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "pswCell", for: indexPath) as! ChangePasswordTableViewCell
-            cell.nameLabel.text = viewModelObj.profileDetailsDataResponse?.userName
+            cell.nameLabel.text = profileViewModelObj.profileDetailsDataResponse?.userName
             cell.pswbutton.addTarget(self, action: #selector(pswChangeTapped(_:)), for: .touchUpInside)
             return cell
         case 3 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactTableViewCell
-            cell.mailIdLabel.text = viewModelObj.profileDetailsDataResponse?.mail
+            cell.mailIdLabel.text = profileViewModelObj.profileDetailsDataResponse?.mail
             cell.phnNumlabel.text = "9873456927"
             
             return cell
         case 4 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "basicInfoCell", for: indexPath) as! BasicInfoTableViewCell
-            cell.dobLabel.text = viewModelObj.profileDetailsDataResponse?.dateOfBirth
-            cell.genderLabel.text = viewModelObj.profileDetailsDataResponse?.gender
+            cell.dobLabel.text = profileViewModelObj.profileDetailsDataResponse?.dateOfBirth
+            cell.genderLabel.text = profileViewModelObj.profileDetailsDataResponse?.gender
             return cell
         default :
             let cell = tableview.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)

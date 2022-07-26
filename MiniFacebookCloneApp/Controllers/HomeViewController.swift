@@ -9,13 +9,13 @@ import UIKit
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    let viewModelHome = ViewModel()
+    let homeViewModelObj = ViewModel()
     var postIdValue : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModelHome.getUserIdInfo()
+        homeViewModelObj.getUserIdInfo()
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
                                     #selector(handleRefresh),
@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
         callGetPosts()
     }
     func callGetPosts() {
-        viewModelHome.getPostDetails { error in
+        homeViewModelObj.getPostDetails { error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
         }
     }
     func callSuggestedFrnds() {
-        viewModelHome.getSuggestedFrdsData { error in
+        homeViewModelObj.getSuggestedFrdsData { error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
@@ -63,8 +63,10 @@ class HomeViewController: UIViewController {
     {
         var index = sender.tag
         print(index)
-        let likeStatus = viewModelHome.getPostsResponse?.data[index].likeStatus
-        viewModelHome.callUpdateLikes(getUserId: viewModelHome.getUserId ?? 0, getPostId: viewModelHome.getPostsResponse?.data[index].postId ?? 0, getStatus: !(likeStatus!)) {error   in
+        guard let likeStatus = homeViewModelObj.getPostsResponse?.data[index].likeStatus else {
+            return
+        }
+        homeViewModelObj.callUpdateLikes(getUserId: homeViewModelObj.getUserId ?? 0, getPostId: homeViewModelObj.getPostsResponse?.data[index].postId ?? 0, getStatus: !(likeStatus)) {error   in
 //
             self.callGetPosts()
                 
@@ -73,12 +75,18 @@ class HomeViewController: UIViewController {
     
 
     @objc func deletePost(sender: UIButton) {
-        let index = sender.tag
-        print(viewModelHome.getPostsResponse?.data[index].postId)
-        let delPostId = viewModelHome.getPostsResponse?.data[index].postId
-        viewModelHome.updateDeletePost(userId: viewModelHome.getUserId ?? 0, postId: delPostId ?? 0) { error in
-            self.callGetPosts()
-        }
+        let alert = UIAlertController(title: "Are You Sure?", message:"", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { [weak self] (_) in
+            let index = sender.tag
+            print(self?.homeViewModelObj.getPostsResponse?.data[index].postId)
+            let delPostId = self?.homeViewModelObj.getPostsResponse?.data[index].postId
+            self?.homeViewModelObj.callDeletePost(userId: self?.homeViewModelObj.getUserId ?? 0, postId: delPostId ?? 0) { error in
+                self?.callGetPosts()
+            }
+        }))
+        present(alert, animated: true)
+        
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         callGetPosts()
@@ -98,7 +106,7 @@ class HomeViewController: UIViewController {
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModelHome.getPostsResponse?.data.count ?? 0 + 2
+        return homeViewModelObj.getPostsResponse?.data.count ?? 0 + 2
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let val = indexPath.row
@@ -109,10 +117,10 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         }
         if val == 1{
             let customCell = tableView.dequeueReusableCell(withIdentifier: "Cell1",for: indexPath) as! SuggestedFrdsTableViewCell
-            customCell.configure(objectArray: self.viewModelHome.suggestedFrndsResponseData)
+            customCell.configure(objectArray: self.homeViewModelObj.suggestedFrndsResponseData)
             customCell.didClickAddFriend = { [weak self] indexPath in
-                let getFrdId = (self?.viewModelHome.suggestedFrndsResponseData[indexPath ?? 0].friendId ?? 0)
-                self?.viewModelHome.postAddNewFriend(frdId : getFrdId, userId: self?.viewModelHome.getUserId ?? 0) { error in
+                let getFrdId = (self?.homeViewModelObj.suggestedFrndsResponseData[indexPath ?? 0].friendId ?? 0)
+                self?.homeViewModelObj.callAddNewFriend(frdId : getFrdId, userId: self?.homeViewModelObj.getUserId ?? 0) { error in
                     self?.callSuggestedFrnds()
                     
                 }
@@ -122,9 +130,9 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for:indexPath) as! PostsTableViewCell
             cell.profileImg.image = UIImage(named: "profile")
-            cell.userName.text = viewModelHome.getPostsResponse?.data[indexPath.row-2].userName
+            cell.userName.text = homeViewModelObj.getPostsResponse?.data[indexPath.row-2].userName
             cell.timeLbl.text = "08:24"
-            cell.postDataLbl.text = viewModelHome.getPostsResponse?.data[indexPath.row - 2].postData
+            cell.postDataLbl.text = homeViewModelObj.getPostsResponse?.data[indexPath.row - 2].postData
             cell.postImg.image = UIImage(named: "postImg")
             cell.shareCountLbl.text = "12 shares"
             cell.commentsCountLbl.text = "35 comments"
@@ -132,16 +140,16 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.shareIcon.image = UIImage(named:"share")
             cell.commentsLbl.text = "Comments"
             cell.commentIcon.image = UIImage(named: "comment")
-            cell.likesCount.text = String(viewModelHome.getPostsResponse?.data[indexPath.row-2 ].totalLikes ?? 0)
+            cell.likesCount.text = String(homeViewModelObj.getPostsResponse?.data[indexPath.row-2 ].totalLikes ?? 0)
             cell.delPost.addTarget(self, action: #selector(deletePost), for:.touchUpInside)
             cell.delPost.tag = indexPath.row - 2
-            if let isCreated = viewModelHome.getPostsResponse?.data[indexPath.row-2].iscreated, (isCreated == "True") {
+            if let isCreated = homeViewModelObj.getPostsResponse?.data[indexPath.row-2].iscreated, (isCreated == "True") {
                 cell.delPost.isHidden = false
             }
             else {
                 cell.delPost.isHidden = true
             }
-            if viewModelHome.getPostsResponse?.data[indexPath.row - 2].likeStatus == true{
+            if homeViewModelObj.getPostsResponse?.data[indexPath.row - 2].likeStatus == true{
                 cell.likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
                 cell.likeLbl.text = "Liked"
             }

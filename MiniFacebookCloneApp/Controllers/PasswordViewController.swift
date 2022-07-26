@@ -8,7 +8,7 @@
 import UIKit
 
 class PasswordViewController: UIViewController {
-    let passwordViewModel = ViewModel()
+    let passwordViewModelObj = ViewModel()
     let network = Networker()
     var successMsg : String?
     var errormsg : String?
@@ -21,7 +21,7 @@ class PasswordViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        passwordViewModel.getUserIdInfo()
+        passwordViewModelObj.getUserIdInfo()
     }
     
     @IBAction func backToLogin(_ sender: Any) {
@@ -40,10 +40,13 @@ class PasswordViewController: UIViewController {
         else if(password.text != confirmPsw.text){
             displayAlert(message: "Password doesn't match")
         }
+        else if isValidPassword(testStr: password.text) != true {
+              displayAlert(message: "Password must contain 1 upperCase,1 digit,1 lowercase")
+            }
         else{
-            network.postPassword(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
+            network.changePassword(userId: passwordViewModelObj.getUserId ?? 0, model:ChangePasswordRequest(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
                 let data = Data(result.utf8)
-                let model = try? JSONDecoder().decode(Response.self,from:data)
+                let model = try? JSONDecoder().decode(ChangePasswordResponse.self,from:data)
                 DispatchQueue.main.async {
                     self.successMsg = model?.message
                     self.displayAlert(message: self.successMsg!)
@@ -62,4 +65,12 @@ class PasswordViewController: UIViewController {
             Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
                 messageVC.dismiss(animated: true, completion: nil)})}
     }
+    func isValidPassword(testStr:String?) -> Bool {
+        guard testStr != nil else { return false }
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
+        if !passwordTest.evaluate(with: testStr){
+          return false
+        }
+        return true
+      }
 }

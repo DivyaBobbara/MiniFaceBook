@@ -9,7 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    let loginViewModel = ViewModel()
+    let loginViewModelObj = ViewModel()
     var valueOfId : Int?
     var login : Bool?
     @IBOutlet weak var imageview :UIImageView!
@@ -28,10 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func forgetPsw(_ sender: Any) {
-        guard let pswStoryboard = self.storyboard?.instantiateViewController(withIdentifier: "PasswordViewController") else{
-            return
-        }
-        navigationController?.pushViewController(pswStoryboard, animated: true)
+        self.displayAlert(message: "We don't have forget pswd Api")
     }
     
     @IBAction func tappedOnButton(_ sender : Any)
@@ -62,17 +59,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            loginViewModel.loginPassing(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { error in
+            loginViewModelObj.callLogin(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { error in
                 if error != nil {
                     self.displayAlert(message: error?.localizedDescription ?? "")
                     return
                 }
                 else{
                     DispatchQueue.main.async { [self] in
-                                          UserDefaults.standard.set(loginViewModel.loginresponse?.data.userId, forKey: "keyId")
-                        UserDefaults.standard.set(loginViewModel.loginresponse?.data.loginStatus, forKey: "loginstatus")
-                        if loginViewModel.loginresponse?.errorCode != nil{
-                            self.displayAlert(message: loginViewModel.loginresponse?.message ?? "")
+                                          UserDefaults.standard.set(loginViewModelObj.loginresponse?.data.userId, forKey: "keyId")
+                        UserDefaults.standard.set(loginViewModelObj.loginresponse?.data.loginStatus, forKey: "loginstatus")
+                        if loginViewModelObj.loginresponse?.errorCode != nil{
+                            self.displayAlert(message: loginViewModelObj.loginresponse?.message ?? "")
                         }
                         else {
                             
