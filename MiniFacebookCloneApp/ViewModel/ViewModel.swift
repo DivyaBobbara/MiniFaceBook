@@ -31,12 +31,12 @@ class ViewModel
     let network = Networker()
     func passingData(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(String)-> ())
     {
-        network.postData(model: Details(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result in
+        network.userRegisteration(model: Details(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result in
             completion(result)
         }
     }
     func  loginPassing(mail : String, userPassword : String ,completion : @escaping(String)-> ()){
-        network.postingLoginData(model: LoginDetails(mail: mail, userPassword: userPassword)){ result in
+        network.userLogin(model: LoginDetails(mail: mail, userPassword: userPassword)){ result in
             completion(result)
         }
     }
@@ -84,7 +84,7 @@ class ViewModel
     }
     var model1 : ProfileDetails?
     func profileDetails(completion: @escaping (ProfileDetails) -> ()){
-        network.fetchingApidata(userId: self.getUserId ?? 0) { result in
+        network.fetchingProfileData(userId: self.getUserId ?? 0) { result in
             self.model1 = result
             completion(result)
         }
@@ -93,7 +93,7 @@ class ViewModel
     var createPostModelObj : CreatePostModel?
     var createresponseObj : Welcome?
     func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-        network.updatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
+        network.createPost(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
             completion(result)
         }
     }

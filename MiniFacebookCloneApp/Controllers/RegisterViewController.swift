@@ -7,8 +7,7 @@
 
 import UIKit
 
-
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController,UITextFieldDelegate {
     
     let classModel = ViewModel()
     var msg :  String?
@@ -19,22 +18,36 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordTxt:UITextField!
     @IBOutlet weak var cnfpasswordTxt:UITextField!
     @IBOutlet weak var genderTxt:UITextField!
-    @IBOutlet weak var eyeButton:UIButton!
-    
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var loginbutton : UIButton!
+    @IBOutlet weak var tableview : UITableView!
+    
+    
+    var datePicker : UIDatePicker!
+    
+    var list = ["Male","Female"]
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginbutton.layer.cornerRadius = 8
         registerBtn.layer.cornerRadius = 8
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.isHidden = true
+        self.pickUpDate(self.birthTxt)
     }
     
     @IBAction func backToLogin(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    @IBAction func dropDownBtn(_ sender: Any) {
+        tableview.isHidden = false
+        
+    }
     
-    
-    @IBAction func buttonTapped(_ sender: Any)
+    @IBAction func registerSubmitButton(_ sender: Any)
     {
         if userNameTxt.text == ""
         {
@@ -66,7 +79,10 @@ class RegisterViewController: UIViewController {
         }
         if invalidEmail(emailTxt.text ?? "") != "OK"
         {
-            displayAlert(message: " correct email  format")
+            displayAlert(message: "Email is Invalid")
+        }
+        if isValidPassword(testStr: passwordTxt.text) != true {
+            displayAlert(message: "Password must contain 1 upperCase,1 digit,1 lowercase")
         }
         else{
             classModel.passingData(userName: userNameTxt.text ?? "", password: passwordTxt.text ?? "", dateOfbirth: birthTxt.text ?? "", email: emailTxt.text ?? "", gender: genderTxt.text ?? ""){ result in
@@ -79,10 +95,53 @@ class RegisterViewController: UIViewController {
                     }
                     self.displayAlert(message: model?.message ?? "")
                 }
+                self.navigationController?.popToRootViewController(animated: true)
             }
-            navigationController?.popToRootViewController(animated: true)
+            
         }
         
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        pickUpDate(self.birthTxt)
+    }
+    
+    func pickUpDate(_ textField : UITextField){
+        
+        
+        datePicker = UIDatePicker(frame:CGRect(x: 0, y: 0, width: view.frame.size.width, height: 216))
+        datePicker.backgroundColor = UIColor.white
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.datePickerMode = .date
+        textField.inputView = self.datePicker
+        
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        textField.inputAccessoryView = toolBar
+        
+    }
+    
+    
+    @objc func doneClick() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        birthTxt.text = dateFormatter.string(from: datePicker.date)
+        birthTxt.resignFirstResponder()
+    }
+    @objc func cancelClick() {
+        birthTxt.resignFirstResponder()
     }
     func displayAlert(message : String)
     {
@@ -101,4 +160,40 @@ class RegisterViewController: UIViewController {
         }
         return "OK"
     }
+    func isValidPassword(testStr:String?) -> Bool {
+        guard testStr != nil else { return false }
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
+        if !passwordTest.evaluate(with: testStr){
+            return false
+        }
+        return true
+    }
 }
+extension RegisterViewController : UITableViewDataSource,UITableViewDelegate{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return list.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = list[indexPath.row]
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30.0
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.genderTxt.text = list[indexPath.row]
+        self.tableview.isHidden = true
+        
+    }
+}
+
+
+
+
+
+
+

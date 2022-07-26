@@ -41,7 +41,7 @@ class PasswordViewController: UIViewController {
             displayAlert(message: "Password doesn't match")
         }
         else{
-            network.postPassword(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
+            network.passwordChange(userId: passwordViewModel.getUserId ?? 0, model:Model(newPassword: password.text ?? "", confirmPassword: confirmPsw.text ?? "") , completion: {result in
                 let data = Data(result.utf8)
                 let model = try? JSONDecoder().decode(Response.self,from:data)
                 DispatchQueue.main.async {

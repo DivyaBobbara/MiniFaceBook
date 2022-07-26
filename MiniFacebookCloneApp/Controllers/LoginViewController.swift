@@ -10,13 +10,13 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let classModel = ViewModel()
-    var valueOfId : Int?
-    var login : Bool?
+    var valueOfUserId : Int?
+    var loginStatusValue : Bool?
     @IBOutlet weak var imageview :UIImageView!
     @IBOutlet weak var loginButton :UIButton!
     @IBOutlet weak var registerButton :UIButton!
     @IBOutlet weak var forgetButton :UIButton!
-    @IBOutlet weak var nameTxt :UITextField!
+    @IBOutlet weak var mailTxt :UITextField!
     @IBOutlet weak var passwordTxt :UITextField!
     
     override func viewDidLoad() {
@@ -34,18 +34,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         navigationController?.pushViewController(pswStoryboard, animated: true)
     }
     
-    @IBAction func tappedOnButton(_ sender : Any)
+    @IBAction func goToRegisterBtn(_ sender : Any)
     {
-        guard let  secondVc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")else
-        {
+        guard let  secondVc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")else{
             return
         }
         navigationController?.pushViewController(secondVc, animated: true)
     }
     
-    @IBAction func tappedButton(_ sender : Any)
+    @IBAction func userLoginBtn(_ sender : Any)
     {
-        if nameTxt.text == ""
+        if mailTxt.text == ""
         {
             
             displayAlert(message: "mailid is empty")
@@ -62,26 +61,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            classModel.loginPassing(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { result in
+            classModel.loginPassing(mail: mailTxt.text ?? "", userPassword: passwordTxt.text ?? "") { result in
                 let data = Data(result.utf8)
                 
                 let model = try? JSONDecoder().decode(LoginResponse.self, from: data)
                 let errorModel = try? JSONDecoder().decode(LoginError.self, from: data)
                 DispatchQueue.main.async {
-                    self.valueOfId = model?.data.userId
-                    self.login = model?.data.loginStatus
-                    UserDefaults.standard.set(self.valueOfId, forKey: "keyId")
-                    UserDefaults.standard.set(self.login, forKey: "loginstatus")
                     if errorModel?.errorCode != nil {
                         self.displayAlert(message: errorModel?.message ?? "")
                     }
                     else {
+                        self.valueOfUserId = model?.data.userId
+                        self.loginStatusValue = model?.data.loginStatus
+                        
+                        UserDefaults.standard.set(self.valueOfUserId, forKey: "keyId")
+                        UserDefaults.standard.set(self.loginStatusValue, forKey: "loginstatus")
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
                         self.navigationController?.pushViewController(tabBarVC, animated: true)
                     }
-                    self.nameTxt.text = ""
-                    self.passwordTxt.text = ""
+                    
                 }
             }
         }

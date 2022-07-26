@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
-//  MiniFaceBook
+// ViewController.swift
+// MiniFaceBook
 //
-//  Created by Naga Divya Bobbara on 18/07/22.
+// Created by Naga Divya Bobbara on 18/07/22.
 //
 
 import UIKit
@@ -28,48 +28,54 @@ class HomeViewController: UIViewController {
         tableView.register(createPostNib, forCellReuseIdentifier: "Cell0")
         let suggestedNib = UINib(nibName: "SuggestedFrdsTableViewCell", bundle: nil)
         tableView.register(suggestedNib, forCellReuseIdentifier: "Cell1")
+        callGetPostsApi()
+    }
+//    func showAlert(title: String, message: String) {
+//         let actionSheetController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//
+//         // add close button
+//         let cancelAction: UIAlertAction = UIAlertAction(title: "Close", style: .cancel) { _ in }
+//         actionSheetController.addAction(cancelAction)
+//
+//         // show on self
+//         self.present(actionSheetController, animated: true, completion: nil)
+//    }
+    func callGetPostsApi(){
         viewModelHome.getPostDetails { postData in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    
+    func callSuggestedFrdsApi(){
+        viewModelHome.getSuggestedFrdsData { result in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     @objc func updateLikesMethod(sender:UIButton)
     {
-        var index = sender.tag
+        let index = sender.tag
         print(index)
         let likeStatus = viewModelHome.getPostsObj[index].likeStatus
-        print("likeStatus\(likeStatus)")
+        //    print("likeStatus\(likeStatus)")
         viewModelHome.callUpdateLikes(getUserId: viewModelHome.getUserId ?? 0, getPostId: viewModelHome.getPostsObj[index].postId ?? 0, getStatus: !(likeStatus!)) { UpdateLikes in
-            self.viewModelHome.getPostDetails { GetPosts in
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
+            self.callGetPostsApi()
         }
     }
     @objc func deletePost(sender: UIButton) {
         let index = sender.tag
-        print(viewModelHome.getPostsObj[index].postId)
+        //    print(viewModelHome.getPostsObj[index].postId)
         let delPostId = viewModelHome.getPostsObj[index].postId
         viewModelHome.updateDeletePost(userId: viewModelHome.getUserId ?? 0, postId: delPostId ?? 0) { delPost in
-            self.viewModelHome.getPostDetails { GetPosts in
-                DispatchQueue.main.async {
-//                    self.viewModelHome.getPostsObj.remove(at: index)
-//                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                    self.tableView.reloadData()
-                }
-            }
+            self.callGetPostsApi()
         }
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        viewModelHome.getPostDetails { getPosts in
-            self.tableView.reloadData()
-            refreshControl.endRefreshing()
-        }
+        callGetPostsApi()
     }
-    @objc func navigateToCreatePost(textField  :UITextField){
+    @objc func navigateToCreatePost(textField :UITextField){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
         self.navigationController?.pushViewController(cPostVc, animated: true)
@@ -77,16 +83,8 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        viewModelHome.getSuggestedFrdsData { result in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        viewModelHome.getPostDetails{ postData in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        callSuggestedFrdsApi()
+        callGetPostsApi()
         
     }
 }
@@ -114,11 +112,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
                             self?.showAlertMsg(errCode : response?.errorCode ?? 0)
                         }
                     }
-                    self?.viewModelHome.getSuggestedFrdsData { res in
-                        DispatchQueue.main.async {
-                            self?.tableView.reloadData()
-                        }
-                    }
+                    self?.callSuggestedFrdsApi()
                 }
             }
             return customCell
@@ -170,11 +164,3 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
 }
-    
-    
-     
-    
-
-
-
-

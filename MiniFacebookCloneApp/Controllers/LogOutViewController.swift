@@ -50,8 +50,8 @@ class LogOutViewController: UIViewController {
         present(alert,animated: true)
     }
 }
-  
 
-   
+
+
 
 

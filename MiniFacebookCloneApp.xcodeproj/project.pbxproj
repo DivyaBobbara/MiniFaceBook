@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		412E5296288ED78B007C0038 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412E5295288ED78B007C0038 /* NetworkLayer.swift */; };
 		41CD82A028897C220056AC32 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CD829F28897C220056AC32 /* PasswordViewController.swift */; };
 		41CD82A328897D920056AC32 /* ProfileNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CD82A128897D920056AC32 /* ProfileNameTableViewCell.swift */; };
 		41CD82A428897D920056AC32 /* ProfileNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41CD82A228897D920056AC32 /* ProfileNameTableViewCell.xib */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		412E5295288ED78B007C0038 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		41CD829F28897C220056AC32 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		41CD82A128897D920056AC32 /* ProfileNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameTableViewCell.swift; sourceTree = "<group>"; };
 		41CD82A228897D920056AC32 /* ProfileNameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileNameTableViewCell.xib; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				D53A55862889351400BE0B45 /* Networker.swift */,
+				412E5295288ED78B007C0038 /* NetworkLayer.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				7C215BC528894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift in Sources */,
 				7CFD3D4A288879120039681E /* AppDelegate.swift in Sources */,
 				7C215BD628894F7F005BA2D9 /* ProfileViewController.swift in Sources */,
+				412E5296288ED78B007C0038 /* NetworkLayer.swift in Sources */,
 				7C215BD428894F6D005BA2D9 /* CreatePostViewController.swift in Sources */,
 				7CFD3D54288879120039681E /* MiniFacebookCloneApp.xcdatamodeld in Sources */,
 				7C215BBE28894B59005BA2D9 /* TabBarViewController.swift in Sources */,

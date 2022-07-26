@@ -54,7 +54,7 @@ struct DisplayFriendsResponse:Codable{
     let message : String?
     let data : [MyResult]
     let errorCode : String?
- 
+    
 }
 struct MyResult:Codable{
     let userId : Int?
@@ -162,33 +162,33 @@ struct ErrorData : Codable{
 //-------Jhansi
 
 struct CreatePostModel : Codable {
-  let userId : Int?
-  let postData : String?
+    let userId : Int?
+    let postData : String?
 }
 struct Welcome: Codable {
-  let status, message: String?
-  let data: DataClasses?
-  let errorCode: String?
+    let status, message: String?
+    let data: DataClasses?
+    let errorCode: String?
 }
 struct DataClasses: Codable {
-  let userID: Int?
-  let postData: String?
-
-  enum CodingKeys: String, CodingKey {
-    case userID = "userId"
-    case postData
-  }
+    let userID: Int?
+    let postData: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case userID = "userId"
+        case postData
+    }
 }
 
 struct DelPost : Codable {
-  let status : String?
-  let message : String?
-  let data : DataPostId
-  let errorCode : String?
+    let status : String?
+    let message : String?
+    let data : DataPostId
+    let errorCode : String?
 }
 struct DataPostId : Codable {
-  let userId : String?
-  let postId : String?
+    let userId : String?
+    let postId : String?
 }
 struct UpdateLikes : Codable{
     let status : String?
