@@ -6,102 +6,133 @@
 //
 
 import Foundation
+import UIKit
 class ViewModel
 {
+    let network = Networker()
+    var registerResponse: RegisterResponse?
+    var resgisterErrorResponse : RegisterError?
+    var updateResponse : UpdateLikesModel?
+    var logoutResponse : LogOutResponse?
+    var loginresponse : LoginResponse?
+    var loginErrorResponse :LoginError?
+    var displayFrndsResponse : DisplayFriendsResponse?
+    var displayFrndsResponseData = [DisplayFriendsData]()
+    var suggestedFrndsResponse : SuggestedFriendsResponse?
+    var suggestedFrndsResponseData = [SuggestedFriendsData]()
+    var getPostsResponse : GetPostsModel?
+    var addNewFrndResponse : AddNewFriendResponse?
+    var deleteFrndResponse : DeleteFriendModel?
+    var profileDetailsResponse : ProfileModel?
+    var profileDetailsDataResponse : ProfileDetails?
+    var creataPostResponse : CreatePostResponse?
+    var deleteResponse : DelPostModel?
     var getUserId : Int?
     func getUserIdInfo(){
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
         print(getUserId)
     }
-    func callUpdateLikes(getUserId:Int,getPostId:Int,getStatus:Bool,completionHandler:@escaping(UpdateLikes)->Void)
+    func callUpdateLikes(getUserId:Int,getPostId:Int,getStatus:Bool,completionHandler:@escaping(Error?)->Void)
     {
-        network.updateLikes(userId: getUserId, postId: getPostId, status: getStatus) { updateLikesResponse in
-            completionHandler(updateLikesResponse)
-        }
-        
-    }
-    func callLogOutApi(completionHandler:@escaping(LogOutResponse)->Void)
-    {
-        network.logOutApiCall(userId: self.getUserId ?? 0) { LogOutResponse in
-            completionHandler(LogOutResponse)
+        network.updateLikes(userId: getUserId, postId: getPostId, status: getStatus) { result,error   in
+            self.updateResponse = result
+            completionHandler(error)
         }
     }
     
-    
-    let network = Networker()
-    func passingData(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(String)-> ())
+    func callLogOut(completionHandler:@escaping(Error?)->Void)
     {
-        network.postData(model: Details(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result in
-            completion(result)
+        network.logOut(userId: self.getUserId ?? 0) { result,error   in
+            self.logoutResponse = result
+            completionHandler(error)
         }
     }
-    func  loginPassing(mail : String, userPassword : String ,completion : @escaping(String)-> ()){
-        network.postingLoginData(model: LoginDetails(mail: mail, userPassword: userPassword)){ result in
-            completion(result)
+    func callRegister(userName : String ,password : String,dateOfbirth : String,email : String,gender : String, completion : @escaping(Error?)-> ())
+    {
+        network.register(model: RegisterModel(userName: userName, dateOfBirth: dateOfbirth, gender: gender, mail: email, userPassword: password)) { result, error in
+            self.registerResponse = result
+            completion(error)
+        }
+    }
+    func  callLogin(mail : String, userPassword : String ,completion : @escaping(Error?)-> ()){
+        network.login(model: LoginRequest(mail: mail, userPassword: userPassword)){
+            result,error in
+            self.loginresponse = result
+            completion(error)
         }
     }
     // -------------
-    var myResultObj = [MyResult]()
-    var suggestedFrdsResponseObj = [MyResult1]()
-    var getPostsObj = [MyResult2]()
-    func getDisplayFriendsData(completionHandler:@escaping(DisplayFriendsResponse)->Void)
+    func getDisplayFriendsData(completionHandler:@escaping(Error?)->Void)
     {
         getUserIdInfo()
-        network.displayFriends(userId: self.getUserId ?? 0) { result in
-            self.myResultObj = result.data
+        network.displayFriends(userId: self.getUserId ?? 0) { result,error in
+            guard let result = result else {
+                return
+            }
+            self.displayFrndsResponseData = result.data
             
-            completionHandler(result)
+            completionHandler(error)
         }
     }
-    func getSuggestedFrdsData(completionHandler:@escaping(SuggestedFriendsResponse)->Void)
+    func getSuggestedFrdsData(completionHandler:@escaping(Error?)->Void)
     {
-        network.suggestedFriends(userId: self.getUserId ?? 0) { result in
-            self.suggestedFrdsResponseObj = result.data
-            completionHandler(result)
-        }
-    }
-    var postObj1 : GetPosts?
-    func getPostDetails(completionHandler:@escaping(GetPosts)->Void)
-    {
-        network.getPosts(userId: self.getUserId ?? 0) { postResult in
-            self.getPostsObj = postResult.data
-            completionHandler(postResult)
-        }
-    }
-    func postAddNewFriend(frdId:Int,userId:Int,completionHandler:@escaping(
-        String)->Void)
-    {
-        network.addNewFriend(addFrdobj: AddNewFriend(friendId: frdId, userId: userId)) { result in
-            completionHandler(result)
-        }
-    }
-    func deleteFrdDetails(friendId:Int,userId:Int,completionHandler:@escaping(Any)->Void)
-    {
-        network.deleteFriend(frdId: friendId, userId: userId) { res in
-            print(res)
-            completionHandler(res)
-        }
-    }
-    var model1 : ProfileDetails?
-    func profileDetails(completion: @escaping (ProfileDetails) -> ()){
-        network.fetchingApidata(userId: self.getUserId ?? 0) { result in
-            self.model1 = result
-            completion(result)
+        getUserIdInfo()
+        network.suggestedFriends(userId: self.getUserId ?? 0) { result,error in
+            
+            guard let result = result else {
+                return
+            }
+            self.suggestedFrndsResponseData = result.data
+            completionHandler(error)
         }
     }
     
-    var createPostModelObj : CreatePostModel?
-    var createresponseObj : Welcome?
-    func PrintResponse(postData : String,completion: @escaping (String) -> ()) {
-        network.updatingByTextFields(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result in
-            completion(result)
+    func getPostDetails(completionHandler:@escaping(Error?)->Void)
+    {
+        network.getPosts(userId: self.getUserId ?? 0) {result,error in
+            self.getPostsResponse = result
+            completionHandler(error)
+        }
+    }
+    func callAddNewFriend(frdId:Int,userId:Int,completionHandler:@escaping(
+        Error?)->Void)
+    {
+        network.addNewFriend(addFrdobj: AddNewFriendModel(friendId: frdId, userId: userId)) { result,error in
+            self.addNewFrndResponse = result
+            completionHandler(error)
+        }
+    }
+    func deleteFrdDetails(friendId:Int,userId:Int,completionHandler:@escaping(Error?)->Void)
+    {
+        network.deleteFriend(frdId: friendId, userId: userId) { result,error in
+            self.deleteFrndResponse = result
+            completionHandler(error)
+        }
+    }
+    
+    func getProfileDetails(completion: @escaping (Error?) -> ()){
+        network.displayProfile(userId: self.getUserId ?? 0) { result,error in
+            self.profileDetailsDataResponse = result?.data
+            completion(error)
         }
     }
     
     
-    func updateDeletePost(userId :Int,postId : Int,completion : @escaping(DelPost)->()){
-        network.delPost(userId: userId, postId: postId) { result in
-            completion(result)
+    func callCreatePost(postData : String,completion: @escaping (Error?) -> ()) {
+        network.createPost(requestObject: CreatePostModel(userId: getUserId ,postData: postData)) { result,error in
+            self.creataPostResponse = result
+            completion(error)
+        }
+    }
+    
+    
+    func callDeletePost(userId :Int,postId : Int,completion : @escaping(Error?)->()){
+        network.delPost(userId: userId, postId: postId) { result,error in
+            self.deleteResponse = result
+            completion(error)
         }
     }
 }
+
+
+

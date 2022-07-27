@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               let storyboard = UIStoryboard(name: "Main", bundle: nil)
               let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
                 let navigationController = UINavigationController(rootViewController: tabBarVC)
+                navigationController.isNavigationBarHidden = true
                 window.rootViewController = navigationController
                 self.window = window
                 window.makeKeyAndVisible()
@@ -32,11 +33,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               let storyboard = UIStoryboard(name: "Main", bundle: nil)
               let tabBarVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
                 let navigationController = UINavigationController(rootViewController: tabBarVC)
+                navigationController.isNavigationBarHidden = true
                 window.rootViewController = navigationController
                 self.window = window
                 window.makeKeyAndVisible()
                 
             }
+        NetworkMonitor.shared.startMonitoring()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

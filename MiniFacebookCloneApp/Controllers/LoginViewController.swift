@@ -9,7 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    let classModel = ViewModel()
+    let loginViewModelObj = ViewModel()
     var valueOfId : Int?
     var login : Bool?
     @IBOutlet weak var imageview :UIImageView!
@@ -28,10 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func forgetPsw(_ sender: Any) {
-        guard let pswStoryboard = self.storyboard?.instantiateViewController(withIdentifier: "PasswordViewController") else{
-            return
-        }
-        navigationController?.pushViewController(pswStoryboard, animated: true)
+        self.displayAlert(message: "We don't have forget pswd Api")
     }
     
     @IBAction func tappedOnButton(_ sender : Any)
@@ -62,37 +59,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            classModel.loginPassing(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { result in
-                let data = Data(result.utf8)
-                
-                let model = try? JSONDecoder().decode(LoginResponse.self, from: data)
-                let errorModel = try? JSONDecoder().decode(LoginError.self, from: data)
-                DispatchQueue.main.async {
-                    self.valueOfId = model?.data.userId
-                    self.login = model?.data.loginStatus
-                    UserDefaults.standard.set(self.valueOfId, forKey: "keyId")
-                    UserDefaults.standard.set(self.login, forKey: "loginstatus")
-                    if errorModel?.errorCode != nil {
-                        self.displayAlert(message: errorModel?.message ?? "")
-                    }
-                    else {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
-                        self.navigationController?.pushViewController(tabBarVC, animated: true)
-                    }
-                    self.nameTxt.text = ""
-                    self.passwordTxt.text = ""
+            loginViewModelObj.callLogin(mail: nameTxt.text ?? "", userPassword: passwordTxt.text ?? "") { error in
+                if error != nil {
+                    self.displayAlert(message: error?.localizedDescription ?? "")
+                    return
                 }
+                else{
+                    
+                        
+                    if self.loginViewModelObj.loginresponse?.status != "success" {
+//                        print("vduvduwqeho")
+                        self.displayAlert(message: self.loginViewModelObj.loginresponse?.message ?? "")
+                        }
+                        else {
+                            UserDefaults.standard.set(self.loginViewModelObj.loginresponse?.data?.userId, forKey: "keyId")
+                            UserDefaults.standard.set(self.loginViewModelObj.loginresponse?.data?.loginStatus, forKey: "loginstatus")
+                            DispatchQueue.main.async {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
+                            self.navigationController?.pushViewController(tabBarVC, animated: true)
+                        }
+                        }
+//                        self.nameTxt.text = ""
+//                        self.passwordTxt.text = ""
+                    
+                }
+                
             }
         }
     }
     func displayAlert(message : String)
     {
         let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        present(messageVC, animated: true) {
+        DispatchQueue.main.async {
+          
+            self.present(messageVC, animated: true) {
             Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
                 messageVC.dismiss(animated: true, completion: nil)})
-            
+        }
         }
     }
 }

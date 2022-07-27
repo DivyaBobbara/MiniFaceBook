@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchFrdsTableViewCell: UITableViewCell {
-    var vmObjSearch = [MyResult]()
+    var vmObjSearch = [DisplayFriendsData]()
     
     @IBOutlet weak var backToHomeBtn: UIButton!
     @IBOutlet weak var friendCount: UILabel!
@@ -22,7 +22,7 @@ class SearchFrdsTableViewCell: UITableViewCell {
         
         
     }
-    func config(newArrObjSearch:[MyResult]){
+    func config(newArrObjSearch:[DisplayFriendsData]){
         self.vmObjSearch = newArrObjSearch
         self.friendCount.text = "\(self.vmObjSearch.count) Friends"
     }

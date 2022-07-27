@@ -6,19 +6,19 @@
 //
 
 import Foundation
-struct Details : Codable {
+struct RegisterModel : Codable {
     let userName, dateOfBirth, gender, mail: String?
     let userPassword: String?
 }
-struct LoginDetails: Codable {
-    let mail, userPassword: String
+struct LoginRequest: Codable {
+    let mail, userPassword: String?
 }
 struct LoginResponse : Codable {
     let status, message: String?
-    let data: DataClass
-    let errorCode: String?
+    let data: LoginResponseData?
+    let errorCode: Int?
 }
-struct DataClass: Codable {
+struct LoginResponseData: Codable {
     let userId : Int?
     let loginStatus: Bool?
 }
@@ -33,10 +33,10 @@ struct DataModel : Codable
 }
 struct RegisterResponse: Codable {
     let status, message: String?
-    let data: DataRegister
-    let erroCode: String?
+    let data: RegisterResponseData
+    let errorCode: Int?
 }
-struct DataRegister: Codable {
+struct RegisterResponseData: Codable {
     let userName, gender, dateOfBirth, mail: String?
 }
 
@@ -52,28 +52,28 @@ struct DataError: Codable {
 struct DisplayFriendsResponse:Codable{
     let status : String?
     let message : String?
-    let data : [MyResult]
+    let data : [DisplayFriendsData]
     let errorCode : String?
  
 }
-struct MyResult:Codable{
+struct DisplayFriendsData:Codable{
     let userId : Int?
     let userName : String?
 }
 struct SuggestedFriendsResponse : Codable{
-    let data : [MyResult1]
+    let data : [SuggestedFriendsData]
     
 }
-struct MyResult1 : Codable{
+struct SuggestedFriendsData : Codable{
     let friendId : Int?
     let friendName : String?
 }
-struct GetPosts:Codable{
+struct GetPostsModel:Codable{
     let status ,message : String?
-    let data : [MyResult2]
+    let data : [GetPostData]
     let errorCode : String?
 }
-struct MyResult2 : Codable{
+struct GetPostData : Codable{
     let postId : Int?
     let userName : String?
     let postData : String?
@@ -83,34 +83,41 @@ struct MyResult2 : Codable{
     let userId : Int?
 }
 
-struct AddNewFriend : Codable{
-    let friendId : Int
-    let userId : Int
+struct AddNewFriendResponse : Codable{
+    
     var message : String?
     var status : String?
-    var data : [NewFriendData]?
-    var errorCode : String?
-    
-    init(friendId:Int,userId:Int){
-        self.friendId = friendId
-        self.userId = userId
-    }
+    var data : AddNewFriendsData?
+    var errorCode : Int?
+   
 }
-struct NewFriendData : Codable{
+struct AddNewFriendsData : Codable{
+    let friendId : Int?
+    let userId : Int?
+}
+struct AddNewFriendModel : Codable{
     let friendId : Int?
     let userId : Int?
 }
 
-struct BadRequestAddNewFriend : Codable{
+
+struct DeleteFriendModel : Codable {
     let status : String?
-    let message : [ErrorMessages]?
-    let data : String?
-    let errorCode : Int?
+    let message : String?
+    let data : FriendId
+    let errorCode : String?
 }
-struct ErrorMessages : Codable{
-    let text : String?
-    let error : String?
+struct FriendId : Codable {
+    let friendId : String?
 }
+//{
+//  "status": "Success",
+//  "message": "Friend deleted successfully!",
+//  "data": {
+//    "friendId": "13"
+//  },
+//  "errorCode": null
+//}
 
 
 //-----ramya
@@ -125,39 +132,39 @@ struct ProfileDetails : Codable {
     let loginStatus: Bool?
 }
 
-struct ErrorModel : Codable {
-    let status : String?
-    let message : String?
-    let data : String?
-    let errorCode : String?
-}
+//struct ErrorModel : Codable {
+//    let status : String?
+//    let message : String?
+//    let data : String?
+//    let errorCode : String?
+//}
 
 
 
-struct Model : Codable {
+struct ChangePasswordRequest : Codable {
     let newPassword : String?
     let confirmPassword : String?
 }
 
-struct Response : Codable {
+struct ChangePasswordResponse : Codable {
     let status : String?
     let message : String?
-    let data : responseData
+    let data : ChangePasswrdResponseData
     let errorCode : String?
 }
-struct responseData : Codable{
+struct ChangePasswrdResponseData : Codable{
     
 }
 
-struct ErrorMessage : Codable{
-    let status : String?
-    let message : String?
-    let data : ErrorData
-    let errorCode : Int?
-}
-struct ErrorData : Codable{
-    
-}
+//struct ErrorMessage : Codable{
+//    let status : String?
+//    let message : String?
+//    let data : ErrorData
+//    let errorCode : Int?
+//}
+//struct ErrorData : Codable{
+//
+//}
 
 //-------Jhansi
 
@@ -165,12 +172,12 @@ struct CreatePostModel : Codable {
   let userId : Int?
   let postData : String?
 }
-struct Welcome: Codable {
+struct CreatePostResponse: Codable {
   let status, message: String?
-  let data: DataClasses?
+  let data: CreatePostData
   let errorCode: String?
 }
-struct DataClasses: Codable {
+struct CreatePostData: Codable {
   let userID: Int?
   let postData: String?
 
@@ -180,17 +187,17 @@ struct DataClasses: Codable {
   }
 }
 
-struct DelPost : Codable {
+struct DelPostModel : Codable {
   let status : String?
   let message : String?
-  let data : DataPostId
+  let data : DeletePostIds
   let errorCode : String?
 }
-struct DataPostId : Codable {
+struct DeletePostIds : Codable {
   let userId : String?
   let postId : String?
 }
-struct UpdateLikes : Codable{
+struct UpdateLikesModel : Codable{
     let status : String?
     let message : String?
     let data : UpdateLikesStatus

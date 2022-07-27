@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewDataSource {
     
-    var viewModelObj = ViewModel()
+    var profileViewModelObj = ViewModel()
     
     @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
@@ -17,11 +17,19 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         tableview.allowsSelection = false
         tableview.delegate = self
         tableview.dataSource = self
-        viewModelObj.getUserIdInfo()
-        viewModelObj.profileDetails { data in
+        profileViewModelObj.getUserIdInfo()
+        
+        profileViewModelObj.getProfileDetails { error in
+            if error != nil {
+                self.displayAlert(message: error?.localizedDescription ?? "")
+                return
+                }
+            else {
             DispatchQueue.main.async {
                 self.tableview.reloadData()
             }
+            }
+            
         }
         
         let mainNib = UINib(nibName: "ProfileNameTableViewCell", bundle: nil)
@@ -73,19 +81,19 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
             return cell
         case 2 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "pswCell", for: indexPath) as! ChangePasswordTableViewCell
-            cell.nameLabel.text = viewModelObj.model1?.userName
+            cell.nameLabel.text = profileViewModelObj.profileDetailsDataResponse?.userName
             cell.pswbutton.addTarget(self, action: #selector(pswChangeTapped(_:)), for: .touchUpInside)
             return cell
         case 3 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactTableViewCell
-            cell.mailIdLabel.text = viewModelObj.model1?.mail
+            cell.mailIdLabel.text = profileViewModelObj.profileDetailsDataResponse?.mail
             cell.phnNumlabel.text = "9873456927"
             
             return cell
         case 4 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "basicInfoCell", for: indexPath) as! BasicInfoTableViewCell
-            cell.dobLabel.text = viewModelObj.model1?.dateOfBirth
-            cell.genderLabel.text = viewModelObj.model1?.gender
+            cell.dobLabel.text = profileViewModelObj.profileDetailsDataResponse?.dateOfBirth
+            cell.genderLabel.text = profileViewModelObj.profileDetailsDataResponse?.gender
             return cell
         default :
             let cell = tableview.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)
@@ -98,6 +106,15 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
             return
         }
         navigationController?.pushViewController(secondvc, animated: true)
+    }
+    func displayAlert(message : String)
+    {
+        let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            self.present(messageVC, animated: true) {
+                Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
+                    messageVC.dismiss(animated: true, completion: nil)})}
+        }
     }
 }
 

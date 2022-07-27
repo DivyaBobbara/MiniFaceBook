@@ -44,7 +44,10 @@
 		D53A55832889348B00BE0B45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55822889348B00BE0B45 /* RegisterViewController.swift */; };
 		D53A5585288934C600BE0B45 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A5584288934C600BE0B45 /* ViewModel.swift */; };
 		D53A55872889351400BE0B45 /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55862889351400BE0B45 /* Networker.swift */; };
-		D53A55892889354200BE0B45 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55882889354200BE0B45 /* Model.swift */; };
+		D53A55892889354200BE0B45 /* ChangePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53A55882889354200BE0B45 /* ChangePasswordRequest.swift */; };
+		E63D3503288E821C00AB97EA /* NetworkingLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63D3502288E821C00AB97EA /* NetworkingLayer.swift */; };
+		E63D3505288EC2C900AB97EA /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63D3504288EC2C900AB97EA /* InternetConnection.swift */; };
+		E63D3507288ECFE100AB97EA /* InternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63D3506288ECFE100AB97EA /* InternetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,7 +90,10 @@
 		D53A55822889348B00BE0B45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		D53A5584288934C600BE0B45 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D53A55862889351400BE0B45 /* Networker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
-		D53A55882889354200BE0B45 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D53A55882889354200BE0B45 /* ChangePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequest.swift; sourceTree = "<group>"; };
+		E63D3502288E821C00AB97EA /* NetworkingLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingLayer.swift; sourceTree = "<group>"; };
+		E63D3504288EC2C900AB97EA /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		E63D3506288ECFE100AB97EA /* InternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +110,7 @@
 		41CD829A288979400056AC32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D53A55882889354200BE0B45 /* Model.swift */,
+				D53A55882889354200BE0B45 /* ChangePasswordRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -120,13 +126,14 @@
 		41CD829C288979790056AC32 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D53A55822889348B00BE0B45 /* RegisterViewController.swift */,
+				7CFD3D4D288879120039681E /* LoginViewController.swift */,
 				7C215BD328894F6D005BA2D9 /* CreatePostViewController.swift */,
+				E63D3506288ECFE100AB97EA /* InternetViewController.swift */,
 				7C215BD728894F88005BA2D9 /* LogOutViewController.swift */,
 				7C215BCF28894F07005BA2D9 /* FriendsViewController.swift */,
 				7C215BD528894F7F005BA2D9 /* ProfileViewController.swift */,
 				7C215BBD28894B59005BA2D9 /* TabBarViewController.swift */,
-				D53A55822889348B00BE0B45 /* RegisterViewController.swift */,
-				7CFD3D4D288879120039681E /* LoginViewController.swift */,
 				7C215BBF28894BF1005BA2D9 /* HomeViewController.swift */,
 				41CD829F28897C220056AC32 /* PasswordViewController.swift */,
 			);
@@ -164,6 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				D53A55862889351400BE0B45 /* Networker.swift */,
+				E63D3502288E821C00AB97EA /* NetworkingLayer.swift */,
+				E63D3504288EC2C900AB97EA /* InternetConnection.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -290,10 +299,13 @@
 				D53A55832889348B00BE0B45 /* RegisterViewController.swift in Sources */,
 				7C215BD228894F3B005BA2D9 /* FriendsTableViewCell.swift in Sources */,
 				7C215BC528894DE6005BA2D9 /* HomeCreatePostTableViewCell.swift in Sources */,
+				E63D3503288E821C00AB97EA /* NetworkingLayer.swift in Sources */,
 				7CFD3D4A288879120039681E /* AppDelegate.swift in Sources */,
 				7C215BD628894F7F005BA2D9 /* ProfileViewController.swift in Sources */,
 				7C215BD428894F6D005BA2D9 /* CreatePostViewController.swift in Sources */,
 				7CFD3D54288879120039681E /* MiniFacebookCloneApp.xcdatamodeld in Sources */,
+				E63D3505288EC2C900AB97EA /* InternetConnection.swift in Sources */,
+				E63D3507288ECFE100AB97EA /* InternetViewController.swift in Sources */,
 				7C215BBE28894B59005BA2D9 /* TabBarViewController.swift in Sources */,
 				41CD82AF28897EB70056AC32 /* ContactTableViewCell.swift in Sources */,
 				7C215BC028894BF1005BA2D9 /* HomeViewController.swift in Sources */,
@@ -308,7 +320,7 @@
 				7CFD3D4C288879120039681E /* SceneDelegate.swift in Sources */,
 				7C215BCD28894EB8005BA2D9 /* SuggestedCollectionViewCell.swift in Sources */,
 				41CD82A328897D920056AC32 /* ProfileNameTableViewCell.swift in Sources */,
-				D53A55892889354200BE0B45 /* Model.swift in Sources */,
+				D53A55892889354200BE0B45 /* ChangePasswordRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
