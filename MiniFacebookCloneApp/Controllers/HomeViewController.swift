@@ -121,6 +121,19 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             customCell.didClickAddFriend = { [weak self] indexPath in
                 let getFrdId = (self?.homeViewModelObj.suggestedFrndsResponseData[indexPath ?? 0].friendId ?? 0)
                 self?.homeViewModelObj.callAddNewFriend(frdId : getFrdId, userId: self?.homeViewModelObj.getUserId ?? 0) { error in
+                    if error != nil {
+                        self?.displayAlert(message: error?.localizedDescription ?? "")
+                        return
+                    }
+                    else{
+                        if self?.homeViewModelObj.addNewFrndResponse?.status != "success"{
+                            self?.showAlertMsg(errCode: self?.homeViewModelObj.addNewFrndResponse?.errorCode ?? 0)
+                        }
+                        DispatchQueue.main.async {
+                            self?.tableView.reloadData()
+                        }
+                    }
+
                     self?.callSuggestedFrnds()
                     
                 }

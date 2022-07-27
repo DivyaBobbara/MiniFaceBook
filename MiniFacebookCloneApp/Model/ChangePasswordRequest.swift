@@ -11,12 +11,12 @@ struct RegisterModel : Codable {
     let userPassword: String?
 }
 struct LoginRequest: Codable {
-    let mail, userPassword: String
+    let mail, userPassword: String?
 }
 struct LoginResponse : Codable {
     let status, message: String?
-    let data: LoginResponseData
-    let errorCode: String?
+    let data: LoginResponseData?
+    let errorCode: Int?
 }
 struct LoginResponseData: Codable {
     let userId : Int?
@@ -34,7 +34,7 @@ struct DataModel : Codable
 struct RegisterResponse: Codable {
     let status, message: String?
     let data: RegisterResponseData
-    let errorCode: String?
+    let errorCode: Int?
 }
 struct RegisterResponseData: Codable {
     let userName, gender, dateOfBirth, mail: String?
@@ -87,8 +87,8 @@ struct AddNewFriendResponse : Codable{
     
     var message : String?
     var status : String?
-    var data : AddNewFriendsData
-    var errorCode : String?
+    var data : AddNewFriendsData?
+    var errorCode : Int?
    
 }
 struct AddNewFriendsData : Codable{

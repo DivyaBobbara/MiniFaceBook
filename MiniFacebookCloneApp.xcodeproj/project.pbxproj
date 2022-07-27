@@ -127,13 +127,13 @@
 			isa = PBXGroup;
 			children = (
 				D53A55822889348B00BE0B45 /* RegisterViewController.swift */,
+				7CFD3D4D288879120039681E /* LoginViewController.swift */,
 				7C215BD328894F6D005BA2D9 /* CreatePostViewController.swift */,
 				E63D3506288ECFE100AB97EA /* InternetViewController.swift */,
 				7C215BD728894F88005BA2D9 /* LogOutViewController.swift */,
 				7C215BCF28894F07005BA2D9 /* FriendsViewController.swift */,
 				7C215BD528894F7F005BA2D9 /* ProfileViewController.swift */,
 				7C215BBD28894B59005BA2D9 /* TabBarViewController.swift */,
-				7CFD3D4D288879120039681E /* LoginViewController.swift */,
 				7C215BBF28894BF1005BA2D9 /* HomeViewController.swift */,
 				41CD829F28897C220056AC32 /* PasswordViewController.swift */,
 			);

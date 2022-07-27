@@ -15,6 +15,7 @@ class ViewModel
     var updateResponse : UpdateLikesModel?
     var logoutResponse : LogOutResponse?
     var loginresponse : LoginResponse?
+    var loginErrorResponse :LoginError?
     var displayFrndsResponse : DisplayFriendsResponse?
     var displayFrndsResponseData = [DisplayFriendsData]()
     var suggestedFrndsResponse : SuggestedFriendsResponse?

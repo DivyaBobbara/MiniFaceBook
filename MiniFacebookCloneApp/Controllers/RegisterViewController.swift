@@ -91,12 +91,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
                     return
                 }
                 else {
-                    DispatchQueue.main.async {
-                        if self.registerViewModelObj.registerResponse?.errorCode != nil {
-                            self.displayAlert(message: self.registerViewModelObj.resgisterErrorResponse?.message ?? "")
+                   
+                        if self.registerViewModelObj.registerResponse?.status != "success" {
+                            self.displayAlert(message: self.registerViewModelObj.registerResponse?.message ?? "")
                         }
                         else {
-                            
+                            DispatchQueue.main.async {
                             self.navigationController?.popToRootViewController(animated: true)
                         }
                     }

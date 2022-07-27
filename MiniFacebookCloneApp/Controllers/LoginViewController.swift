@@ -65,21 +65,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 else{
-                    DispatchQueue.main.async { [self] in
-                                          UserDefaults.standard.set(loginViewModelObj.loginresponse?.data.userId, forKey: "keyId")
-                        UserDefaults.standard.set(loginViewModelObj.loginresponse?.data.loginStatus, forKey: "loginstatus")
-                        if loginViewModelObj.loginresponse?.errorCode != nil{
-                            self.displayAlert(message: loginViewModelObj.loginresponse?.message ?? "")
+                    
+                        
+                    if self.loginViewModelObj.loginresponse?.status != "success" {
+//                        print("vduvduwqeho")
+                        self.displayAlert(message: self.loginViewModelObj.loginresponse?.message ?? "")
                         }
                         else {
-                            
+                            UserDefaults.standard.set(self.loginViewModelObj.loginresponse?.data?.userId, forKey: "keyId")
+                            UserDefaults.standard.set(self.loginViewModelObj.loginresponse?.data?.loginStatus, forKey: "loginstatus")
+                            DispatchQueue.main.async {
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let tabBarVC = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
                             self.navigationController?.pushViewController(tabBarVC, animated: true)
                         }
-                        self.nameTxt.text = ""
-                        self.passwordTxt.text = ""
-                    }
+                        }
+//                        self.nameTxt.text = ""
+//                        self.passwordTxt.text = ""
+                    
                 }
                 
             }
@@ -88,10 +91,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func displayAlert(message : String)
     {
         let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        present(messageVC, animated: true) {
+        DispatchQueue.main.async {
+          
+            self.present(messageVC, animated: true) {
             Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { (_) in
                 messageVC.dismiss(animated: true, completion: nil)})
-            
+        }
         }
     }
 }
