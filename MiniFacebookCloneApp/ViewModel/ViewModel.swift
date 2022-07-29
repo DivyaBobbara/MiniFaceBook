@@ -32,7 +32,7 @@ class ViewModel
     
     func getUserIdInfo(){
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
-        print(getUserId)
+//        print(getUserId)
     }
     func callUpdateLikes(getUserId:Int,getPostId:Int,getStatus:Bool,completionHandler:@escaping(Error?)->Void)
     {

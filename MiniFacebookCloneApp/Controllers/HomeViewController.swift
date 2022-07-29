@@ -64,8 +64,8 @@ class HomeViewController: UIViewController {
     
     @objc func updateLikesMethod(sender:UIButton)
     {
-        var index = sender.tag
-        print(index)
+        let index = sender.tag
+//        print(index)
         guard let likeStatus = ViewModel.shared.getPostsResponse?.data[index].likeStatus else {
             return
         }
@@ -102,17 +102,17 @@ class HomeViewController: UIViewController {
         present(alert, animated: true)
         
     }
-    
+
     @objc func navigateToCreatePost(textField  :UITextField){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
-        self.navigationController?.pushViewController(cPostVc, animated: true)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
+//        self.navigationController?.pushViewController(cPostVc, animated: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         callSuggestedFrnds()
-        callGetPosts()
+//        callGetPosts()
         
     }
 }

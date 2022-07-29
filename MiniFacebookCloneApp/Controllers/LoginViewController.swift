@@ -52,6 +52,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         navigationController?.pushViewController(secondVc, animated: true)
+        self.nameTxt.text = ""
+        self.passwordTxt.text = ""
     }
     
     
@@ -97,7 +99,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             self.navigationController?.pushViewController(tabBarVC, animated: true)
                             self.nameTxt.text = ""
                             self.passwordTxt.text = ""
+                            
                         }
+                        
                     }
                     
                 }

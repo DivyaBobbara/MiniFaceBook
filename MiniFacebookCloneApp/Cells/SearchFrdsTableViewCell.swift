@@ -22,7 +22,13 @@ class SearchFrdsTableViewCell: UITableViewCell {
     }
     func config(newArrObjSearch:[DisplayFriendsData]){
         self.vmObjSearch = newArrObjSearch
+        if vmObjSearch.count >= 1{
         self.friendCount.text = "\(self.vmObjSearch.count) Friends"
+        }
+        else{
+            self.friendCount.text = "No Friends added yet"
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
