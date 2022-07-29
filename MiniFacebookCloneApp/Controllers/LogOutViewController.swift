@@ -1,23 +1,23 @@
 //
-//  LogOutViewController.swift
-//  MiniFacebookCloneApp
+// LogOutViewController.swift
+// MiniFacebookCloneApp
 //
-//  Created by Naga Divya Bobbara on 21/07/22.
+// Created by Naga Divya Bobbara on 21/07/22.
 //
 
 import UIKit
 
-class LogOutViewController: UIViewController {
-    let logOutViewModelObj = ViewModel()
-    var window : UIWindow?
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        logOutViewModelObj.getUserIdInfo()
-    }
-   
-}
+class LogOutViewController: UIViewController ,UITabBarDelegate{
   
+//  var window : UIWindow?
+  override func viewDidLoad() {
+    super.viewDidLoad()
+      ViewModel.shared.getUserIdInfo()
+//    logOutAlert()
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
 
-   
 
-
+  }
+}
