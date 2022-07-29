@@ -65,7 +65,7 @@ extension SuggestedFrdsTableViewCell:UICollectionViewDelegate,UICollectionViewDa
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (collectionView.frame.size.width - 20 ) / 1.2
-        print(size)
+//        print(size)
         return CGSize(width:size , height: 220)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
