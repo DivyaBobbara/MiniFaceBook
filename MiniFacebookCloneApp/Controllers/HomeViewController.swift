@@ -9,13 +9,12 @@ import UIKit
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    let homeViewModelObj = ViewModel()
-    var postIdValue : Int?
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        homeViewModelObj.getUserIdInfo()
+        ViewModel.shared.getUserIdInfo()
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
                                     #selector(handleRefresh),
@@ -30,8 +29,12 @@ class HomeViewController: UIViewController {
         tableView.register(suggestedNib, forCellReuseIdentifier: "Cell1")
         callGetPosts()
     }
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        callGetPosts()
+        refreshControl.endRefreshing()
+    }
     func callGetPosts() {
-        homeViewModelObj.getPostDetails { error in
+        ViewModel.shared.getPostDetails { error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
@@ -45,7 +48,7 @@ class HomeViewController: UIViewController {
         }
     }
     func callSuggestedFrnds() {
-        homeViewModelObj.getSuggestedFrdsData { error in
+        ViewModel.shared.getSuggestedFrdsData { error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
@@ -63,34 +66,43 @@ class HomeViewController: UIViewController {
     {
         var index = sender.tag
         print(index)
-        guard let likeStatus = homeViewModelObj.getPostsResponse?.data[index].likeStatus else {
+        guard let likeStatus = ViewModel.shared.getPostsResponse?.data[index].likeStatus else {
             return
         }
-        homeViewModelObj.callUpdateLikes(getUserId: homeViewModelObj.getUserId ?? 0, getPostId: homeViewModelObj.getPostsResponse?.data[index].postId ?? 0, getStatus: !(likeStatus)) {error   in
-//
-            self.callGetPosts()
-                
+        ViewModel.shared.callUpdateLikes(getUserId: ViewModel.shared.getUserId ?? 0, getPostId: ViewModel.shared.getPostsResponse?.data[index].postId ?? 0, getStatus: !(likeStatus)) {error   in
+            if error != nil {
+                self.displayAlert(message: error?.localizedDescription ?? "")
+                return
             }
+            else {
+                //
+                self.callGetPosts()
+            }
+        }
     }
     
-
+    
     @objc func deletePost(sender: UIButton) {
         let alert = UIAlertController(title: "Are You Sure?", message:"", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { [weak self] (_) in
             let index = sender.tag
-            print(self?.homeViewModelObj.getPostsResponse?.data[index].postId)
-            let delPostId = self?.homeViewModelObj.getPostsResponse?.data[index].postId
-            self?.homeViewModelObj.callDeletePost(userId: self?.homeViewModelObj.getUserId ?? 0, postId: delPostId ?? 0) { error in
-                self?.callGetPosts()
+            //            print(self?.homeViewModelObj.getPostsResponse?.data[index].postId)
+            let delPostId = ViewModel.shared.getPostsResponse?.data[index].postId
+            ViewModel.shared.callDeletePost(userId: ViewModel.shared.getUserId ?? 0, postId: delPostId ?? 0) { error in
+                if error != nil {
+                    self?.displayAlert(message: error?.localizedDescription ?? "")
+                    return
+                }
+                else{
+                    self?.callGetPosts()
+                }
             }
         }))
         present(alert, animated: true)
         
     }
-    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        callGetPosts()
-    }
+    
     @objc func navigateToCreatePost(textField  :UITextField){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let cPostVc = storyboard.instantiateViewController(withIdentifier: "CreatePostViewController")
@@ -100,13 +112,13 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         callSuggestedFrnds()
-      callGetPosts()
+        callGetPosts()
         
     }
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeViewModelObj.getPostsResponse?.data.count ?? 0 + 2
+        return ViewModel.shared.getPostsResponse?.data.count ?? 0 + 2
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let val = indexPath.row
@@ -117,23 +129,26 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         }
         if val == 1{
             let customCell = tableView.dequeueReusableCell(withIdentifier: "Cell1",for: indexPath) as! SuggestedFrdsTableViewCell
-            customCell.configure(objectArray: self.homeViewModelObj.suggestedFrndsResponseData)
+            customCell.configure(objectArray: ViewModel.shared.suggestedFrndsResponseData)
             customCell.didClickAddFriend = { [weak self] indexPath in
-                let getFrdId = (self?.homeViewModelObj.suggestedFrndsResponseData[indexPath ?? 0].friendId ?? 0)
-                self?.homeViewModelObj.callAddNewFriend(frdId : getFrdId, userId: self?.homeViewModelObj.getUserId ?? 0) { error in
+                let getFrdId = (ViewModel.shared.suggestedFrndsResponseData[indexPath ?? 0].friendId ?? 0)
+                ViewModel.shared.callAddNewFriend(frdId : getFrdId, userId: ViewModel.shared.getUserId ?? 0) { error in
                     if error != nil {
                         self?.displayAlert(message: error?.localizedDescription ?? "")
                         return
                     }
                     else{
-                        if self?.homeViewModelObj.addNewFrndResponse?.status != "success"{
-                            self?.showAlertMsg(errCode: self?.homeViewModelObj.addNewFrndResponse?.errorCode ?? 0)
+                        if ViewModel.shared.addNewFrndResponse?.status != "success"{
+                            self?.showAlertMsg(errCode: ViewModel.shared.addNewFrndResponse?.errorCode ?? 0)
                         }
-                        DispatchQueue.main.async {
-                            self?.tableView.reloadData()
+                        else{
+                            DispatchQueue.main.async {
+                                self?.tableView.reloadData()
+                            }
+                            self?.displayAlert(message: "Added Friend Successfully")
                         }
                     }
-
+                    
                     self?.callSuggestedFrnds()
                     
                 }
@@ -143,9 +158,9 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellPosts",for:indexPath) as! PostsTableViewCell
             cell.profileImg.image = UIImage(named: "profile")
-            cell.userName.text = homeViewModelObj.getPostsResponse?.data[indexPath.row-2].userName
+            cell.userName.text = ViewModel.shared.getPostsResponse?.data[indexPath.row-2].userName
             cell.timeLbl.text = "08:24"
-            cell.postDataLbl.text = homeViewModelObj.getPostsResponse?.data[indexPath.row - 2].postData
+            cell.postDataLbl.text = ViewModel.shared.getPostsResponse?.data[indexPath.row - 2].postData
             cell.postImg.image = UIImage(named: "postImg")
             cell.shareCountLbl.text = "12 shares"
             cell.commentsCountLbl.text = "35 comments"
@@ -153,16 +168,16 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.shareIcon.image = UIImage(named:"share")
             cell.commentsLbl.text = "Comments"
             cell.commentIcon.image = UIImage(named: "comment")
-            cell.likesCount.text = String(homeViewModelObj.getPostsResponse?.data[indexPath.row-2 ].totalLikes ?? 0)
+            cell.likesCount.text = String(ViewModel.shared.getPostsResponse?.data[indexPath.row-2 ].totalLikes ?? 0)
             cell.delPost.addTarget(self, action: #selector(deletePost), for:.touchUpInside)
             cell.delPost.tag = indexPath.row - 2
-            if let isCreated = homeViewModelObj.getPostsResponse?.data[indexPath.row-2].iscreated, (isCreated == "True") {
+            if let isCreated = ViewModel.shared.getPostsResponse?.data[indexPath.row-2].iscreated, (isCreated == "True") {
                 cell.delPost.isHidden = false
             }
             else {
                 cell.delPost.isHidden = true
             }
-            if homeViewModelObj.getPostsResponse?.data[indexPath.row - 2].likeStatus == true{
+            if ViewModel.shared.getPostsResponse?.data[indexPath.row - 2].likeStatus == true{
                 cell.likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
                 cell.likeLbl.text = "Liked"
             }
@@ -182,13 +197,6 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         present(alert,animated: true)
     }
-    func statusAlert(errorMessage : String) {
-        let statusAlert = UIAlertController(title: "Alert", message: "\(errorMessage)", preferredStyle: .alert)
-        statusAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        DispatchQueue.main.async {
-            self.present(statusAlert,animated: true)
-        }
-    }
     func displayAlert(message : String)
     {
         let messageVC = UIAlertController(title: "", message: message, preferredStyle: .alert)
@@ -201,10 +209,10 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     
     
 }
-    
-    
-     
-    
+
+
+
+
 
 
 

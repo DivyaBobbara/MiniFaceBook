@@ -9,13 +9,12 @@ import Foundation
 import UIKit
 class ViewModel
 {
+    static let shared : ViewModel = ViewModel()
     let network = Networker()
     var registerResponse: RegisterResponse?
-    var resgisterErrorResponse : RegisterError?
     var updateResponse : UpdateLikesModel?
     var logoutResponse : LogOutResponse?
     var loginresponse : LoginResponse?
-    var loginErrorResponse :LoginError?
     var displayFrndsResponse : DisplayFriendsResponse?
     var displayFrndsResponseData = [DisplayFriendsData]()
     var suggestedFrndsResponse : SuggestedFriendsResponse?
@@ -27,7 +26,10 @@ class ViewModel
     var profileDetailsDataResponse : ProfileDetails?
     var creataPostResponse : CreatePostResponse?
     var deleteResponse : DelPostModel?
+    var changePasswordresponse : ChangePasswordResponse?
+    
     var getUserId : Int?
+    
     func getUserIdInfo(){
         getUserId = UserDefaults.standard.integer(forKey: "keyId")
         print(getUserId)
@@ -61,7 +63,6 @@ class ViewModel
             completion(error)
         }
     }
-    // -------------
     func getDisplayFriendsData(completionHandler:@escaping(Error?)->Void)
     {
         getUserIdInfo()
@@ -129,6 +130,13 @@ class ViewModel
     func callDeletePost(userId :Int,postId : Int,completion : @escaping(Error?)->()){
         network.delPost(userId: userId, postId: postId) { result,error in
             self.deleteResponse = result
+            completion(error)
+        }
+    }
+    func callChangePassword(newPassword : String?,confirmPassword: String?,completion : @escaping(Error?)->()) {
+        
+        network.changePassword(userId: getUserId ?? 0, model: ChangePasswordRequest(newPassword: newPassword, confirmPassword: confirmPassword)) { result, error in
+            self.changePasswordresponse = result
             completion(error)
         }
     }

@@ -16,7 +16,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)" + "\(urls.updateLikes.rawValue)\(postId)/\(userId)/\(status)") else{
             return
         }
-        networkWorkingLayer.putMethodApiCalling(url: url) { (data, error) in
+        networkWorkingLayer.putMethodApiCalling(url: url, encode: nil as ChangePasswordRequest?) { (data, error) in
             completionHandler(data,error)
         }
     }
@@ -38,7 +38,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)" + "\(urls.logOut.rawValue)\(userId)") else{
             return
         }
-        networkWorkingLayer.putMethodApiCalling(url: url) { (data,error)  in
+        networkWorkingLayer.putMethodApiCalling(url: url, encode: nil as ChangePasswordRequest?) { (data,error)  in
             completionHandler(data,error)
         }
         
@@ -113,47 +113,18 @@ class Networker{
         }
     }
     
-    func changePassword(userId: Int,model: ChangePasswordRequest, completion : @escaping(String) -> Void)
+    func changePassword(userId: Int,model: ChangePasswordRequest, completion : @escaping(ChangePasswordResponse?,Error?) -> Void)
     {
         guard let url = URL(string: "\(baseUrl)\(urls.changePassword.rawValue)\(userId)")else
         {
             return
         }
-        print(url)
-        var request = URLRequest(url: url)
-        request.httpMethod = httpMethods.putMethod.rawValue
-        do{
-            let requestBody = try JSONEncoder().encode(model)
-            request.httpBody = requestBody
-            request.setValue("application/json", forHTTPHeaderField: "Content-type")
+        networkWorkingLayer.putMethodApiCalling(url: url, encode: model) { data, error in
+            completion(data,error)
         }
-        catch
-        {
-            print("Not encoded")
-        }
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            guard let data = data , error == nil else {
-                return
-            }
-            guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else {
-                //                throw URLError(.badServerResponse)
-                return
-            }
-            
-            do{
-                let responser = try JSONDecoder().decode(ChangePasswordResponse.self, from: data)
-                let jString = String(data: data,encoding:.utf8)!
-                completion(jString)
-            }
-            catch{
-                print("Error\(error.localizedDescription)")
-            }
-        }
-        task.resume()
     }
     
-
+    
     func createPost(requestObject: CreatePostModel,completion: @escaping (CreatePostResponse?,Error?) -> Void) {
         let url = URL(string: "\(baseUrl)\(urls.createPost.rawValue)")
         guard let url = url else {

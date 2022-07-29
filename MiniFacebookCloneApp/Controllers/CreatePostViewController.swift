@@ -8,26 +8,30 @@
 import UIKit
 
 class CreatePostViewController: UIViewController {
-    let createPostViewModelObj = ViewModel()
+    
     @IBOutlet weak var postBtn: UIButton!
     @IBOutlet weak var createPost: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createPostViewModelObj.getUserIdInfo()
-        postBtn.layer.cornerRadius = 8
+        ViewModel.shared.getUserIdInfo()
+        postBtn.layer.cornerRadius = 12
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    @IBAction func Submit() {
-        createPostViewModelObj.callCreatePost(postData: createPost.text ?? "") {error in
+    @IBAction func submitBtn() {
+        if self.createPost.text == "" {
+            self.displayAlert(message: "Post data is empty")
+            return
+        }
+        ViewModel.shared.callCreatePost(postData: createPost.text ?? "") {error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
             }
             DispatchQueue.main.async {
-                let createAlert = UIAlertController(title: nil, message: self.createPostViewModelObj.creataPostResponse?.message, preferredStyle: .alert)
+                let createAlert = UIAlertController(title: nil, message: ViewModel.shared.creataPostResponse?.message, preferredStyle: .alert)
                 createAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self.present(createAlert, animated: true)
                 self.createPost.text = ""

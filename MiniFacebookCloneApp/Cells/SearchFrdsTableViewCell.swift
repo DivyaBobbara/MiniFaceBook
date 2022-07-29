@@ -12,13 +12,11 @@ class SearchFrdsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var backToHomeBtn: UIButton!
     @IBOutlet weak var friendCount: UILabel!
-    @IBOutlet weak var recentBtn: UIButton!
-    @IBOutlet weak var allBtn: UIButton!
+   
    
     override func awakeFromNib() {
         super.awakeFromNib()
-        allBtn.layer.cornerRadius = 10
-        recentBtn.layer.cornerRadius = 10
+       
         
         
     }

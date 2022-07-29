@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbSplash" translatesAutoresizingMaskIntoConstraints="NO" id="G6m-iG-80n">
-                                <rect key="frame" x="87" y="313" width="240" height="250"/>
+                                <rect key="frame" x="87" y="323" width="240" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="lnz-SB-DPu"/>
-                                    <constraint firstAttribute="width" constant="240" id="oOp-2k-Y2x"/>
+                                    <constraint firstAttribute="height" constant="250" id="8og-eG-xah"/>
+                                    <constraint firstAttribute="width" constant="240" id="ZOj-Jv-8qB"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ll9-PL-iU4">
@@ -33,11 +33,11 @@
                         <viewLayoutGuide key="safeArea" id="a66-yb-HEK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="G6m-iG-80n" firstAttribute="leading" secondItem="a66-yb-HEK" secondAttribute="leading" constant="87" id="IbI-E8-MII"/>
                             <constraint firstItem="ll9-PL-iU4" firstAttribute="leading" secondItem="a66-yb-HEK" secondAttribute="leading" constant="20" id="J7c-Kc-0WA"/>
+                            <constraint firstItem="ll9-PL-iU4" firstAttribute="top" secondItem="G6m-iG-80n" secondAttribute="bottom" constant="25" id="QUf-uu-afE"/>
+                            <constraint firstItem="G6m-iG-80n" firstAttribute="centerX" secondItem="6BB-U6-IbA" secondAttribute="centerX" id="Rqs-8D-OEU"/>
                             <constraint firstItem="a66-yb-HEK" firstAttribute="trailing" secondItem="ll9-PL-iU4" secondAttribute="trailing" constant="20" id="gCg-YG-nLj"/>
-                            <constraint firstItem="ll9-PL-iU4" firstAttribute="top" secondItem="G6m-iG-80n" secondAttribute="bottom" constant="35" id="kcV-NS-uRP"/>
-                            <constraint firstItem="G6m-iG-80n" firstAttribute="top" secondItem="a66-yb-HEK" secondAttribute="top" constant="269" id="mge-xa-xEr"/>
+                            <constraint firstItem="G6m-iG-80n" firstAttribute="centerY" secondItem="6BB-U6-IbA" secondAttribute="centerY" id="yZW-gr-JtB"/>
                         </constraints>
                     </view>
                 </viewController>

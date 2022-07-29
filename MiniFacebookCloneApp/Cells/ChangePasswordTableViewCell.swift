@@ -14,14 +14,14 @@ class ChangePasswordTableViewCell: UITableViewCell {
     
     @IBOutlet weak var pswbutton: UIButton!
     
-    @IBAction func editBtn(_ sender: Any) {
-    }
+//    @IBAction func editBtn(_ sender: Any) {
+//    }
     @IBAction func pswBtn(_ sender: Any) {
         
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        editLabel.layer.cornerRadius = 6
+//        editLabel.layer.cornerRadius = 6
         pswbutton.layer.cornerRadius = 6 
 
         

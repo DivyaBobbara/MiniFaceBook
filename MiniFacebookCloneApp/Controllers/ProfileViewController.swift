@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewDataSource {
     
-    var profileViewModelObj = ViewModel()
+  
     
     @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
@@ -17,17 +17,17 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         tableview.allowsSelection = false
         tableview.delegate = self
         tableview.dataSource = self
-        profileViewModelObj.getUserIdInfo()
+        ViewModel.shared.getUserIdInfo()
         
-        profileViewModelObj.getProfileDetails { error in
+        ViewModel.shared.getProfileDetails { error in
             if error != nil {
                 self.displayAlert(message: error?.localizedDescription ?? "")
                 return
-                }
-            else {
-            DispatchQueue.main.async {
-                self.tableview.reloadData()
             }
+            else {
+                DispatchQueue.main.async {
+                    self.tableview.reloadData()
+                }
             }
             
         }
@@ -47,9 +47,6 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         let basicInfoNib = UINib(nibName: "BasicInfoTableViewCell", bundle: nil)
         self.tableview.register(basicInfoNib, forCellReuseIdentifier: "basicInfoCell")
         
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -81,19 +78,19 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
             return cell
         case 2 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "pswCell", for: indexPath) as! ChangePasswordTableViewCell
-            cell.nameLabel.text = profileViewModelObj.profileDetailsDataResponse?.userName
-            cell.pswbutton.addTarget(self, action: #selector(pswChangeTapped(_:)), for: .touchUpInside)
+            cell.nameLabel.text = ViewModel.shared.profileDetailsDataResponse?.userName
+            cell.pswbutton.addTarget(self, action: #selector(pswChangeBtnTapped(_:)), for: .touchUpInside)
             return cell
         case 3 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactTableViewCell
-            cell.mailIdLabel.text = profileViewModelObj.profileDetailsDataResponse?.mail
+            cell.mailIdLabel.text = ViewModel.shared.profileDetailsDataResponse?.mail
             cell.phnNumlabel.text = "9873456927"
             
             return cell
         case 4 :
             let cell = tableview.dequeueReusableCell(withIdentifier: "basicInfoCell", for: indexPath) as! BasicInfoTableViewCell
-            cell.dobLabel.text = profileViewModelObj.profileDetailsDataResponse?.dateOfBirth
-            cell.genderLabel.text = profileViewModelObj.profileDetailsDataResponse?.gender
+            cell.dobLabel.text = ViewModel.shared.profileDetailsDataResponse?.dateOfBirth
+            cell.genderLabel.text = ViewModel.shared.profileDetailsDataResponse?.gender
             return cell
         default :
             let cell = tableview.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)
@@ -101,7 +98,7 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         }
     }
     
-    @objc func pswChangeTapped(_ sender: UIButton){
+    @objc func pswChangeBtnTapped(_ sender: UIButton){
         guard let secondvc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordViewController") else {
             return
         }

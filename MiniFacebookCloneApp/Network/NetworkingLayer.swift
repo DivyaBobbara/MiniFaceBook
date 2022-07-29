@@ -30,12 +30,23 @@ enum httpMethods : String {
 }
 class NetworkingLayer {
     let baseUrl = "http://stagetao.gcf.education:3000/"
-
-    func putMethodApiCalling<T : Decodable>(url:URL,completion : @escaping (T?,Error?)-> Void) {
-        var request = URLRequest(url: url)
+    
+    func putMethodApiCalling<T : Codable,U :Codable>(url:URL,encode : T?,completion : @escaping (U?,Error?)-> Void) {
         
+        var request = URLRequest(url: url)
         request.httpMethod = httpMethods.putMethod.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let encode = encode {
+            do{
+                let requestBody = try JSONEncoder().encode(encode)
+                
+                request.httpBody = requestBody
+                request.setValue("application/json", forHTTPHeaderField: "Content-type")
+            }
+            catch
+            {
+                print("Not encoded")
+            }
+        }
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             guard let data = data , error == nil else {
@@ -45,7 +56,7 @@ class NetworkingLayer {
                 return
             }
             do{
-                let model = try JSONDecoder().decode(T.self, from: data)
+                let model = try JSONDecoder().decode(U.self, from: data)
                 completion(model,nil)
             }
             catch{

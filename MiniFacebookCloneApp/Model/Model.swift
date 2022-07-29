@@ -22,15 +22,6 @@ struct LoginResponseData: Codable {
     let userId : Int?
     let loginStatus: Bool?
 }
-struct LoginError : Codable {
-    let status, message :  String?
-    let data : DataModel
-    let errorCode: Int?
-}
-struct DataModel : Codable
-{
-    
-}
 struct RegisterResponse: Codable {
     let status, message: String?
     let data: RegisterResponseData
@@ -39,16 +30,6 @@ struct RegisterResponse: Codable {
 struct RegisterResponseData: Codable {
     let userName, gender, dateOfBirth, mail: String?
 }
-
-struct RegisterError : Codable {
-    let status, message: String?
-    let data: DataError
-    let errorCode: Int?
-}
-struct DataError: Codable {
-}
-
-//-----Divya------//
 struct DisplayFriendsResponse:Codable{
     let status : String?
     let message : String?
@@ -110,17 +91,6 @@ struct DeleteFriendModel : Codable {
 struct FriendId : Codable {
     let friendId : String?
 }
-//{
-//  "status": "Success",
-//  "message": "Friend deleted successfully!",
-//  "data": {
-//    "friendId": "13"
-//  },
-//  "errorCode": null
-//}
-
-
-//-----ramya
 struct ProfileModel: Codable {
     let status, message: String?
     let data: ProfileDetails
@@ -131,13 +101,6 @@ struct ProfileDetails : Codable {
     let userName, mail, dateOfBirth, gender: String?
     let loginStatus: Bool?
 }
-
-//struct ErrorModel : Codable {
-//    let status : String?
-//    let message : String?
-//    let data : String?
-//    let errorCode : String?
-//}
 
 
 
@@ -156,17 +119,6 @@ struct ChangePasswrdResponseData : Codable{
     
 }
 
-//struct ErrorMessage : Codable{
-//    let status : String?
-//    let message : String?
-//    let data : ErrorData
-//    let errorCode : Int?
-//}
-//struct ErrorData : Codable{
-//
-//}
-
-//-------Jhansi
 
 struct CreatePostModel : Codable {
   let userId : Int?

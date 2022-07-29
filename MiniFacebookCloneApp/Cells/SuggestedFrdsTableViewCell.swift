@@ -64,11 +64,12 @@ extension SuggestedFrdsTableViewCell:UICollectionViewDelegate,UICollectionViewDa
         return cvCell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 295, height: 220)
+//        let size = collectionView.frame.size.width / 1.5
+        return CGSize(width:295 , height: 220)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
-        print(newObj[indexPath.row].friendId)
+//        print(newObj[indexPath.row].friendId)
         
     }
     
