@@ -31,7 +31,7 @@ enum httpMethods : String {
 class NetworkingLayer {
     let baseUrl = "http://stagetao.gcf.education:3000/"
     
-    func putMethodApiCalling<T : Codable,U :Codable>(url:URL,encode : T?,completion : @escaping (U?,Error?)-> Void) {
+    func putMethodApiCalling<T : Codable,U :Codable>(for attemp: Int, after seconds: Int, url:URL,encode : T?,completion : @escaping (U?,Error?)-> Void) {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethods.putMethod.rawValue
@@ -50,10 +50,16 @@ class NetworkingLayer {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             guard let data = data , error == nil else {
-                return completion(nil,error)
+                if attemp <= 0 {
+                    return completion(nil,error)
+                }
+                return self.putMethodApiCalling(for: attemp - 1, after: 5, url: url, encode: encode, completion: completion)
             }
             guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else{
-                return
+                if attemp <= 0 {
+                    return
+                }
+                return self.putMethodApiCalling(for: attemp - 1, after: 5, url: url, encode: encode, completion: completion)
             }
             do{
                 let model = try JSONDecoder().decode(U.self, from: data)
