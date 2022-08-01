@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         callGetPosts()
+        callSuggestedFrnds()
+        
         refreshControl.endRefreshing()
     }
     func callGetPosts() {
@@ -112,7 +114,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         callSuggestedFrnds()
-//        callGetPosts()
+        callGetPosts()
         
     }
 }

@@ -738,14 +738,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAZ-qL-Sfv">
-                                <rect key="frame" x="16" y="84" width="398.33333333333331" height="30"/>
+                                <rect key="frame" x="16" y="84" width="343" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" systemColor="linkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5xw-H8-cSA">
-                                <rect key="frame" x="30" y="214" width="370.33333333333331" height="40"/>
+                                <rect key="frame" x="30" y="214" width="315" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="8VX-ra-ojM"/>
                                 </constraints>
@@ -753,7 +753,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="ConfirmPassword" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RqK-ht-I94">
-                                <rect key="frame" x="30" y="314" width="370.33333333333331" height="40"/>
+                                <rect key="frame" x="30" y="314" width="315" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="SP0-ny-pCR"/>
                                 </constraints>
@@ -761,7 +761,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVt-ha-TGk">
-                                <rect key="frame" x="165" y="444" width="100.33333333333331" height="38"/>
+                                <rect key="frame" x="165" y="444" width="45" height="38"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="6FD-3E-P1a"/>
@@ -787,7 +787,7 @@
                                 <buttonConfiguration key="configuration" style="plain" image="eye.slash" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4G-Ms-OTy">
-                                <rect key="frame" x="16.000000000000004" y="40" width="55.333333333333343" height="31"/>
+                                <rect key="frame" x="16" y="40" width="0.0" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
                                 <connections>
@@ -830,6 +830,7 @@
                         <outlet property="leftArrowBtn" destination="c4G-Ms-OTy" id="ENT-oM-aOe"/>
                         <outlet property="password" destination="5xw-H8-cSA" id="1dY-6K-QiL"/>
                         <outlet property="pswEyeButton" destination="31O-Qr-Oo8" id="m6w-dV-kpd"/>
+                        <outlet property="submitBtn" destination="SVt-ha-TGk" id="swh-UC-gkF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yik-6D-hHW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

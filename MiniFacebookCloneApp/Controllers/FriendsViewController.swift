@@ -8,7 +8,7 @@
 import UIKit
 
 class FriendsViewController: UIViewController {
-   
+    
     
     @IBOutlet weak var tableView: UITableView!
     

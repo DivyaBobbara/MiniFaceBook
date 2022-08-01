@@ -18,19 +18,8 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         tableview.delegate = self
         tableview.dataSource = self
         ViewModel.shared.getUserIdInfo()
-        
-        ViewModel.shared.getProfileDetails { error in
-            if error != nil {
-                self.displayAlert(message: error?.localizedDescription ?? "")
-                return
-            }
-            else {
-                DispatchQueue.main.async {
-                    self.tableview.reloadData()
-                }
-            }
-            
-        }
+        getProfileDetailsApi()
+      
         
         let mainNib = UINib(nibName: "ProfileNameTableViewCell", bundle: nil)
         tableview.register(mainNib, forCellReuseIdentifier: "mainCell")
@@ -47,6 +36,25 @@ class ProfileViewController: UIViewController , UITableViewDelegate,UITableViewD
         let basicInfoNib = UINib(nibName: "BasicInfoTableViewCell", bundle: nil)
         self.tableview.register(basicInfoNib, forCellReuseIdentifier: "basicInfoCell")
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        getProfileDetailsApi()
+        
+    }
+    func getProfileDetailsApi()
+    {
+        ViewModel.shared.getProfileDetails { error in
+            if error != nil {
+                self.displayAlert(message: error?.localizedDescription ?? "")
+                return
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.tableview.reloadData()
+                }
+            }
+            
+        }
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

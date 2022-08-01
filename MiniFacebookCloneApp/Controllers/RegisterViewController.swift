@@ -82,12 +82,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
     }
     func clickDropDown() {
         if flag == 0 {
-//            UIView.setAnimationDuration(0.5)
+            //            UIView.setAnimationDuration(0.5)
             self.tableview.isHidden = true
             self.flag = 1
         }
         else{
-//            UIView.setAnimationDuration(0.5)
+            //            UIView.setAnimationDuration(0.5)
             self.tableview.isHidden = false
             self.flag = 0
         }

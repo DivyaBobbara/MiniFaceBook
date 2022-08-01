@@ -20,9 +20,12 @@ class PasswordViewController: UIViewController {
     @IBOutlet weak var pswEyeButton:UIButton!
     @IBOutlet weak var cnfPsweyeButton:UIButton!
     @IBOutlet weak var leftArrowBtn : UIButton!
+    @IBOutlet weak var submitBtn : UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        self.tabBarController?.tabBar.isHidden = true
+        submitBtn.layer.cornerRadius = 10
         ViewModel.shared.getUserIdInfo()
         pswEyeButton.addTarget(self, action: #selector(self.btnPasswordVisiblityClicked), for: .touchUpInside)
         password.rightView = pswEyeButton

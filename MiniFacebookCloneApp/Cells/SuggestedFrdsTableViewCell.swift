@@ -46,6 +46,7 @@ class SuggestedFrdsTableViewCell: UITableViewCell {
         print("Remove friend suggestion button clicked")
 //        let indexPath1 = IndexPath(row: sender.tag, section: 0)
 //        self.collectionView.deleteItems(at: [indexPath1])
+
     }
 }
 extension SuggestedFrdsTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
