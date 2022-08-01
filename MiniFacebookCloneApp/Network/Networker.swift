@@ -16,7 +16,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)" + "\(urls.updateLikes.rawValue)\(postId)/\(userId)/\(status)") else{
             return
         }
-        networkWorkingLayer.putMethodApiCalling(url: url, encode: nil as ChangePasswordRequest?) { (data, error) in
+        networkWorkingLayer.putMethodApiCalling(for: 5, after: 10, url: url, encode: nil as ChangePasswordRequest?) { (data, error) in
             completionHandler(data,error)
         }
     }
@@ -38,7 +38,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)" + "\(urls.logOut.rawValue)\(userId)") else{
             return
         }
-        networkWorkingLayer.putMethodApiCalling(url: url, encode: nil as ChangePasswordRequest?) { (data,error)  in
+        networkWorkingLayer.putMethodApiCalling(for: 5, after: 10, url: url, encode: nil as ChangePasswordRequest?) { (data,error)  in
             completionHandler(data,error)
         }
         
@@ -119,7 +119,7 @@ class Networker{
         {
             return
         }
-        networkWorkingLayer.putMethodApiCalling(url: url, encode: model) { data, error in
+        networkWorkingLayer.putMethodApiCalling(for: 5, after: 10, url: url, encode: model) { data, error in
             completion(data,error)
         }
     }
