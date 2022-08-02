@@ -31,7 +31,7 @@ enum httpMethods : String {
 class NetworkingLayer {
     let baseUrl = "http://stagetao.gcf.education:3000/"
     
-    func putMethodApiCalling<T : Codable,U :Codable>(for attemp: Int, after seconds: Int, url:URL,encode : T?,completion : @escaping (U?,Error?)-> Void) {
+    func putMethodApiCalling<T : Codable,U :Codable>(for attemp: Int, url:URL,encode : T?,completion : @escaping (U?,Error?)-> Void) {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethods.putMethod.rawValue
@@ -53,13 +53,13 @@ class NetworkingLayer {
                 if attemp <= 0 {
                     return completion(nil,error)
                 }
-                return self.putMethodApiCalling(for: attemp - 1, after: 5, url: url, encode: encode, completion: completion)
+                return self.putMethodApiCalling(for: attemp - 1, url: url, encode: encode, completion: completion)
             }
             guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else{
                 if attemp <= 0 {
                     return
                 }
-                return self.putMethodApiCalling(for: attemp - 1, after: 5, url: url, encode: encode, completion: completion)
+                return self.putMethodApiCalling(for: attemp - 1,url: url, encode: encode, completion: completion)
             }
             do{
                 let model = try JSONDecoder().decode(U.self, from: data)
@@ -73,13 +73,16 @@ class NetworkingLayer {
         
     }
     
-    func getMethodApiCalling <T : Decodable>(url : URL,completion : @escaping (T?,Error?) -> Void) {
+    func getMethodApiCalling <T : Decodable>(for attemp: Int,url : URL,completion : @escaping (T?,Error?) -> Void) {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethods.getMethod.rawValue
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             guard let data = data , error == nil else {
+                if attemp <= 0 {
                 return completion(nil,error)
+            }
+                return self.getMethodApiCalling(for: attemp-1,url: url, completion: completion)
             }
             
             guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else {
@@ -98,7 +101,7 @@ class NetworkingLayer {
         task.resume()
     }
     
-    func postMethodApicalling <T : Encodable, U: Decodable> (url : URL,encode : T,completion : @escaping (U?, Error?) -> Void) {
+    func postMethodApicalling <T : Encodable, U: Decodable> (for attemp: Int, url : URL,encode : T,completion : @escaping (U?, Error?) -> Void) {
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethods.postMethod.rawValue
@@ -114,7 +117,10 @@ class NetworkingLayer {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             guard let data = data , error == nil else {
+                if attemp <= 0 {
                 return completion(nil,error)
+            }
+                return self.postMethodApicalling(for: attemp-1, url: url, encode: encode, completion: completion)
             }
             guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else {
                 return
@@ -129,13 +135,16 @@ class NetworkingLayer {
         }
         task.resume()
     }
-    func delMethodApiCalling<T : Decodable>(url : URL,completion : @escaping (T?,Error?)->Void) {
+    func delMethodApiCalling<T : Decodable>(for attemp: Int,url : URL,completion : @escaping (T?,Error?)->Void) {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethods.deleteMethod.rawValue
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             guard let data = data , error == nil else {
+                if attemp <= 0 {
                 return completion(nil,error)
+            }
+                return self.delMethodApiCalling(for: attemp-1,url: url, completion: completion)
             }
             guard let httpResponse = response as? HTTPURLResponse ,httpResponse.statusCode >= 200 && httpResponse.statusCode <= 300 else {
                 return

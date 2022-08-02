@@ -16,7 +16,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)" + "\(urls.updateLikes.rawValue)\(postId)/\(userId)/\(status)") else{
             return
         }
-        networkWorkingLayer.putMethodApiCalling(for: 5, after: 10, url: url, encode: nil as ChangePasswordRequest?) { (data, error) in
+        networkWorkingLayer.putMethodApiCalling(for: 5,url: url, encode: nil as ChangePasswordRequest?) { (data, error) in
             completionHandler(data,error)
         }
     }
@@ -27,7 +27,7 @@ class Networker{
         {
             return
         }
-        networkWorkingLayer.postMethodApicalling(url: url, encode: model, completion: { (data, error) in
+        networkWorkingLayer.postMethodApicalling(for: 5,url: url, encode: model , completion: { (data, error) in
             completion(data, error)
         })
     }
@@ -38,7 +38,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)" + "\(urls.logOut.rawValue)\(userId)") else{
             return
         }
-        networkWorkingLayer.putMethodApiCalling(for: 5, after: 10, url: url, encode: nil as ChangePasswordRequest?) { (data,error)  in
+        networkWorkingLayer.putMethodApiCalling(for: 5,url: url, encode: nil as ChangePasswordRequest?) { (data,error)  in
             completionHandler(data,error)
         }
         
@@ -50,9 +50,9 @@ class Networker{
         {
             return
         }
-        networkWorkingLayer.postMethodApicalling(url: url, encode: model) { data,error  in
+        networkWorkingLayer.postMethodApicalling(for: 5,url: url, encode: model,completion:  { data,error  in
             completion(data,error)
-        }
+        })
     }
     
     func displayFriends (userId : Int,completionHandler : @escaping (DisplayFriendsResponse?,Error?)->Void){
@@ -60,7 +60,7 @@ class Networker{
         guard let url = URL(string:"\(baseUrl)\(urls.displayFriends.rawValue)\(userId)") else {
             return
         }
-        networkWorkingLayer.getMethodApiCalling(url: url, completion: {
+        networkWorkingLayer.getMethodApiCalling(for: 5,url: url, completion: {
             data ,error in
             completionHandler(data,error)
         })
@@ -72,34 +72,34 @@ class Networker{
         guard let url = URL(string: "\(baseUrl)\(urls.suggestFriends.rawValue)\(userId)") else {
             return
         }
-        networkWorkingLayer.getMethodApiCalling(url: url) { data,error in
+        networkWorkingLayer.getMethodApiCalling(for: 5,url: url,completion:  { data,error in
             completionHandler(data,error)
-        }
+        })
     }
     
     func getPosts(userId:Int,completionHandler:@escaping(GetPostsModel?,Error?)->Void){
         guard let url = URL(string:"\(baseUrl)\(urls.getPosts.rawValue)\(userId)") else {
             return
         }
-        networkWorkingLayer.getMethodApiCalling(url: url) { data,error in
+        networkWorkingLayer.getMethodApiCalling(for: 5,url: url,completion:  { data,error in
             completionHandler(data,error)
-        }
+        })
     }
     
     func addNewFriend(addFrdobj : AddNewFriendModel,completionHandler : @escaping (AddNewFriendResponse?,Error?)->Void){
         guard let url = URL(string: "\(baseUrl)\(urls.addNewFriend.rawValue)") else{
             return
         }
-        networkWorkingLayer.postMethodApicalling(url: url, encode: addFrdobj) { data, error in
+        networkWorkingLayer.postMethodApicalling(for: 5,url: url, encode: addFrdobj,completion: { data, error in
             completionHandler(data,error)
-        }
+        })
     }
     
     func deleteFriend(frdId:Int,userId:Int ,completionHandler:@escaping(DeleteFriendModel?,Error?)->Void) {
         guard let url = URL(string:"\(baseUrl)\(urls.deleteFriend.rawValue)\(frdId)/\(userId)") else {
             return
         }
-        networkWorkingLayer.delMethodApiCalling(url: url) { data,error in completionHandler(data,error)
+        networkWorkingLayer.delMethodApiCalling(for: 5,url: url) { data,error in completionHandler(data,error)
         }
     }
     
@@ -108,7 +108,7 @@ class Networker{
         guard let url = URL(string: "\(baseUrl)\(urls.displayUserProfile.rawValue)\(userId)") else{
             return
         }
-        networkWorkingLayer.getMethodApiCalling(url: url) { data,error in
+        networkWorkingLayer.getMethodApiCalling(for: 5,url: url) { data,error in
             completion(data,error)
         }
     }
@@ -119,7 +119,7 @@ class Networker{
         {
             return
         }
-        networkWorkingLayer.putMethodApiCalling(for: 5, after: 10, url: url, encode: model) { data, error in
+        networkWorkingLayer.putMethodApiCalling(for: 5, url: url, encode: model) { data, error in
             completion(data,error)
         }
     }
@@ -130,7 +130,7 @@ class Networker{
         guard let url = url else {
             return
         }
-        networkWorkingLayer.postMethodApicalling(url: url, encode: requestObject) { data,error  in
+        networkWorkingLayer.postMethodApicalling(for: 5,url: url, encode: requestObject) { data,error  in
             completion(data,error)
         }
     }
@@ -140,7 +140,7 @@ class Networker{
         guard let url = URL(string: "\(baseUrl)\(urls.deletePost.rawValue)\(userId)/\(postId)") else {
             return
         }
-        networkWorkingLayer.delMethodApiCalling(url: url) { data,error in
+        networkWorkingLayer.delMethodApiCalling(for: 5,url: url) { data,error in
             completion(data,error)
         }
     }
